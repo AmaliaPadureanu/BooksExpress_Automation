@@ -20,7 +20,6 @@ public class LoginPage {
     public String EMAIL_FIELD = "//input[@id='username']";
     public String CONTINUA_BTN = "//a[@id='email-button']";
     public String PASSWORD_FIELD = "//input[@id='password']";
-    public String LOGOUT_BTN = "//a[normalize-space()='Log out']";
     private final String URL = "login";
 
 
