@@ -1,3 +1,5 @@
+package TestClasses;
+
 import Pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +22,6 @@ public class LoginTests {
         Thread.sleep(1000);
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);
-
     }
 
     @Test

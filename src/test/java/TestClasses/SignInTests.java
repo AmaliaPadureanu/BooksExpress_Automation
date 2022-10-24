@@ -1,3 +1,5 @@
+package TestClasses;
+
 import Pages.LoginPage;
 import Pages.SignInPage;
 import org.openqa.selenium.By;
