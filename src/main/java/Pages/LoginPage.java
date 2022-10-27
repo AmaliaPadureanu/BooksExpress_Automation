@@ -1,5 +1,6 @@
 package Pages;
 
+import Elements.LoginElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,7 @@ public class LoginPage {
     private final String URL = "login";
 
 
-    public void open() {
+    public void login() {
         driver.findElement(By.xpath(CONT_LINK)).click();
         driver.findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
         Set<String> handles = driver.getWindowHandles();

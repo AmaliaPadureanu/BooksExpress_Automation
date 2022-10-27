@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class SignInTests {
     WebDriver driver;
     String baseURL;
-    String email = "testemail@test.com";
+    String email = "testemail1@test.com";
     String prenume = "Test";
     String nume = "Test";
     String parola = "testpass00";
@@ -39,7 +39,7 @@ public class SignInTests {
     }
 
     @Test
-    public void isSignInPageOpen() {
+    public void open() {
         SignInPage signInPage = new SignInPage(driver);
         signInPage.open();
         Assert.assertTrue(signInPage.isOpen());

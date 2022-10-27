@@ -13,7 +13,8 @@ public class LoginTests {
     String baseURL;
     String email = "automationtesting630@gmail.com";
     String password = "QAtest123";
-
+    LoginPage loginPage;
+    public String USER_INFO = "//a[normalize-space()='Info']";
 
     @BeforeMethod
     public void setup() throws InterruptedException {
@@ -22,21 +23,22 @@ public class LoginTests {
         Thread.sleep(1000);
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);
+        loginPage = new LoginPage(driver);
     }
 
     @Test
     public void testLogin() throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.open();
+        loginPage.login();
         loginPage.logInWith(email, password);
         Thread.sleep(3000);
-        Assert.assertTrue(driver.findElement(By.xpath("//a[normalize-space()='Info']")).isEnabled());
+        Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
     }
 
     @Test
-    public void isLoginPageOpen() {
+    public void open() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.open();
+        loginPage.login();
         Assert.assertTrue(loginPage.isOpen());
     }
 

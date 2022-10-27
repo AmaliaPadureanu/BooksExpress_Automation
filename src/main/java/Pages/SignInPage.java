@@ -3,12 +3,6 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.security.PublicKey;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class SignInPage {
     public SignInPage(WebDriver driver) {
@@ -29,14 +23,6 @@ public class SignInPage {
     public void open() {
         driver.findElement(By.xpath(CONT_LINK)).click();
         driver.findElement(By.xpath(CONT_NOU_LINK)).click();
-        Set<String> handles = driver.getWindowHandles();
-        String parentHandle = driver.getWindowHandle();
-
-        for (String handle : handles) {
-            if (handle != parentHandle) {
-                driver.switchTo().window(handle);
-            }
-        }
     }
 
     public boolean isOpen() {
