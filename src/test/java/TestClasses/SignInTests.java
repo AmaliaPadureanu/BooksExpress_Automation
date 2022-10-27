@@ -10,32 +10,34 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class SignInTests {
     WebDriver driver;
     String baseURL;
-    String email = "testemail1@test.com";
+    String email = "testemail6@test.com";
     String prenume = "Test";
     String nume = "Test";
     String parola = "testpass00";
-    String afterSignInURL = "https://www.books-express.ro/user/details";
+    String afterSignInURL = "user/details";
 
     @BeforeMethod
-    public void setup() throws InterruptedException {
+    public void setup() {
         System.setProperty("webdriver.chrome.driver", "/Users/Amalia/IdeaProjects/Drivers/chromedriver.exe");
         driver = new ChromeDriver();
-        Thread.sleep(1000);
+        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);
-
     }
 
     @Test
-    public void testSignIn() throws InterruptedException {
+    public void testSignIn() {
         SignInPage signInPage = new SignInPage(driver);
         signInPage.open();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         signInPage.signInWith(email, prenume, nume, parola);
-        Thread.sleep(3000);
-        Assert.assertTrue(driver.getCurrentUrl().equals(afterSignInURL));
+        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+        Assert.assertTrue(driver.getCurrentUrl().contains(afterSignInURL));
     }
 
     @Test

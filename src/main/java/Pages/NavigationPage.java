@@ -38,7 +38,8 @@ public class NavigationPage {
         driver.findElement(By.xpath(BLOG_LINK)).click();
     }
 
-    public void newsletter() {
+    public NewsletterPage newsletter() {
         driver.findElement(By.xpath(NEWSLETTER_LINK)).click();
+        return new NewsletterPage(driver);
     }
 }

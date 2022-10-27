@@ -3,6 +3,12 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class SignInPage {
     public SignInPage(WebDriver driver) {
@@ -19,6 +25,7 @@ public class SignInPage {
     public String CONFIRMA_PAROLA_FIELD = "//input[@id='confirm']";
     public String CREAZA_CONTUL_BTN = "//a[@id='submit']";
     private final String URL = "register";
+    String afterSignInURL = "user/details";
 
     public void open() {
         driver.findElement(By.xpath(CONT_LINK)).click();
@@ -30,7 +37,9 @@ public class SignInPage {
     }
 
 
-    public void signInWith(String email, String prenume, String nume, String parola) throws InterruptedException {
+    public void signInWith(String email, String prenume, String nume, String parola) {
+        String currentPage = driver.getWindowHandle();
+
         WebElement emailField = driver.findElement(By.xpath(EMAIL_FIELD));
         emailField.sendKeys(email);
 
@@ -47,6 +56,10 @@ public class SignInPage {
         confirmaParolaField.sendKeys(parola);
 
         driver.findElement(By.xpath(CREAZA_CONTUL_BTN)).click();
-        Thread.sleep(4000);
+
+        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.urlContains(afterSignInURL));
     }
 }
