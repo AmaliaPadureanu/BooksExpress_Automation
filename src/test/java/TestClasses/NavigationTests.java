@@ -6,11 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.net.PortUnreachableException;
 import java.util.concurrent.TimeUnit;
 
 public class NavigationTests {
@@ -24,6 +21,7 @@ public class NavigationTests {
     public String CADOURI_URL = "https://www.books-express.ro/carti/lifestyle-cadouri/wzg";
     public String BLOG_URL = "https://www.books-express.ro/blog/";
     public String NEWSLETTER_URL = "https://www.books-express.ro/newsletter";
+    public String CONTACT_URL = "https://www.books-express.ro/contact";
     public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
 
     @BeforeMethod
@@ -74,6 +72,13 @@ public class NavigationTests {
         navigationPage = new NavigationPage(driver);
         navigationPage.newsletter();
         Assert.assertTrue(driver.getCurrentUrl().equals(NEWSLETTER_URL));
+    }
+
+    @Test
+    public void openContact() {
+        navigationPage = new NavigationPage(driver);
+        navigationPage.contact();
+        Assert.assertTrue(driver.getCurrentUrl().equals(CONTACT_URL));
     }
 
     @Test

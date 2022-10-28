@@ -4,6 +4,7 @@ import Elements.LoginElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Set;
@@ -16,26 +17,18 @@ public class LoginPage {
     }
 
     public WebDriver driver;
-    public String CONT_LINK = "//span[normalize-space()='Cont']";
+    public String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
     public String INTRA_IN_CONT_LINK = "//a[contains(text(),'Intră în cont')]";
     public String EMAIL_FIELD = "//input[@id='username']";
     public String CONTINUA_BTN = "//a[@id='email-button']";
     public String PASSWORD_FIELD = "//input[@id='password']";
     private final String URL = "login";
+    public String LOGOUT_BTN = "//a[normalize-space()='Log out']";
 
 
     public void login() {
         driver.findElement(By.xpath(CONT_LINK)).click();
         driver.findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
-        Set<String> handles = driver.getWindowHandles();
-
-        String parentHandle = driver.getWindowHandle();
-
-        for (String handle : handles) {
-            if (handle != parentHandle) {
-                driver.switchTo().window(handle);
-            }
-        }
     }
 
     public boolean isOpen() {
@@ -54,7 +47,7 @@ public class LoginPage {
         passwordField.sendKeys(password);
 
         driver.findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
-        Thread.sleep(4000);
     }
+
 
 }

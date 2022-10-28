@@ -17,6 +17,7 @@ public class NavigationPage {
     public String CADOURI_LINK = "//a[normalize-space()='Cadouri']";
     public String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
     public String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
+    public String CONTACT_LINK = "//a[normalize-space()='Contact']";
 
     public void reduceri() {
         driver.findElement(By.xpath(REDUCERI_LINK)).click();
@@ -41,5 +42,10 @@ public class NavigationPage {
     public NewsletterPage newsletter() {
         driver.findElement(By.xpath(NEWSLETTER_LINK)).click();
         return new NewsletterPage(driver);
+    }
+
+    public ContactPage contact() {
+        driver.findElement(By.xpath(CONTACT_LINK)).click();
+        return new ContactPage(driver);
     }
 }
