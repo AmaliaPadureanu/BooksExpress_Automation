@@ -2,6 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class NavigationPage {
 
@@ -18,6 +19,17 @@ public class NavigationPage {
     public String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
     public String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
     public String CONTACT_LINK = "//a[normalize-space()='Contact']";
+    public String PRODUSE_DROPDOWN = "//i[@class='fa fa-down-open']";
+    public String STIINTE_CATEGORY = "//a[@class='category-menu'][contains(text(),'Științe')]";
+    public String STIINTE_UMANISTE_CATEGORY = "//a[contains(text(),'Știinţe umaniste')]";
+
+
+    public void selectProductsCategory() {
+        driver.findElement(By.xpath(PRODUSE_DROPDOWN)).click();
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(By.xpath(STIINTE_CATEGORY))).perform();
+        driver.findElement(By.xpath(STIINTE_UMANISTE_CATEGORY)).click();
+    }
 
     public void reduceri() {
         driver.findElement(By.xpath(REDUCERI_LINK)).click();

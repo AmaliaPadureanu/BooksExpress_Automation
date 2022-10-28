@@ -23,6 +23,7 @@ public class NavigationTests {
     public String NEWSLETTER_URL = "https://www.books-express.ro/newsletter";
     public String CONTACT_URL = "https://www.books-express.ro/contact";
     public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
+    public String CATEGORY_TITLE = "Știinţe umaniste";
 
     @BeforeMethod
     public void setup() throws InterruptedException {
@@ -31,6 +32,13 @@ public class NavigationTests {
         driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);
+    }
+
+    @Test
+    public void searchProductsCategoryTest() {
+        navigationPage = new NavigationPage(driver);
+        navigationPage.selectProductsCategory();
+        Assert.assertTrue(driver.getTitle().contains(CATEGORY_TITLE));
     }
 
     @Test
