@@ -1,13 +1,11 @@
 package Pages;
 
-import Elements.LoginElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.Set;
+
 import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
@@ -23,7 +21,6 @@ public class LoginPage {
     public String CONTINUA_BTN = "//a[@id='email-button']";
     public String PASSWORD_FIELD = "//input[@id='password']";
     private final String URL = "login";
-    public String LOGOUT_BTN = "//a[normalize-space()='Log out']";
 
 
     public void login() {
