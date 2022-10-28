@@ -30,10 +30,25 @@ public class ResultsTests {
     }
 
     @Test
+    public void filterPriceInDescendingOrderTest() {
+        SearchPage searchPage = new SearchPage(driver);
+        ResultsPage resultsPage = searchPage.search("George Martin");
+        resultsPage.filterDescendingOrder();
+    }
+
+    @Test
     public void isAscending() {
         SearchPage searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         resultsPage.filterAscendingOrder();
         Assert.assertTrue(resultsPage.checkAscendingOrder());
+    }
+
+    @Test
+    public void isDescending() {
+        SearchPage searchPage = new SearchPage(driver);
+        ResultsPage resultsPage = searchPage.search("George Martin");
+        resultsPage.filterDescendingOrder();
+        Assert.assertTrue(resultsPage.checkDescendingOrder());
     }
 }
