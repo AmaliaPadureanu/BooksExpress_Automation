@@ -17,6 +17,11 @@ public class BaseTest {
     protected SearchPage searchPage;
     protected ShoppingCartPage shoppingCartPage;
     protected SignInPage signInPage;
+    protected WishlistPage wishlistPage;
+    protected ItemDetailsPage itemDetailsPage;
+
+    public String email = "automationtesting630@gmail.com";
+    public String password = "QAtest123";
 
     @BeforeMethod
     public void setup() throws InterruptedException {

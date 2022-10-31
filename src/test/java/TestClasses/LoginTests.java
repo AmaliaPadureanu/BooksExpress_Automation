@@ -8,8 +8,6 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
-    String email = "automationtesting630@gmail.com";
-    String password = "QAtest123";
     public String USER_INFO = "//a[normalize-space()='Info']";
 
     @Test
