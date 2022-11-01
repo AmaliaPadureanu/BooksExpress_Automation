@@ -4,9 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -23,6 +20,7 @@ public class WishlistPage {
     public String ITEM_TITLE = "div[class='cart-details'] h4 a";
     public String REMOVE_BTN = "//a[@class='color-theme-5 remove-item']";
     public String ITEMS_IN_LIST = "#list-items>li";
+    public String ADD_TO_CART = "button[type='button']";
 
     public void navigateToWishlist() {
         driver.findElement(By.xpath(LISTS_BTN)).click();
@@ -42,6 +40,12 @@ public class WishlistPage {
         List<WebElement> items = driver.findElements(By.cssSelector(ITEMS_IN_LIST));
         if (items.size() != 0) {
             return false;
-        } else return true;
+        }
+        return true;
     }
+
+    public void addToCart() throws InterruptedException {
+        driver.findElement(By.cssSelector(ADD_TO_CART)).click();
+    }
+
 }

@@ -29,9 +29,8 @@ public class ShoppingCartTests extends BaseTest {
     public void addToCartTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
-        ItemDetailsPage itemDetailsPage = resultsPage.getItemDetailsPage();
+        itemDetailsPage = resultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.addToCart());
-
     }
 
     @Test
@@ -45,7 +44,6 @@ public class ShoppingCartTests extends BaseTest {
     public void removeFromCartTest() {
         shoppingCartPage = new ShoppingCartPage(driver);
         Assert.assertTrue(shoppingCartPage.removeFromCart().contains(EMPTY_CART_LINK));
-
     }
 
     @AfterClass
