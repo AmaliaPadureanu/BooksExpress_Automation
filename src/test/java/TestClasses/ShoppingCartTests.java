@@ -1,6 +1,5 @@
 package TestClasses;
 
-import Pages.ItemDetailsPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
 import Pages.ShoppingCartPage;
@@ -26,7 +25,7 @@ public class ShoppingCartTests extends BaseTest {
     }
 
     @Test
-    public void addToCartTest() {
+    public void addToCart() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         itemDetailsPage = resultsPage.getItemDetailsPage();
@@ -34,14 +33,14 @@ public class ShoppingCartTests extends BaseTest {
     }
 
     @Test
-    public void navigateToCartTest() {
+    public void changeQuantity() {
         shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.navigateToCart();
-        Assert.assertTrue(shoppingCartPage.navigateToCart().equals(CART_LINK));
+        Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
     @Test
-    public void removeFromCartTest() {
+    public void removeFromCart() {
         shoppingCartPage = new ShoppingCartPage(driver);
         Assert.assertTrue(shoppingCartPage.removeFromCart().contains(EMPTY_CART_LINK));
     }

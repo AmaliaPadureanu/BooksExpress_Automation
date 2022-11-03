@@ -19,7 +19,7 @@ public class NavigationTests extends BaseTest {
     public String CATEGORY_TITLE = "Știinţe umaniste";
 
     @Test
-    public void searchProductsCategoryTest() {
+    public void searchProductsCategory() {
         navigationPage = new NavigationPage(driver);
         navigationPage.selectProductsCategory();
         Assert.assertTrue(driver.getTitle().contains(CATEGORY_TITLE));
@@ -74,7 +74,7 @@ public class NavigationTests extends BaseTest {
     }
 
     @Test
-    public void subscribeToNewsletterTest() throws InterruptedException {
+    public void subscribeToNewsletter() throws InterruptedException {
         navigationPage = new NavigationPage(driver);
         NewsletterPage newsletterPage = navigationPage.newsletter();
         newsletterPage.subscribeToNewsletter("funnybunn@yaho.com", "Funny Bunny", "ger");

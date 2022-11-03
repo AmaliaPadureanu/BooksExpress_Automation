@@ -14,7 +14,7 @@ public class WishlistTests extends BaseTest {
 
 
     @BeforeClass
-    public void setup() throws InterruptedException {
+    public void setup() {
         System.setProperty("webdriver.chrome.driver", "/Users/Amalia/IdeaProjects/Drivers/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
@@ -23,7 +23,7 @@ public class WishlistTests extends BaseTest {
     }
 
     @Test
-    public void addToWishlistTest() throws InterruptedException {
+    public void addToWishlist() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
         loginPage.logInWith(email, password);
@@ -39,7 +39,7 @@ public class WishlistTests extends BaseTest {
     }
 
     @Test
-    public void removeFromWishlistTest() throws InterruptedException {
+    public void removeFromWishlist() throws InterruptedException {
         wishlistPage.removeItem();
         Thread.sleep(3000);
         Assert.assertTrue(wishlistPage.isEmpty());

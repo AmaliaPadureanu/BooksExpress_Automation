@@ -11,7 +11,7 @@ public class LoginTests extends BaseTest {
     public String USER_INFO = "//a[normalize-space()='Info']";
 
     @Test
-    public void testLogin() throws InterruptedException {
+    public void login() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
         loginPage.logInWith(email, password);

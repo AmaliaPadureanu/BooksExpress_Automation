@@ -9,14 +9,14 @@ import org.testng.annotations.Test;
 public class ResultsTests extends BaseTest {
 
     @Test
-    public void filterPriceInAscendingOrderTest() {
+    public void filterPriceInAscendingOrder() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         resultsPage.filterAscendingOrder();
     }
 
     @Test
-    public void filterPriceInDescendingOrderTest() {
+    public void filterPriceInDescendingOrder() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         resultsPage.filterDescendingOrder();

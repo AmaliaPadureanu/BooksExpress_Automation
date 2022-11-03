@@ -1,10 +1,13 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.Locale;
 
 public class ItemDetailsPage {
@@ -22,7 +25,8 @@ public class ItemDetailsPage {
     public String ITEM_AUTHOR = "a[itemprop='author']";
     public String READ_MORE_BTN = "//a[@class='read-more']";
     public String READ_LESS_BTN = "//a[@class='read-less']";
-    public String ITEM_DESCRIPTION = "//main[@class='read-text serif']//p[contains(text(),'-')]";
+    public String ITEM_DESCRIPTION_EXPANDED = "//em[contains(normalize-space(),'The World of Ice & Fire,')]";
+    public String RATE_STARS = ".stars>a";
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);
@@ -47,13 +51,32 @@ public class ItemDetailsPage {
         return driver.findElement(By.cssSelector(ITEM_AUTHOR)).getText().toLowerCase(Locale.ROOT);
     }
 
-    public void readMore() {
+    public boolean readMore() {
         driver.findElement(By.xpath(READ_MORE_BTN)).click();
+        if (driver.findElement(By.xpath(ITEM_DESCRIPTION_EXPANDED)).isDisplayed()) {
+           return true;
+        }
+        return false;
     }
 
-    public void readLess() {
-        driver.findElement(By.xpath(READ_LESS_BTN)).click();
+    public boolean readLess() throws InterruptedException {
+        driver.findElement(By.xpath(READ_MORE_BTN)).click();
+        Thread.sleep(2000);
+        WebElement element = driver.findElement(By.xpath(READ_LESS_BTN));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+
+        if (driver.findElement(By.xpath(ITEM_DESCRIPTION_EXPANDED)).isDisplayed()) {
+            return false;
+        }
+        return true;
     }
-    
+
+    public int rate(int rating) {
+        List<WebElement> stars = driver.findElements(By.cssSelector(RATE_STARS));
+        List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".fa.fa-star.gold"));
+        stars.get(rating).click();
+        driver.navigate().refresh();
+        return ratingGiven.size();
+    }
 
 }
