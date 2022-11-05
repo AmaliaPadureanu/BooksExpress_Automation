@@ -33,7 +33,7 @@ public class LoginPage {
     }
 
 
-    public void logInWith(String email, String password) throws InterruptedException {
+    public void logInWith(String email, String password) {
         WebElement emailField = driver.findElement(By.xpath(EMAIL_FIELD));
         emailField.sendKeys(email);
 

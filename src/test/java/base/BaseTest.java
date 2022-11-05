@@ -2,11 +2,8 @@ package base;
 
 import Pages.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-
-import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -19,22 +16,21 @@ public class BaseTest {
     protected SignInPage signInPage;
     protected WishlistPage wishlistPage;
     protected ItemDetailsPage itemDetailsPage;
+    protected UserDetailsPage userDetailsPage;
 
     public String email = "automationtesting630@gmail.com";
     public String password = "QAtest123";
 
     @BeforeMethod
     public void setup() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/Users/Amalia/IdeaProjects/Drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+        driver = WebDriverFactory.getInstance().getDriver("edge");
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        WebDriverFactory.getInstance().quitDriver();
     }
 
 

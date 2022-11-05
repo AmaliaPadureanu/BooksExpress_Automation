@@ -3,6 +3,7 @@ package TestClasses;
 import Pages.LoginPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
+import Pages.WishlistPage;
 import base.BaseTest;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -11,7 +12,6 @@ import org.testng.annotations.*;
 import java.util.concurrent.TimeUnit;
 
 public class WishlistTests extends BaseTest {
-
 
     @BeforeClass
     public void setup() {

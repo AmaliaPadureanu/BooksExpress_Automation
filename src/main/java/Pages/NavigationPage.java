@@ -22,7 +22,8 @@ public class NavigationPage {
     public String PRODUSE_DROPDOWN = "//i[@class='fa fa-down-open']";
     public String STIINTE_CATEGORY = "//a[@class='category-menu'][contains(text(),'Științe')]";
     public String STIINTE_UMANISTE_CATEGORY = "//a[contains(text(),'Știinţe umaniste')]";
-
+    public String CONT_LINK = "//span[normalize-space()='Cont']";
+    public String PERSONAL_DETAILS = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
 
     public void selectProductsCategory() {
         driver.findElement(By.xpath(PRODUSE_DROPDOWN)).click();
@@ -60,4 +61,5 @@ public class NavigationPage {
         driver.findElement(By.xpath(CONTACT_LINK)).click();
         return new ContactPage(driver);
     }
+
 }

@@ -44,7 +44,7 @@ public class WishlistPage {
         return true;
     }
 
-    public void addToCart() throws InterruptedException {
+    public void addToCart() {
         driver.findElement(By.cssSelector(ADD_TO_CART)).click();
     }
 

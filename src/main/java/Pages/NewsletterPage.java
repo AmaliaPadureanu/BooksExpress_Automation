@@ -20,7 +20,7 @@ public class NewsletterPage {
         this.driver = driver;
     }
 
-    public void subscribeToNewsletter(String email, String nume, String language) throws InterruptedException {
+    public void subscribeToNewsletter(String email, String nume, String language) {
         driver.findElement(By.xpath(EMAIL_FIELD)).sendKeys(email);
         driver.findElement(By.xpath(NUME_FIELD)).sendKeys(nume);
         driver.findElement(By.xpath(LIMBILE_PREFERATE_FIELD)).click();
