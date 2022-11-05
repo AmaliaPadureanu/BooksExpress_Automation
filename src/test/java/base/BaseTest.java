@@ -2,8 +2,7 @@ package base;
 
 import Pages.*;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -22,16 +21,15 @@ public class BaseTest {
     public String password = "QAtest123";
 
     @BeforeMethod
-    public void setup() throws InterruptedException {
-        driver = WebDriverFactory.getInstance().getDriver("edge");
+    @Parameters({"browser"})
+    public void commonSetup(String browser) throws InterruptedException {
+        driver = WebDriverFactory.getInstance().getDriver(browser);
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);
     }
 
     @AfterMethod
-    public void tearDown() {
+    public void commonTearDown() {
         WebDriverFactory.getInstance().quitDriver();
     }
-
-
 }

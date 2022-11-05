@@ -42,31 +42,39 @@ public class ResultsPage {
     }
 
     public boolean checkAscendingOrder() {
-        List<WebElement> items = driver.findElements(By.cssSelector("article"));
+        List<WebElement> items = driver.findElements(By.xpath("//b[@class='color-theme-5']"));
+
         List<Integer> prices = new ArrayList<>();
-        List<Integer> pricesOrdered = new ArrayList<>(prices);
 
         for (WebElement item : items) {
-            String price = item.findElement(By.className("color-theme-5")).getText().replace(" lei", "");
-            prices.add(Integer.valueOf(price));
+            String price = item.getText().replace(" lei", "")
+                    .replace(item.findElement(By.xpath("./sup")).getText(), "");
+            try {
+                prices.add(Integer.valueOf(price));
+            } catch (NumberFormatException e) {}
         }
 
+        List<Integer> pricesOrdered = new ArrayList<>(prices);
         Collections.sort(pricesOrdered);
 
         return prices.equals(pricesOrdered);
     }
 
     public boolean checkDescendingOrder() {
-        List<WebElement> items = driver.findElements(By.cssSelector("article"));
+        List<WebElement> items = driver.findElements(By.xpath("//b[@class='color-theme-5']"));
         List<Integer> prices = new ArrayList<>();
-        List<Integer> pricesOrdered = new ArrayList<>(prices);
 
         for (WebElement item : items) {
-            String price = item.findElement(By.className("color-theme-5")).getText().replace(" lei", "");
-            prices.add(Integer.valueOf(price));
+            String price = item.getText().replace(" lei", "");
+            String p = price.substring(0, price.length() - 2);
+
+            try {
+                prices.add(Integer.valueOf(p));
+            } catch (NumberFormatException e) {}
         }
 
-        Collections.sort(pricesOrdered, Collections.reverseOrder());
+        List<Integer> pricesOrdered = new ArrayList<>(prices);
+        pricesOrdered.sort(Collections.reverseOrder());
 
         return prices.equals(pricesOrdered);
     }
