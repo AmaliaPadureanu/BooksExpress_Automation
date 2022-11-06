@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class ResultsTests extends BaseTest {
 
     @Test
-    public void filterPriceInAscendingOrder() {
+    public void filterPriceInAscendingOrderTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         resultsPage.filterAscendingOrder();
@@ -18,7 +18,7 @@ public class ResultsTests extends BaseTest {
     }
 
     @Test
-    public void filterPriceInDescendingOrder() {
+    public void filterPriceInDescendingOrderTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         resultsPage.filterDescendingOrder();

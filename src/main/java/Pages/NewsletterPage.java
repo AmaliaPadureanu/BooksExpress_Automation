@@ -31,7 +31,6 @@ public class NewsletterPage {
         driver.findElement(By.xpath(MA_ABONEZ_BTN)).click();
         WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(AFTER_SUBSCRIBE_MESSAGE))));
-
     }
 
 }

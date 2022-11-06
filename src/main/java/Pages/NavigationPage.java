@@ -1,8 +1,13 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class NavigationPage {
 
@@ -19,17 +24,32 @@ public class NavigationPage {
     public String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
     public String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
     public String CONTACT_LINK = "//a[normalize-space()='Contact']";
-    public String PRODUSE_DROPDOWN = "//i[@class='fa fa-down-open']";
-    public String STIINTE_CATEGORY = "//a[@class='category-menu'][contains(text(),'Științe')]";
-    public String STIINTE_UMANISTE_CATEGORY = "//a[contains(text(),'Știinţe umaniste')]";
+    public String PRODUSE_DROPDOWN = "//i[@class='fa fa-angle-right right color-bold']";
+    public String BUSINESS_CATEGORY = "//a[text()=' Business']";
+    public String ECONOMIE_CATEGORY = "div[id='prod-business'] ul[class='col1 left'] li:nth-child(4) a:nth-child(1)";
     public String CONT_LINK = "//span[normalize-space()='Cont']";
     public String PERSONAL_DETAILS = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
 
-    public void selectProductsCategory() {
-        driver.findElement(By.xpath(PRODUSE_DROPDOWN)).click();
-        Actions action = new Actions(driver);
-        action.moveToElement(driver.findElement(By.xpath(STIINTE_CATEGORY))).perform();
-        driver.findElement(By.xpath(STIINTE_UMANISTE_CATEGORY)).click();
+    public String selectProductsCategory() throws InterruptedException {
+        Actions actions = new Actions(driver);
+
+        WebElement business = driver.findElement(By.xpath(BUSINESS_CATEGORY));
+
+        actions.moveToElement(business).perform();
+
+        WebElement element = driver.findElement(By.partialLinkText("Economie"));
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+
+        Thread.sleep(5000);
+
+//       wait.until(ExpectedConditions.urlToBe("https://www.books-express.ro/carti/business-economie/kc"));
+
+        System.out.println(driver.getTitle().toLowerCase());
+        return driver.getTitle().toLowerCase();
     }
 
     public void reduceri() {

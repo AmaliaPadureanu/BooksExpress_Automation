@@ -2,9 +2,9 @@
 
 <suite name="Regression Login Suite">
     <test name="Login" preserve-order="true">
-        <parameter name="browser" value="edge"></parameter>
+        <parameter name="browser" value="firefox"></parameter>
         <classes>
-            <class name="TestClasses.LoginTests"></class>
+            <class name="TestClasses.NavigationTests"></class>
         </classes>
     </test>
 </suite>

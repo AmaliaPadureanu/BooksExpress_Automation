@@ -21,7 +21,6 @@ public class SearchPage {
         searchBar.sendKeys(item);
         driver.findElement(By.xpath(SEARCH_BTN)).click();
         return new ResultsPage(driver);
-
     }
 
 

@@ -4,6 +4,7 @@ import Pages.NavigationPage;
 import Pages.NewsletterPage;
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class NavigationTests extends BaseTest {
@@ -16,65 +17,73 @@ public class NavigationTests extends BaseTest {
     public String NEWSLETTER_URL = "https://www.books-express.ro/newsletter";
     public String CONTACT_URL = "https://www.books-express.ro/contact";
     public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
-    public String CATEGORY_TITLE = "Știinţe umaniste";
+    public String CATEGORY_TITLE = "umaniste";
 
     @Test
-    public void searchProductsCategory() {
+    public void searchProductsCategoryTest() throws InterruptedException {
         navigationPage = new NavigationPage(driver);
-        navigationPage.selectProductsCategory();
-        Assert.assertTrue(driver.getTitle().contains(CATEGORY_TITLE));
+        //System.out.println(navigationPage.selectProductsCategory());
+        Assert.assertTrue(navigationPage.selectProductsCategory().contains("economie"));
     }
 
     @Test
-    public void openReduceri() {
+    @Ignore
+    public void openSalesPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.reduceri();
         Assert.assertTrue(driver.getCurrentUrl().equals(REDUCERI_URL));
     }
 
     @Test
-    public void openTopVanzari() {
+    @Ignore
+    public void openTopSalesPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.topVanzari();
         Assert.assertTrue(driver.getCurrentUrl().equals(TOP_VANZARI_URL));
     }
 
     @Test
-    public void openNoutati() {
+    @Ignore
+    public void openNoveltiesPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.noutati();
         Assert.assertTrue(driver.getCurrentUrl().equals(NOUTATI_URL));
     }
 
     @Test
-    public void openCadouri() {
+    @Ignore
+    public void openGiftsTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.cadouri();
         Assert.assertTrue(driver.getCurrentUrl().equals(CADOURI_URL));
     }
     @Test
-    public void openBlog() {
+    @Ignore
+    public void openBlogPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.blog();
         Assert.assertTrue(driver.getCurrentUrl().equals(BLOG_URL));
     }
 
     @Test
-    public void openNewsletter() {
+    @Ignore
+    public void openNewsletterPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.newsletter();
         Assert.assertTrue(driver.getCurrentUrl().equals(NEWSLETTER_URL));
     }
 
     @Test
-    public void openContact() {
+    @Ignore
+    public void openContactPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.contact();
         Assert.assertTrue(driver.getCurrentUrl().equals(CONTACT_URL));
     }
 
     @Test
-    public void subscribeToNewsletter() throws InterruptedException {
+    @Ignore
+    public void subscribeToNewsletter() {
         navigationPage = new NavigationPage(driver);
         NewsletterPage newsletterPage = navigationPage.newsletter();
         newsletterPage.subscribeToNewsletter("funnybunn@yaho.com", "Funny Bunny", "ger");

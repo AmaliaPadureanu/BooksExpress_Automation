@@ -20,7 +20,7 @@ public class BaseTest {
     public String email = "automationtesting630@gmail.com";
     public String password = "QAtest123";
 
-    @BeforeMethod
+    @BeforeClass
     @Parameters({"browser"})
     public void commonSetup(String browser) throws InterruptedException {
         driver = WebDriverFactory.getInstance().getDriver(browser);
@@ -28,7 +28,7 @@ public class BaseTest {
         driver.get(baseURL);
     }
 
-    @AfterMethod
+    @AfterClass
     public void commonTearDown() {
         WebDriverFactory.getInstance().quitDriver();
     }

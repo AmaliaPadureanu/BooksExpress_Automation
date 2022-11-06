@@ -10,46 +10,40 @@ import org.testng.annotations.Test;
 public class ItemDetailsTests extends BaseTest {
 
     @Test
-    public void getItemTitle() {
+    public void getItemTitleTest() {
         searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("George Martin");
+        ResultsPage resultsPage = searchPage.search("The Empire of Ashes");
         itemDetailsPage = resultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.getItemTitle().contains("fire and blood"));
+        Assert.assertTrue(itemDetailsPage.getItemTitle().contains("the empire of ashes"));
     }
 
     @Test
-    public void getItemAuthor() {
+    public void getItemAuthorTest() {
         searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("George Martin");
+        ResultsPage resultsPage = searchPage.search("The Legion of Flame");
         itemDetailsPage = resultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("george r. r. martin"));
+        Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("anthony ryan"));
     }
 
     @Test
-    public void readMore() {
+    public void exapandCollapseItemDescriptionTest() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
         itemDetailsPage = resultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.readMore());
-    }
-
-    @Test
-    public void readLess() throws InterruptedException {
-        searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("George Martin");
-        itemDetailsPage = resultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.readLess());
     }
 
     @Test
-    public void rate() throws InterruptedException {
+    public void rateTest() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
         loginPage.logInWith(email, password);
+        Thread.sleep(2000);
         searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("less is more");
+        ResultsPage resultsPage = searchPage.search("The Song of Achilles");
         itemDetailsPage = resultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.rate(4) == 5);
+        Assert.assertTrue(itemDetailsPage.rate(3) == 4);
     }
 
 }
