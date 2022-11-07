@@ -3,13 +3,14 @@ package TestClasses;
 import Pages.SignInPage;
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
 public class SignInTests extends BaseTest {
 
-    String email = "testemail7@test.com";
+    String email = "testemail10@test.com";
     String prenume = "Test";
     String nume = "Test";
     String parola = "testpass00";
@@ -26,6 +27,7 @@ public class SignInTests extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void open() {
         signInPage = new SignInPage(driver);
         signInPage.open();

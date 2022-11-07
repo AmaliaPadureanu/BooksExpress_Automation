@@ -27,14 +27,16 @@ public class ShoppingCartPage {
         return driver.getCurrentUrl();
     }
 
-    public String removeFromCart() {
+    public int removeFromCart() throws InterruptedException {
         driver.findElement(By.xpath(STERGE_BTN)).click();
-        return driver.getCurrentUrl();
+        Thread.sleep(3000);
+        List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
+        return itemsInCart.size();
     }
 
-    public void getCartItems() {
+    public int getNoOfCartItems() {
         List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
-        System.out.println(itemsInCart.get(0).getText());
+        return itemsInCart.size();
     }
 
     public int changeQuantity(int qty) {

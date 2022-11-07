@@ -2,9 +2,9 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.TimeUnit;
 
 public class SignInPage {
@@ -35,25 +35,12 @@ public class SignInPage {
 
 
     public void signInWith(String email, String prenume, String nume, String parola) {
-        String currentPage = driver.getWindowHandle();
-
-        WebElement emailField = driver.findElement(By.xpath(EMAIL_FIELD));
-        emailField.sendKeys(email);
-
-        WebElement prenumeField = driver.findElement(By.xpath(PRENUME_FIELD));
-        prenumeField.sendKeys(prenume);
-
-        WebElement numeField = driver.findElement(By.xpath(NUME_FIELD));
-        numeField.sendKeys(nume);
-
-        WebElement parolaField = driver.findElement(By.xpath(PAROLA_FIELD));
-        parolaField.sendKeys(parola);
-
-        WebElement confirmaParolaField = driver.findElement(By.xpath(CONFIRMA_PAROLA_FIELD));
-        confirmaParolaField.sendKeys(parola);
-
+        driver.findElement(By.xpath(EMAIL_FIELD)).sendKeys(email);
+        driver.findElement(By.xpath(PRENUME_FIELD)).sendKeys(prenume);
+        driver.findElement(By.xpath(NUME_FIELD)).sendKeys(nume);
+        driver.findElement(By.xpath(PAROLA_FIELD)).sendKeys(parola);
+        driver.findElement(By.xpath(CONFIRMA_PAROLA_FIELD)).sendKeys(parola);
         driver.findElement(By.xpath(CREAZA_CONTUL_BTN)).click();
-
         driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
 
         WebDriverWait wait = new WebDriverWait(driver, 3);

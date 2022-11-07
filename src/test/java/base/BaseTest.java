@@ -22,7 +22,7 @@ public class BaseTest {
 
     @BeforeClass
     @Parameters({"browser"})
-    public void commonSetup(String browser) throws InterruptedException {
+    public void commonSetup(String browser) {
         driver = WebDriverFactory.getInstance().getDriver(browser);
         baseURL = "https://www.books-express.ro/";
         driver.get(baseURL);

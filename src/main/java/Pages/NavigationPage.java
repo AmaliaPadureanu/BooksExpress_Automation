@@ -5,7 +5,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,11 +23,7 @@ public class NavigationPage {
     public String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
     public String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
     public String CONTACT_LINK = "//a[normalize-space()='Contact']";
-    public String PRODUSE_DROPDOWN = "//i[@class='fa fa-angle-right right color-bold']";
     public String BUSINESS_CATEGORY = "//a[text()=' Business']";
-    public String ECONOMIE_CATEGORY = "div[id='prod-business'] ul[class='col1 left'] li:nth-child(4) a:nth-child(1)";
-    public String CONT_LINK = "//span[normalize-space()='Cont']";
-    public String PERSONAL_DETAILS = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
 
     public String selectProductsCategory() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -46,25 +41,22 @@ public class NavigationPage {
 
         Thread.sleep(5000);
 
-//       wait.until(ExpectedConditions.urlToBe("https://www.books-express.ro/carti/business-economie/kc"));
-
-        System.out.println(driver.getTitle().toLowerCase());
         return driver.getTitle().toLowerCase();
     }
 
-    public void reduceri() {
+    public void navigateToSales() {
         driver.findElement(By.xpath(REDUCERI_LINK)).click();
     }
 
-    public void topVanzari() {
+    public void navigateToTopSales() {
         driver.findElement(By.xpath(TOP_VANZARI_LINK)).click();
     }
 
-    public void noutati() {
+    public void navigateToNovelties() {
         driver.findElement(By.xpath(NOUTATI_LINK)).click();
     }
 
-    public void cadouri() {
+    public void navigateToGifts() {
         driver.findElement(By.xpath(CADOURI_LINK)).click();
     }
 

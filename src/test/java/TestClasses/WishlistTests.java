@@ -3,24 +3,11 @@ package TestClasses;
 import Pages.LoginPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
-import Pages.WishlistPage;
 import base.BaseTest;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
-
-import java.util.concurrent.TimeUnit;
+import org.testng.annotations.Test;
 
 public class WishlistTests extends BaseTest {
-
-    @BeforeClass
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/Users/Amalia/IdeaProjects/Drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-        baseURL = "https://www.books-express.ro/";
-        driver.get(baseURL);
-    }
 
     @Test
     public void addToWishlist() throws InterruptedException {
@@ -44,10 +31,4 @@ public class WishlistTests extends BaseTest {
         Thread.sleep(3000);
         Assert.assertTrue(wishlistPage.isEmpty());
     }
-
-    @AfterClass
-    public void tearDown() {
-        driver.quit();
-    }
-
 }

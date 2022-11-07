@@ -4,7 +4,6 @@ import Pages.ResultsPage;
 import Pages.SearchPage;
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class ResultsTests extends BaseTest {

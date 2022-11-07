@@ -17,48 +17,42 @@ public class NavigationTests extends BaseTest {
     public String NEWSLETTER_URL = "https://www.books-express.ro/newsletter";
     public String CONTACT_URL = "https://www.books-express.ro/contact";
     public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
-    public String CATEGORY_TITLE = "umaniste";
 
     @Test
+    @Ignore
     public void searchProductsCategoryTest() throws InterruptedException {
         navigationPage = new NavigationPage(driver);
-        //System.out.println(navigationPage.selectProductsCategory());
         Assert.assertTrue(navigationPage.selectProductsCategory().contains("economie"));
     }
 
     @Test
-    @Ignore
     public void openSalesPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.reduceri();
+        navigationPage.navigateToSales();
         Assert.assertTrue(driver.getCurrentUrl().equals(REDUCERI_URL));
     }
 
     @Test
-    @Ignore
     public void openTopSalesPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.topVanzari();
+        navigationPage.navigateToTopSales();
         Assert.assertTrue(driver.getCurrentUrl().equals(TOP_VANZARI_URL));
     }
 
     @Test
-    @Ignore
     public void openNoveltiesPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.noutati();
+        navigationPage.navigateToNovelties();
         Assert.assertTrue(driver.getCurrentUrl().equals(NOUTATI_URL));
     }
 
     @Test
-    @Ignore
     public void openGiftsTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.cadouri();
+        navigationPage.navigateToGifts();
         Assert.assertTrue(driver.getCurrentUrl().equals(CADOURI_URL));
     }
     @Test
-    @Ignore
     public void openBlogPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.blog();
@@ -74,7 +68,6 @@ public class NavigationTests extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void openContactPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.contact();
@@ -82,11 +75,10 @@ public class NavigationTests extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void subscribeToNewsletter() {
         navigationPage = new NavigationPage(driver);
         NewsletterPage newsletterPage = navigationPage.newsletter();
-        newsletterPage.subscribeToNewsletter("funnybunn@yaho.com", "Funny Bunny", "ger");
+        newsletterPage.subscribeToNewsletter("funnyb@yaho.com", "Funny Bunny", 3);
         Assert.assertNotNull(AFTER_SUBSCRIBE_MESSAGE);
     }
 
