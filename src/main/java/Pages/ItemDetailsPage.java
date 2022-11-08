@@ -26,6 +26,8 @@ public class ItemDetailsPage {
     public String ITEM_DESCRIPTION_EXPANDED = "//main//br[last()]";
     public String RATE_STARS = ".stars>a";
     public String AUTHOR_LINK = "//a[@itemprop='author']";
+    public String PUBLISHER_LINK = "//a[@itemprop='publisher']";
+    public String ACCEPT_COOKIES_BTN = "//a[contains(text(),'Accept cookie-uri')]";
 
 
     public boolean isOpen() {
@@ -79,11 +81,19 @@ public class ItemDetailsPage {
         return ratingGiven.size();
     }
 
-    public String seeAllBooksByAuthor() throws InterruptedException {
-        String authorName = driver.findElement(By.xpath("//a[contains(@itemprop,'author')]")).getText();
+    public String seeAllByAuthor() throws InterruptedException {
+        String authorName = driver.findElement(By.xpath(AUTHOR_LINK)).getText();
         driver.findElement(By.xpath(AUTHOR_LINK)).click();
         Thread.sleep(3000);
         return driver.findElement(By.xpath("//h1[contains(text(),'" + authorName + "')]")).getText();
+    }
+
+    public String seeAllFromPublisher() throws InterruptedException {
+        String publisherName = driver.findElement(By.xpath(PUBLISHER_LINK)).getText();
+        driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
+        driver.findElement(By.xpath(PUBLISHER_LINK)).click();
+        Thread.sleep(3000);
+        return driver.findElement(By.xpath("//h1[contains(text(),'" + publisherName + "')]")).getText();
     }
 
 }

@@ -52,11 +52,19 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    public void seeAllBooksByAuthor() throws InterruptedException {
+    public void seeAllByAuthor() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
         itemDetailsPage = resultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.seeAllBooksByAuthor().contains("Jason Hickel"));
+        Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Jason Hickel"));
+    }
+
+    @Test
+    public void seeAllByPublisher() throws InterruptedException {
+        searchPage = new SearchPage(driver);
+        ResultsPage resultsPage = searchPage.search("less is more");
+        itemDetailsPage = resultsPage.getItemDetailsPage();
+        Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
 }
