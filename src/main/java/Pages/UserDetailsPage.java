@@ -2,6 +2,8 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 public class UserDetailsPage {
 
     WebDriver driver;
@@ -16,9 +18,11 @@ public class UserDetailsPage {
     private String MR_TITLE_RADIOBTN = "//label[@for='gender_M']";
     private String MR_TITLE = "//div[contains(text(),'Dl.')]";
     private String MS_TITLE = "//div[contains(text(),'Dna.')]";
+    private String FIRST_NAME_FIELD = "//input[@id='first_name']";
+    private String NAME = "div[id='profile'] div:nth-child(4)";
 
 
-    public String editUserInfo(Character gender) {
+    public String editUserTitle(Character gender) {
         driver.findElement(By.xpath(MODIFY_BTN)).click();
 
         if (gender.equals('M')) {
@@ -38,5 +42,16 @@ public class UserDetailsPage {
         }
 
         return null;
+    }
+
+    public String editFirstName(String firstName) {
+        driver.findElement(By.xpath(MODIFY_BTN)).click();
+        WebElement inputFirstName = driver.findElement(By.xpath(FIRST_NAME_FIELD));
+        inputFirstName.clear();
+        inputFirstName.sendKeys(firstName);
+        driver.findElement(By.xpath(UPDATE_BTN)).click();
+        driver.navigate().refresh();
+        String newFirstName = driver.findElement(By.cssSelector(NAME)).getText();
+        return newFirstName;
     }
 }
