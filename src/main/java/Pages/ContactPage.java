@@ -34,4 +34,5 @@ public class ContactPage {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(SEND_BTN))));
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
     }
+
 }

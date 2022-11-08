@@ -6,9 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.List;
-import java.util.Locale;
 
 public class ItemDetailsPage {
 
@@ -27,6 +25,8 @@ public class ItemDetailsPage {
     public String READ_LESS_BTN = "//a[@class='read-less']";
     public String ITEM_DESCRIPTION_EXPANDED = "//main//br[last()]";
     public String RATE_STARS = ".stars>a";
+    public String AUTHOR_LINK = "//a[@itemprop='author']";
+
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);
@@ -70,14 +70,20 @@ public class ItemDetailsPage {
         return true;
     }
 
-    public int rate(int rating) throws InterruptedException {
+    public int rate(int rating) {
         List<WebElement> stars = driver.findElements(By.cssSelector(RATE_STARS));
         stars.get(rating).click();
-        //Thread.sleep(3000);
         driver.navigate().refresh();
         List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
         System.out.println(ratingGiven.size());
         return ratingGiven.size();
+    }
+
+    public String seeAllBooksByAuthor() throws InterruptedException {
+        String authorName = driver.findElement(By.xpath("//a[contains(@itemprop,'author')]")).getText();
+        driver.findElement(By.xpath(AUTHOR_LINK)).click();
+        Thread.sleep(3000);
+        return driver.findElement(By.xpath("//h1[contains(text(),'" + authorName + "')]")).getText();
     }
 
 }
