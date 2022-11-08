@@ -15,12 +15,12 @@ public class WishlistPage {
         this.driver = driver;
     }
 
-    public String LISTS_BTN = "//span[normalize-space()='Liste']";
-    public String WISHLIST_BTN = "//a[@href='/user/wishlist']";
-    public String ITEM_TITLE = "div[class='cart-details'] h4 a";
-    public String REMOVE_BTN = "//a[@class='color-theme-5 remove-item']";
-    public String ITEMS_IN_LIST = "#list-items>li";
-    public String ADD_TO_CART = "button[type='button']";
+    private String LISTS_BTN = "//span[normalize-space()='Liste']";
+    private String WISHLIST_BTN = "//a[@href='/user/wishlist']";
+    private String ITEM_TITLE = "div[class='cart-details'] h4 a";
+    private String REMOVE_BTN = "//a[@class='color-theme-5 remove-item']";
+    private String ITEMS_IN_LIST = "#list-items>li";
+    private String ADD_TO_CART = "button[type='button']";
 
     public void navigateToWishlist() {
         driver.findElement(By.xpath(LISTS_BTN)).click();

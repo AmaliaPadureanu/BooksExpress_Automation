@@ -5,21 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
+
+    WebDriver driver;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public WebDriver driver;
-    public String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
-    public String INTRA_IN_CONT_LINK = "//a[contains(text(),'Intră în cont')]";
-    public String EMAIL_FIELD = "//input[@id='username']";
-    public String CONTINUA_BTN = "//a[@id='email-button']";
-    public String PASSWORD_FIELD = "//input[@id='password']";
+    private String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
+    private String INTRA_IN_CONT_LINK = "//a[contains(text(),'Intră în cont')]";
+    private String EMAIL_FIELD = "//input[@id='username']";
+    private String CONTINUA_BTN = "//a[@id='email-button']";
+    private String PASSWORD_FIELD = "//input[@id='password']";
     private final String URL = "login";
 
 

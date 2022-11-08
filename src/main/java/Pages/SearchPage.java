@@ -8,12 +8,12 @@ public class SearchPage {
 
     WebDriver driver;
 
-    public String SEARCH_BAR = "//input[@id='search']";
-    public String SEARCH_BTN = "//button[@type='submit']";
-
     public SearchPage(WebDriver driver) {
         this.driver = driver;
     }
+
+    private String SEARCH_BAR = "//input[@id='search']";
+    private String SEARCH_BTN = "//button[@type='submit']";
 
     public ResultsPage search(String item) {
         WebElement searchBar = driver.findElement(By.xpath(SEARCH_BAR));

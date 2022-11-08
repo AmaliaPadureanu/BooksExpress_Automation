@@ -16,19 +16,18 @@ public class ItemDetailsPage {
         this.driver = driver;
     }
 
-    public String URL = "/p/";
-    public String ADAUGA_IN_COS_BTN = "//a[@class='add2cart danger button full icon fa-basket']";
-    public String WISHLIST_BTN = "//a[@class='4u plain align-center add2list-btn']//i[@class='fa fa-heart']";
-    public String ITEM_TITLE = "section[id='book-main'] span[itemprop='name']";
-    public String ITEM_AUTHOR = "a[itemprop='author']";
-    public String READ_MORE_BTN = "//a[@class='read-more']";
-    public String READ_LESS_BTN = "//a[@class='read-less']";
-    public String ITEM_DESCRIPTION_EXPANDED = "//main//br[last()]";
-    public String RATE_STARS = ".stars>a";
-    public String AUTHOR_LINK = "//a[@itemprop='author']";
-    public String PUBLISHER_LINK = "//a[@itemprop='publisher']";
-    public String ACCEPT_COOKIES_BTN = "//a[contains(text(),'Accept cookie-uri')]";
-
+    private String URL = "/p/";
+    private String ADAUGA_IN_COS_BTN = "//a[@class='add2cart danger button full icon fa-basket']";
+    private String WISHLIST_BTN = "//a[@class='4u plain align-center add2list-btn']//i[@class='fa fa-heart']";
+    private String ITEM_TITLE = "section[id='book-main'] span[itemprop='name']";
+    private String ITEM_AUTHOR = "a[itemprop='author']";
+    private String READ_MORE_BTN = "//a[@class='read-more']";
+    private String READ_LESS_BTN = "//a[@class='read-less']";
+    private String ITEM_DESCRIPTION_EXPANDED = "//main//br[last()]";
+    private String RATE_STARS = ".stars>a";
+    private String AUTHOR_LINK = "//a[@itemprop='author']";
+    private String PUBLISHER_LINK = "//a[@itemprop='publisher']";
+    private String ACCEPT_COOKIES_BTN = "//a[contains(text(),'Accept cookie-uri')]";
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);

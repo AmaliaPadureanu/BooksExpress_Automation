@@ -15,11 +15,11 @@ public class ResultsPage {
         this.driver = driver;
     }
 
-    public String URL = "search?q=";
-    public String ITEM_TO_BE_ADDED = "//article/descendant::a[1]";
-    public String FILTER_DROPDOWN = "//i[@class='fa fa-down-open icon-right']";
-    public String ASCENDING_PRICE_BTN = "//a[contains(text(),'Preț crescător')]";
-    public String DESCENDING_PRICE_BTN = "//a[contains(text(),'Preț descrescător')]";
+    private String URL = "search?q=";
+    private String ITEM_TO_BE_ADDED = "//article/descendant::a[1]";
+    private String FILTER_DROPDOWN = "//i[@class='fa fa-down-open icon-right']";
+    private String ASCENDING_PRICE_BTN = "//a[contains(text(),'Preț crescător')]";
+    private String DESCENDING_PRICE_BTN = "//a[contains(text(),'Preț descrescător')]";
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);

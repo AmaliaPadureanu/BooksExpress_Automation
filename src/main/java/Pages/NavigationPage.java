@@ -16,15 +16,15 @@ public class NavigationPage {
         this.driver = driver;
     }
 
-    public String REDUCERI_LINK = "//a[@href='/reduceri']";
-    public String TOP_VANZARI_LINK = "//a[@href='/top/carti']";
-    public String NOUTATI_LINK = "//div[@id='submenu']//a[contains(text(),'Noutăți')]";
-    public String CADOURI_LINK = "//a[normalize-space()='Cadouri']";
-    public String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
-    public String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
-    public String CONTACT_LINK = "//a[normalize-space()='Contact']";
-    public String BUSINESS_CATEGORY = "//a[text()=' Business']";
-    public String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
+    private String REDUCERI_LINK = "//a[@href='/reduceri']";
+    private String TOP_VANZARI_LINK = "//a[@href='/top/carti']";
+    private String NOUTATI_LINK = "//div[@id='submenu']//a[contains(text(),'Noutăți')]";
+    private String CADOURI_LINK = "//a[normalize-space()='Cadouri']";
+    private String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
+    private String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
+    private String CONTACT_LINK = "//a[normalize-space()='Contact']";
+    private String BUSINESS_CATEGORY = "//a[text()=' Business']";
+    private String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
     private String PERSONAL_INFO = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
 
 

@@ -9,15 +9,16 @@ import java.util.concurrent.TimeUnit;
 
 public class ShoppingCartPage {
 
+    public WebDriver driver;
+
     public ShoppingCartPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public WebDriver driver;
-    public String VEZI_COSUL_BTN = "//a[@class='button special full']";
-    public String COS_BTN = "//span[contains(text(),'Coș')]";
-    public String STERGE_BTN = "//a[@class='color-theme-5 cart-remove-item']";
-    public String QUANTITY_FIELD = "//input[contains(@type,'number')]";
+    private String VEZI_COSUL_BTN = "//a[@class='button special full']";
+    private String COS_BTN = "//span[contains(text(),'Coș')]";
+    private String STERGE_BTN = "//a[@class='color-theme-5 cart-remove-item']";
+    private String QUANTITY_FIELD = "//input[contains(@type,'number')]";
 
 
     public String navigateToCart() {

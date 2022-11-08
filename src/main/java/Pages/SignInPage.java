@@ -8,19 +8,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class SignInPage {
+
+    public WebDriver driver;
+
     public SignInPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public WebDriver driver;
-    public String CONT_LINK = "//span[normalize-space()='Cont']";
-    public String CONT_NOU_LINK = "//a[normalize-space()='Cont Nou']";
-    public String EMAIL_FIELD = "//input[@id='email']";
-    public String PRENUME_FIELD = "//input[@id='first_name']";
-    public String NUME_FIELD = "//input[@id='last_name']";
-    public String PAROLA_FIELD = "//input[@id='password']";
-    public String CONFIRMA_PAROLA_FIELD = "//input[@id='confirm']";
-    public String CREAZA_CONTUL_BTN = "//a[@id='submit']";
+    private String CONT_LINK = "//span[normalize-space()='Cont']";
+    private String CONT_NOU_LINK = "//a[normalize-space()='Cont Nou']";
+    private String EMAIL_FIELD = "//input[@id='email']";
+    private String PRENUME_FIELD = "//input[@id='first_name']";
+    private String NUME_FIELD = "//input[@id='last_name']";
+    private String PAROLA_FIELD = "//input[@id='password']";
+    private String CONFIRMA_PAROLA_FIELD = "//input[@id='confirm']";
+    private String CREAZA_CONTUL_BTN = "//a[@id='submit']";
     private final String URL = "register";
     String afterSignInURL = "user/details";
 
@@ -32,7 +34,6 @@ public class SignInPage {
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);
     }
-
 
     public void signInWith(String email, String prenume, String nume, String parola) {
         driver.findElement(By.xpath(EMAIL_FIELD)).sendKeys(email);

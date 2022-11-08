@@ -11,16 +11,17 @@ import java.util.List;
 public class NewsletterPage {
 
     WebDriver driver;
-    public String EMAIL_FIELD = "//input[@id='email']";
-    public String NUME_FIELD = "//input[@id='name']";
-    public String LIMBILE_PREFERATE_FIELD = "//ul[@class='select2-selection__rendered']";
-    public String ABONARE_CHECKBOX = "//label[@for='one_chapter']";
-    public String MA_ABONEZ_BTN = "//button[@class='button big primary save']";
-    public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
 
     public NewsletterPage(WebDriver driver) {
         this.driver = driver;
     }
+
+    private String EMAIL_FIELD = "//input[@id='email']";
+    private String NUME_FIELD = "//input[@id='name']";
+    private String LIMBILE_PREFERATE_FIELD = "//ul[@class='select2-selection__rendered']";
+    private String ABONARE_CHECKBOX = "//label[@for='one_chapter']";
+    private String MA_ABONEZ_BTN = "//button[@class='button big primary save']";
+    private String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
 
     public void subscribeToNewsletter(String email, String nume, int language) {
         driver.findElement(By.xpath(EMAIL_FIELD)).sendKeys(email);
