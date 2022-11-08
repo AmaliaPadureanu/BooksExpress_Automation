@@ -21,13 +21,35 @@ public class UserDetailsTests extends BaseTest {
     }
 
     @Test
-    public void editUserFirstName() {
+    @Ignore
+    public void editUserFirstNameTest() {
         loginPage = new LoginPage(driver);
         loginPage.login();
         loginPage.logInWith(email, password);
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
         Assert.assertTrue(userDetailsPage.editFirstName("John").contains("John"));
+    }
+
+    @Test
+    @Ignore
+    public void editUserLastNameTest() {
+        loginPage = new LoginPage(driver);
+        loginPage.login();
+        loginPage.logInWith(email, password);
+        navigationPage = new NavigationPage(driver);
+        userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertTrue(userDetailsPage.editLastName("Smith").contains("Smith"));
+    }
+
+    @Test
+    public void editPhoneNumberTest() {
+        loginPage = new LoginPage(driver);
+        loginPage.login();
+        loginPage.logInWith(email, password);
+        navigationPage = new NavigationPage(driver);
+        userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertTrue(userDetailsPage.editPhoneNumber("0947583945").equals("0947583945"));
     }
 
 }

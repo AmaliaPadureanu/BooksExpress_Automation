@@ -19,8 +19,10 @@ public class UserDetailsPage {
     private String MR_TITLE = "//div[contains(text(),'Dl.')]";
     private String MS_TITLE = "//div[contains(text(),'Dna.')]";
     private String FIRST_NAME_FIELD = "//input[@id='first_name']";
+    private String LAST_NAME_FIELD = "//input[@id='last_name']";
     private String NAME = "div[id='profile'] div:nth-child(4)";
-
+    private String PHONE_NUMBER = "div[id='main'] div:nth-child(6)";
+    private String PHONE_NUMBER_INPUT = "//input[@id='phone']";
 
     public String editUserTitle(Character gender) {
         driver.findElement(By.xpath(MODIFY_BTN)).click();
@@ -53,5 +55,27 @@ public class UserDetailsPage {
         driver.navigate().refresh();
         String newFirstName = driver.findElement(By.cssSelector(NAME)).getText();
         return newFirstName;
+    }
+
+    public String editLastName(String lastName) {
+        driver.findElement(By.xpath(MODIFY_BTN)).click();
+        WebElement inputLastName = driver.findElement(By.xpath(LAST_NAME_FIELD));
+        inputLastName.clear();
+        inputLastName.sendKeys(lastName);
+        driver.findElement(By.xpath(UPDATE_BTN)).click();
+        driver.navigate().refresh();
+        String newLastName = driver.findElement(By.cssSelector(NAME)).getText();
+        return newLastName;
+    }
+
+    public String editPhoneNumber(String phoneNr) {
+        driver.findElement(By.xpath(MODIFY_BTN)).click();
+        WebElement inputPhoneNumber = driver.findElement(By.xpath(PHONE_NUMBER_INPUT));
+        inputPhoneNumber.clear();
+        inputPhoneNumber.sendKeys(phoneNr);
+        driver.findElement(By.xpath(UPDATE_BTN)).click();
+        driver.navigate().refresh();
+        String newPhoneNumber = driver.findElement(By.cssSelector(PHONE_NUMBER)).getText();
+        return newPhoneNumber;
     }
 }
