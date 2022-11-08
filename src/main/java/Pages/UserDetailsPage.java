@@ -18,7 +18,7 @@ public class UserDetailsPage {
     private String MS_TITLE = "//div[contains(text(),'Dna.')]";
 
 
-    public String editUserInfo(Character gender) throws InterruptedException {
+    public String editUserInfo(Character gender) {
         driver.findElement(By.xpath(MODIFY_BTN)).click();
 
         if (gender.equals('M')) {

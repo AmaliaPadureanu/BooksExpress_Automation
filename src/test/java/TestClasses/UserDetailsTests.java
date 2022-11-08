@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class UserDetailsTests extends BaseTest {
 
     @Test
-    public void editUserInfoTest() throws InterruptedException {
+    public void editUserInfoTest() {
         loginPage = new LoginPage(driver);
         loginPage.login();
         loginPage.logInWith(email, password);
