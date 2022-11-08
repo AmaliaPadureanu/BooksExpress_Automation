@@ -63,21 +63,21 @@ public class NavigationTests extends BaseTest {
     @Ignore
     public void openNewsletterPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.newsletter();
+        navigationPage.navigateToNewsletter();
         Assert.assertTrue(driver.getCurrentUrl().equals(NEWSLETTER_URL));
     }
 
     @Test
     public void openContactPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.contact();
+        navigationPage.navigateToContact();
         Assert.assertTrue(driver.getCurrentUrl().equals(CONTACT_URL));
     }
 
     @Test
     public void subscribeToNewsletter() {
         navigationPage = new NavigationPage(driver);
-        NewsletterPage newsletterPage = navigationPage.newsletter();
+        NewsletterPage newsletterPage = navigationPage.navigateToNewsletter();
         newsletterPage.subscribeToNewsletter("funnyb@yaho.com", "Funny Bunny", 3);
         Assert.assertNotNull(AFTER_SUBSCRIBE_MESSAGE);
     }

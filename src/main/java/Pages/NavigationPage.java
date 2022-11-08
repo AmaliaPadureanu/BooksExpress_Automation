@@ -24,6 +24,9 @@ public class NavigationPage {
     public String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
     public String CONTACT_LINK = "//a[normalize-space()='Contact']";
     public String BUSINESS_CATEGORY = "//a[text()=' Business']";
+    public String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
+    private String PERSONAL_INFO = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
+
 
     public String selectProductsCategory() throws InterruptedException {
         Actions actions = new Actions(driver);
@@ -64,14 +67,21 @@ public class NavigationPage {
         driver.findElement(By.xpath(BLOG_LINK)).click();
     }
 
-    public NewsletterPage newsletter() {
+    public NewsletterPage navigateToNewsletter() {
         driver.findElement(By.xpath(NEWSLETTER_LINK)).click();
         return new NewsletterPage(driver);
     }
 
-    public ContactPage contact() {
+    public ContactPage navigateToContact() {
         driver.findElement(By.xpath(CONTACT_LINK)).click();
         return new ContactPage(driver);
+    }
+
+    public UserDetailsPage navigateToUserDetails() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
+        driver.findElement(By.xpath(PERSONAL_INFO)).click();
+        return new UserDetailsPage(driver);
     }
 
 }
