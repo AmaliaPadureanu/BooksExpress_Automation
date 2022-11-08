@@ -23,6 +23,8 @@ public class UserDetailsPage {
     private String NAME = "div[id='profile'] div:nth-child(4)";
     private String PHONE_NUMBER = "div[id='main'] div:nth-child(6)";
     private String PHONE_NUMBER_INPUT = "//input[@id='phone']";
+    private String EMAIL = "div[id='main'] div:nth-child(8)";
+    private String EMAIL_INPUT = "//input[@id='email']";
 
     public String editUserTitle(Character gender) {
         driver.findElement(By.xpath(MODIFY_BTN)).click();
@@ -77,5 +79,16 @@ public class UserDetailsPage {
         driver.navigate().refresh();
         String newPhoneNumber = driver.findElement(By.cssSelector(PHONE_NUMBER)).getText();
         return newPhoneNumber;
+    }
+
+    public String editEmail(String email) {
+        driver.findElement(By.xpath(MODIFY_BTN)).click();
+        WebElement inputEmail = driver.findElement(By.xpath(EMAIL_INPUT));
+        inputEmail.clear();
+        inputEmail.sendKeys(email);
+        driver.findElement(By.xpath(UPDATE_BTN)).click();
+        driver.navigate().refresh();
+        String newEmail = driver.findElement(By.cssSelector(EMAIL)).getText();
+        return newEmail;
     }
 }
