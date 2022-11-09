@@ -3,6 +3,7 @@ package TestClasses;
 import Pages.LoginPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
+import Utils.Constants;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -43,7 +44,7 @@ public class ItemDetailsTests extends BaseTest {
     public void rateTest() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
-        loginPage.logInWith(email, password);
+        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         Thread.sleep(2000);
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Song of Achilles");
@@ -73,7 +74,7 @@ public class ItemDetailsTests extends BaseTest {
     public void writeReviewTest() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
-        loginPage.logInWith(email, password);
+        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("ugly love");
         itemDetailsPage = resultsPage.getItemDetailsPage();

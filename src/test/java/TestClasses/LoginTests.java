@@ -1,6 +1,7 @@
 package TestClasses;
 
 import Pages.LoginPage;
+import Utils.Constants;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -15,7 +16,7 @@ public class LoginTests extends BaseTest {
     public void loginWithTest() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
-        loginPage.logInWith(email, password);
+        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         Thread.sleep(3000);
         Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
     }

@@ -3,6 +3,7 @@ package TestClasses;
 import Pages.LoginPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
+import Utils.Constants;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ public class WishlistTests extends BaseTest {
     public void addToWishlist() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
-        loginPage.logInWith(email, password);
+        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("the secret history");
         itemDetailsPage = resultsPage.getItemDetailsPage();

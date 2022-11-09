@@ -15,5 +15,6 @@ public class Constants {
     public static final String CHROME_DRIVER_VALUE = "chromedriver";
     public static final String GECKO_DRIVER_VALUE = "geckodriver";
     public static final String EDGE_DRIVER_VALUE = "msedgedriver";
-
+    public static final String EMAIL = "automationtesting630@gmail.com";
+    public static final String PASSWORD = "QAtest123";
 }

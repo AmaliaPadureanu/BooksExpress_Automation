@@ -18,8 +18,8 @@ public class BaseTest {
     protected ItemDetailsPage itemDetailsPage;
     protected UserDetailsPage userDetailsPage;
 
-    public String email = "automationtesting630@gmail.com";
-    public String password = "QAtest123";
+//    public String email = "automationtesting630@gmail.com";
+//    public String password = "QAtest123";
 
     @BeforeClass
     @Parameters({"browser"})
