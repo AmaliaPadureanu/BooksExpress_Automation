@@ -1,6 +1,7 @@
 package base;
 
 import Pages.*;
+import Utils.Constants;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
@@ -24,7 +25,7 @@ public class BaseTest {
     @Parameters({"browser"})
     public void commonSetup(String browser) {
         driver = WebDriverFactory.getInstance().getDriver(browser);
-        baseURL = "https://www.books-express.ro/";
+        baseURL = Constants.BASE_URL;
         driver.get(baseURL);
     }
 

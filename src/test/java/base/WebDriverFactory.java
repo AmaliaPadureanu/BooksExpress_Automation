@@ -1,5 +1,6 @@
 package base;
 
+import Utils.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -26,15 +27,15 @@ public class WebDriverFactory {
         setDriver(browser);
         if (threadedDriver.get() == null) {
             try {
-                if (browser.equalsIgnoreCase("firefox")) {
+                if (browser.equalsIgnoreCase(Constants.FIREFOX)) {
                     driver = new FirefoxDriver();
                     threadedDriver.set(driver);
                 }
-                if (browser.equalsIgnoreCase("chrome")) {
+                if (browser.equalsIgnoreCase(Constants.CHROME)) {
                     driver = new ChromeDriver();
                     threadedDriver.set(driver);
                 }
-                if (browser.equalsIgnoreCase("edge")) {
+                if (browser.equalsIgnoreCase(Constants.EDGE)) {
                     driver = new EdgeDriver();
                     threadedDriver.set(driver);
                 }
@@ -54,21 +55,21 @@ public class WebDriverFactory {
 
     private void setDriver(String browser) {
         String driverPath = "";
-        String os = System.getProperty("os.name").toLowerCase().substring(0, 3);
+        String os = Constants.OS_NAME.toLowerCase().substring(0, 3);
         System.out.println("OS name from system property :: " + os);
-        String directory = System.getProperty("user.dir") +  "//drivers//";
+        String directory = Constants.USER_DIRECTORY + Constants.DRIVERS_DIRECTORY;
         String driverKey = "";
         String driverValue = "";
 
-        if (browser.equalsIgnoreCase("firefox")) {
-            driverKey = "webdriver.gecko.driver";
-            driverValue = "geckodriver";
-        } else if (browser.equalsIgnoreCase("chrome")) {
-            driverKey = "webdriver.chrome.driver";
-            driverValue = "chromedriver";
-        } else if (browser.equalsIgnoreCase("edge")) {
-            driverKey = "webdriver.edge.driver";
-            driverValue = "msedgedriver";
+        if (browser.equalsIgnoreCase(Constants.FIREFOX)) {
+            driverKey = Constants.GECKO_DRIVER_KEY;
+            driverValue = Constants.GECKO_DRIVER_VALUE;
+        } else if (browser.equalsIgnoreCase(Constants.CHROME)) {
+            driverKey = Constants.CHROME_DRIVER_KEY;
+            driverValue = Constants.CHROME_DRIVER_VALUE;
+        } else if (browser.equalsIgnoreCase(Constants.EDGE)) {
+            driverKey = Constants.EDGE_DRIVER_KEY;
+            driverValue = Constants.EDGE_DRIVER_VALUE;
         } else {
             System.out.println("Browser type not supported");
         }

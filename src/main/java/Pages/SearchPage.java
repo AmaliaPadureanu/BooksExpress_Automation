@@ -18,6 +18,7 @@ public class SearchPage {
     public ResultsPage search(String item) {
         WebElement searchBar = driver.findElement(By.xpath(SEARCH_BAR));
         searchBar.click();
+        searchBar.clear();
         searchBar.sendKeys(item);
         driver.findElement(By.xpath(SEARCH_BTN)).click();
         return new ResultsPage(driver);

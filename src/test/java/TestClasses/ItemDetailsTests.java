@@ -70,7 +70,7 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    public void writeReviewTest() {
+    public void writeReviewTest() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
         loginPage.logInWith(email, password);
@@ -80,6 +80,7 @@ public class ItemDetailsTests extends BaseTest {
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
+        Thread.sleep(3000);
         int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
         Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
     }

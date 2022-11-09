@@ -31,6 +31,8 @@ public class ItemDetailsPage {
     private String POST_ANONYMOUSLY_CHECKBOX = "//input[@id='post_anon'][@class='small']";
     private String SAVE_REVIEW_BTN = "//button[@id='saveReview']";
     private String REVIEWS = "//section[@id='product-reviews']//div[@class='read-text serif']//h4[contains(.,'a dat nota: ')]";
+    private String MODIFY_REVIEW_BTN = "//a[@id='modify-review']";
+    private String REMOVE_REVIEW_BTN = "//a[@id='remove-review']";
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);
