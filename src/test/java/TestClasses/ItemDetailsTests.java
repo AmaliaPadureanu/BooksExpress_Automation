@@ -52,6 +52,7 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void seeAllByAuthor() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -60,11 +61,27 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void seeAllByPublisher() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
         itemDetailsPage = resultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
+    }
+
+    @Test
+    public void writeReviewTest() {
+        loginPage = new LoginPage(driver);
+        loginPage.login();
+        loginPage.logInWith(email, password);
+        searchPage = new SearchPage(driver);
+        ResultsPage resultsPage = searchPage.search("ugly love");
+        itemDetailsPage = resultsPage.getItemDetailsPage();
+        int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
+        itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
+        int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
+        Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
     }
 
 }

@@ -1,9 +1,6 @@
 package Pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
@@ -28,6 +25,12 @@ public class ItemDetailsPage {
     private String AUTHOR_LINK = "//a[@itemprop='author']";
     private String PUBLISHER_LINK = "//a[@itemprop='publisher']";
     private String ACCEPT_COOKIES_BTN = "//a[contains(text(),'Accept cookie-uri')]";
+    private String REVIEW_BTN = "//a[normalize-space()='Am citit!']";
+    private String TEXT_INPUT = "//textarea[@id='review']";
+    private String RATE_STARS_POPUP = "//div[@class='box lightbox']//a[@class='fa fa-star']";
+    private String POST_ANONYMOUSLY_CHECKBOX = "//input[@id='post_anon'][@class='small']";
+    private String SAVE_REVIEW_BTN = "//button[@id='saveReview']";
+    private String REVIEWS = "//section[@id='product-reviews']//div[@class='read-text serif']//h4[contains(.,'a dat nota: ')]";
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);
@@ -93,6 +96,27 @@ public class ItemDetailsPage {
         driver.findElement(By.xpath(PUBLISHER_LINK)).click();
         Thread.sleep(3000);
         return driver.findElement(By.xpath("//h1[contains(text(),'" + publisherName + "')]")).getText();
+    }
+
+    public int getNrOfReviews() {
+        return driver.findElements(By.xpath(REVIEWS)).size();
+    }
+
+    public void writeReview(Integer rating, Boolean postAnonymous, String reviewText) {
+        driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
+        driver.findElement(By.xpath(REVIEW_BTN)).click();
+        driver.switchTo().activeElement();
+
+        List<WebElement> stars = driver.findElements(By.xpath(RATE_STARS_POPUP));
+        stars.get(rating).click();
+
+        if (postAnonymous) {
+            WebElement element = driver.findElement(By.xpath(POST_ANONYMOUSLY_CHECKBOX));
+            ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+        }
+
+        driver.findElement(By.xpath(TEXT_INPUT)).sendKeys(reviewText);
+        driver.findElement(By.xpath(SAVE_REVIEW_BTN)).click();
     }
 
 }
