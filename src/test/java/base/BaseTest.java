@@ -24,9 +24,9 @@ public class BaseTest {
         driver = WebDriverFactory.getInstance().getDriver(browser);
         baseURL = Constants.BASE_URL;
         driver.get(baseURL);
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
+//        loginPage = new LoginPage(driver);
+//        loginPage.login();
+//        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
     }
 
     @AfterClass

@@ -1,6 +1,8 @@
 package TestClasses;
 
+import Pages.LoginPage;
 import Pages.NavigationPage;
+import Utils.Constants;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,7 +14,7 @@ public class ContactTests extends BaseTest {
 
     private String MESSAGE_SENT_TEXT = "//div[@id='success']//div[1]";
 
-    @Test (enabled = false)
+    @Test (enabled = true)
     public void sendContactFormUnregisteredUserTest() {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
@@ -22,10 +24,12 @@ public class ContactTests extends BaseTest {
 
     @Test (enabled = true)
     public void sendContactFormRegisteredUserTest() {
+        login();
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
         contactPage.sendContactFormRegisteredUser("Unde este comanda mea?", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "34667");
         Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
+        logout();
     }
 
     private String getConfirmationMessage() {
@@ -33,4 +37,16 @@ public class ContactTests extends BaseTest {
         String message = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(MESSAGE_SENT_TEXT)))).getText();
         return message;
     }
+
+    private void login() {
+        loginPage = new LoginPage(driver);
+        loginPage.login();
+        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
+    }
+
+    private void logout() {
+        loginPage = new LoginPage(driver);
+        loginPage.logout();
+    }
+
 }

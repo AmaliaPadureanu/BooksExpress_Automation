@@ -45,7 +45,7 @@ public class LoginTests extends BaseTest {
     }
 
     @AfterMethod
-    public void cleanup() {
+    public void logout() {
         loginPage = new LoginPage(driver);
         loginPage.logout();
     }
