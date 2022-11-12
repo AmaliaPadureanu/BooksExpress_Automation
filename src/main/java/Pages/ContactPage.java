@@ -36,4 +36,15 @@ public class ContactPage {
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
     }
 
+    public void sendContactFormRegisteredUser(String subject, String message, String orderNo) {
+        driver.findElement(By.xpath(SUBJECT_DROPDOWN)).click();
+        Select select = new Select(driver.findElement(By.xpath(SUBJECT_DROPDOWN)));
+        select.selectByVisibleText(subject);
+        driver.findElement(By.xpath(MESSAGE_FIELD)).sendKeys(message);
+        driver.findElement(By.xpath(ORDER_NO_FIELD)).sendKeys(orderNo);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(SEND_BTN))));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+    }
+
 }
