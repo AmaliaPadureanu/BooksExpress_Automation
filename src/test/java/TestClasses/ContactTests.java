@@ -1,8 +1,6 @@
 package TestClasses;
 
-import Pages.LoginPage;
 import Pages.NavigationPage;
-import Utils.Constants;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,17 +34,6 @@ public class ContactTests extends BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         String message = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(MESSAGE_SENT_TEXT)))).getText();
         return message;
-    }
-
-    private void login() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
-    }
-
-    private void logout() {
-        loginPage = new LoginPage(driver);
-        loginPage.logout();
     }
 
 }

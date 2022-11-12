@@ -4,9 +4,16 @@ import Pages.ResultsPage;
 import Pages.SearchPage;
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class WishlistTests extends BaseTest {
+
+    @BeforeClass
+    public void wishlistTestsSetup() {
+        login();
+    }
 
     @Test
     public void addToWishlist() throws InterruptedException {
@@ -26,5 +33,10 @@ public class WishlistTests extends BaseTest {
         wishlistPage.removeItem();
         Thread.sleep(6000);
         Assert.assertTrue(wishlistPage.isEmpty());
+    }
+
+    @AfterClass
+    public void wishlistTestsTearDown() {
+        logout();
     }
 }

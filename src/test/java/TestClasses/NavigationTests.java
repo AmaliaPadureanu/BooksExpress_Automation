@@ -4,7 +4,6 @@ import Pages.NavigationPage;
 import Pages.NewsletterPage;
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class NavigationTests extends BaseTest {
@@ -19,7 +18,6 @@ public class NavigationTests extends BaseTest {
     public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
 
     @Test
-    @Ignore
     public void searchProductsCategoryTest() throws InterruptedException {
         navigationPage = new NavigationPage(driver);
         Assert.assertTrue(navigationPage.selectProductsCategory().contains("economie"));
@@ -60,7 +58,6 @@ public class NavigationTests extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void openNewsletterPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToNewsletter();

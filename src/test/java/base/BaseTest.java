@@ -24,13 +24,21 @@ public class BaseTest {
         driver = WebDriverFactory.getInstance().getDriver(browser);
         baseURL = Constants.BASE_URL;
         driver.get(baseURL);
-//        loginPage = new LoginPage(driver);
-//        loginPage.login();
-//        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
     }
 
     @AfterClass
     public void commonTearDown() {
         WebDriverFactory.getInstance().quitDriver();
+    }
+
+    public void login() {
+        loginPage = new LoginPage(driver);
+        loginPage.login();
+        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
+    }
+
+    public void logout() {
+        loginPage = new LoginPage(driver);
+        loginPage.logout();
     }
 }

@@ -4,7 +4,7 @@
     <test name="Login" preserve-order="true">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="TestClasses.ContactTests"></class>
+            <class name="TestClasses.ItemDetailsTests"></class>
         </classes>
     </test>
 </suite>
