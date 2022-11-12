@@ -6,16 +6,13 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsTests extends BaseTest {
 
-    @Test
-    @Ignore
+    @Test(enabled = false)
     public void getItemTitleTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Empire of Ashes");
@@ -23,8 +20,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemTitle().contains("the empire of ashes"));
     }
 
-    @Test
-    @Ignore
+    @Test(enabled = false)
     public void getItemAuthorTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Legion of Flame");
@@ -32,8 +28,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("anthony ryan"));
     }
 
-    @Test
-    @Ignore
+    @Test(enabled = false)
     public void exapandCollapseItemDescriptionTest() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
@@ -42,7 +37,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.readLess());
     }
 
-    @Test
+    @Test(enabled = false)
     public void rateTest() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Song of Achilles");
@@ -51,8 +46,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(getRating() == 4);
     }
 
-    @Test
-    @Ignore
+    @Test(enabled = false)
     public void seeAllByAuthor() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -60,8 +54,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Jason Hickel"));
     }
 
-    @Test
-    @Ignore
+    @Test(enabled = false)
     public void seeAllByPublisher() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -69,7 +62,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
-    @Test (enabled = false)
+    @Test
     public void writeReviewTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("ugly love");

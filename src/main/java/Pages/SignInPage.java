@@ -2,10 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.interactions.Actions;
 
 public class SignInPage {
 
@@ -24,10 +21,10 @@ public class SignInPage {
     private String CONFIRMA_PAROLA_FIELD = "//input[@id='confirm']";
     private String CREAZA_CONTUL_BTN = "//a[@id='submit']";
     private final String URL = "register";
-    String afterSignInURL = "user/details";
 
     public void open() {
-        driver.findElement(By.xpath(CONT_LINK)).click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
         driver.findElement(By.xpath(CONT_NOU_LINK)).click();
     }
 
@@ -35,16 +32,12 @@ public class SignInPage {
         return driver.getCurrentUrl().contains(URL);
     }
 
-    public void signInWith(String email, String prenume, String nume, String parola) {
+    public void signInWith(String email, String firstname, String lastname, String password) {
         driver.findElement(By.xpath(EMAIL_FIELD)).sendKeys(email);
-        driver.findElement(By.xpath(PRENUME_FIELD)).sendKeys(prenume);
-        driver.findElement(By.xpath(NUME_FIELD)).sendKeys(nume);
-        driver.findElement(By.xpath(PAROLA_FIELD)).sendKeys(parola);
-        driver.findElement(By.xpath(CONFIRMA_PAROLA_FIELD)).sendKeys(parola);
+        driver.findElement(By.xpath(PRENUME_FIELD)).sendKeys(firstname);
+        driver.findElement(By.xpath(NUME_FIELD)).sendKeys(lastname);
+        driver.findElement(By.xpath(PAROLA_FIELD)).sendKeys(password);
+        driver.findElement(By.xpath(CONFIRMA_PAROLA_FIELD)).sendKeys(password);
         driver.findElement(By.xpath(CREAZA_CONTUL_BTN)).click();
-        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.urlContains(afterSignInURL));
     }
 }

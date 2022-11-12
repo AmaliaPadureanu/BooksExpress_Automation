@@ -1,36 +1,46 @@
 package TestClasses;
 
+import Pages.LoginPage;
 import Pages.SignInPage;
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 public class SignInTests extends BaseTest {
 
-    String email = "testemail10@test.com";
-    String prenume = "Test";
-    String nume = "Test";
-    String parola = "testpass00";
-    String afterSignInURL = "user/details";
+    String afterSignInURL = "https://www.books-express.ro/user/details";
 
-    @Test
-    public void testSignIn() {
-        signInPage = new SignInPage(driver);
-        signInPage.open();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        signInPage.signInWith(email, prenume, nume, parola);
-        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-        Assert.assertTrue(driver.getCurrentUrl().contains(afterSignInURL));
+    @DataProvider
+    public Object[][] signInDataProvider() {
+        return new Object[][] {
+                {"nsmithtest@gmail.com", "Nicole", "Smith", "testpass123"},
+                {"mjonestest@gmail.com", "Marry", "Jones", "passtest321"},
+                {"joestest@gmail.com", "Joe", "Smith", "qatestpass99"},
+                {"mattjtest@gmail.com", "Matt", "Jones", "testqaqa60"}
+        };
     }
 
-    @Test
-    @Ignore
+    @Test (dataProvider = "signInDataProvider")
+    public void testSignIn(String email, String firstname, String lastname, String password) throws InterruptedException {
+        signInPage = new SignInPage(driver);
+        signInPage.open();
+        signInPage.signInWith(email, firstname, lastname, password);
+        Thread.sleep(2000);
+        Assert.assertTrue(driver.getCurrentUrl().equals(afterSignInURL));
+    }
+
+    @Test(enabled = false)
     public void open() {
         signInPage = new SignInPage(driver);
         signInPage.open();
         Assert.assertTrue(signInPage.isOpen());
+    }
+
+    @AfterMethod
+    public void cleanup() {
+        loginPage = new LoginPage(driver);
+        loginPage.logout();
     }
 }

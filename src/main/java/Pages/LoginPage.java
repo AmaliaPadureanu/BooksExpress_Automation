@@ -26,7 +26,8 @@ public class LoginPage {
 
 
     public void login() {
-        driver.findElement(By.xpath(CONT_LINK)).click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
         driver.findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
     }
 

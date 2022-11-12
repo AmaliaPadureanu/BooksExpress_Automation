@@ -1,37 +1,52 @@
 package TestClasses;
 
 import Pages.LoginPage;
-import Utils.Constants;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
     public String USER_INFO = "//a[normalize-space()='Info']";
 
-    @Test
-    public void loginWithTest() throws InterruptedException {
+    @DataProvider
+    public Object[][] loginDataProvider() {
+        return new Object[][] {
+                {"nsmithtest@gmail.com", "testpass123"},
+                {"mjonestest@gmail.com", "passtest321"},
+                {"joestest@gmail.com", "qatestpass99"},
+                {"mattjtest@gmail.com", "testqaqa60"}
+        };
+    }
+
+    @Test (dataProvider = "loginDataProvider")
+    public void loginWithTest(String email, String password) throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
+        loginPage.logInWith(email, password);
         Thread.sleep(3000);
         Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
     }
 
-    @Test
-    @Ignore
+    @Test (enabled = false)
     public void openLoginPageTest() {
         loginPage = new LoginPage(driver);
         loginPage.login();
         Assert.assertTrue(loginPage.isOpen());
     }
 
-    @Test
+    @Test (enabled = false)
     public void logoutTest() {
         loginPage = new LoginPage(driver);
         Assert.assertEquals(loginPage.logout(), 2);
+    }
+
+    @AfterMethod
+    public void cleanup() {
+        loginPage = new LoginPage(driver);
+        loginPage.logout();
     }
 }

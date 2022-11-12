@@ -21,7 +21,7 @@ public class ItemDetailsPage {
     private String ITEM_AUTHOR = "a[itemprop='author']";
     private String READ_MORE_BTN = "//a[@class='read-more']";
     private String READ_LESS_BTN = "//a[@class='read-less']";
-    private String ITEM_DESCRIPTION_EXPANDED = "//main//br[last()]";
+    private String ITEM_DESCRIPTION_EXPANDED = "//p[contains(text(),'What really happened during the Dance of the Drago')]";
     private String RATE_STARS = ".stars>a";
     private String AUTHOR_LINK = "//a[@itemprop='author']";
     private String PUBLISHER_LINK = "//a[@itemprop='publisher']";
@@ -103,7 +103,6 @@ public class ItemDetailsPage {
     }
 
     public void writeReview(Integer rating, Boolean postAnonymous, String reviewText) {
-        driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
         driver.findElement(By.xpath(REVIEW_BTN)).click();
         driver.switchTo().activeElement();
 

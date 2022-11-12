@@ -1,67 +1,44 @@
 package TestClasses;
 
-import Pages.LoginPage;
 import Pages.NavigationPage;
-import Utils.Constants;
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-
 public class UserDetailsTests extends BaseTest {
 
     @Test
     public void editUserTitleTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
-        Assert.assertTrue(userDetailsPage.editUserTitle('M').equals("Dl."));
+        Assert.assertTrue(userDetailsPage.editUserTitle('F').equals("Dna."));
     }
 
     @Test
-    @Ignore
     public void editUserFirstNameTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
-        Assert.assertTrue(userDetailsPage.editFirstName("John").contains("John"));
+        Assert.assertTrue(userDetailsPage.editFirstName("Sarah").contains("Sarah"));
     }
 
     @Test
-    @Ignore
     public void editUserLastNameTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
-        Assert.assertTrue(userDetailsPage.editLastName("Smith").contains("Smith"));
+        Assert.assertTrue(userDetailsPage.editLastName("Doe").contains("Doe"));
     }
 
     @Test
-    @Ignore
     public void editPhoneNumberTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
-        Assert.assertTrue(userDetailsPage.editPhoneNumber("0947583945").equals("0947583945"));
+        Assert.assertTrue(userDetailsPage.editPhoneNumber("0947683945").equals("0947683945"));
     }
 
     @Test
-    @Ignore
     public void editEmailTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
-        Assert.assertTrue(userDetailsPage.editEmail("automationtesting630@gmail.com").equals("automationtesting630@gmail.com"));
+        Assert.assertTrue(userDetailsPage.editEmail("automationtesting631@gmail.com").equals("automationtesting631@gmail.com"));
     }
 
 }
