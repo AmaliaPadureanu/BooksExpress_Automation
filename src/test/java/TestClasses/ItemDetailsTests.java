@@ -1,14 +1,15 @@
 package TestClasses;
 
-import Pages.LoginPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
-import Utils.Constants;
 import base.BaseTest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsTests extends BaseTest {
@@ -42,16 +43,12 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void rateTest() throws InterruptedException {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
-        Thread.sleep(2000);
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Song of Achilles");
         itemDetailsPage = resultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.rate(3) == 4);
+        itemDetailsPage.rate(3);
+        Assert.assertTrue(getRating() == 4);
     }
 
     @Test
@@ -72,7 +69,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
-    @Test
+    @Test (enabled = false)
     public void writeReviewTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("ugly love");
@@ -80,9 +77,16 @@ public class ItemDetailsTests extends BaseTest {
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.SECONDS);
         int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
         Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
+    }
+
+    private int getRating() throws InterruptedException {
+        driver.navigate().refresh();
+        Thread.sleep(2000);
+        List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
+        return ratingGiven.size();
     }
 
 }

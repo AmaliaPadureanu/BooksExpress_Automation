@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsPage {
 
@@ -76,13 +77,10 @@ public class ItemDetailsPage {
         return true;
     }
 
-    public int rate(int rating) {
+    public void rate(int rating) throws InterruptedException {
         List<WebElement> stars = driver.findElements(By.cssSelector(RATE_STARS));
         stars.get(rating).click();
-        driver.navigate().refresh();
-        List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
-        System.out.println(ratingGiven.size());
-        return ratingGiven.size();
+        Thread.sleep(2000);
     }
 
     public String seeAllByAuthor() throws InterruptedException {
