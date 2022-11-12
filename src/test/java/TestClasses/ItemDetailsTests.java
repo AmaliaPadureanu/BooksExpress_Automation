@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class ItemDetailsTests extends BaseTest {
 
     @Test
@@ -71,17 +73,14 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    public void writeReviewTest() throws InterruptedException {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
+    public void writeReviewTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("ugly love");
         itemDetailsPage = resultsPage.getItemDetailsPage();
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
-        Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
         Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
     }

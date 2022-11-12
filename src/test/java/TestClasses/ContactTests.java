@@ -8,8 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
-
 public class ContactTests extends BaseTest {
 
     private String MESSAGE_SENT_TEXT = "//div[@id='success']//div[1]";
@@ -27,7 +25,6 @@ public class ContactTests extends BaseTest {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
         contactPage.sendContactFormRegisteredUser("Unde este comanda mea?", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "34667");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
     }
 
