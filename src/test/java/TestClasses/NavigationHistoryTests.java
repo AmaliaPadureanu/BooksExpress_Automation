@@ -16,7 +16,7 @@ public class NavigationHistoryTests extends BaseTest {
     }
 
     @Test
-    public void getUserNavigationHistory() {
+    public void getUserNavigationHistoryTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("It Starts with Us");
         itemDetailsPage = resultsPage.getItemDetailsPage();

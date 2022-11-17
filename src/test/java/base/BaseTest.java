@@ -18,6 +18,7 @@ public class BaseTest {
     protected ItemDetailsPage itemDetailsPage;
     protected UserDetailsPage userDetailsPage;
     protected NavigationHistoryPage navigationHistoryPage;
+    protected ListsPage listsPage;
 
     @BeforeClass
     @Parameters({"browser"})
