@@ -17,6 +17,7 @@ public class BaseTest {
     protected WishlistPage wishlistPage;
     protected ItemDetailsPage itemDetailsPage;
     protected UserDetailsPage userDetailsPage;
+    protected NavigationHistoryPage navigationHistoryPage;
 
     @BeforeClass
     @Parameters({"browser"})

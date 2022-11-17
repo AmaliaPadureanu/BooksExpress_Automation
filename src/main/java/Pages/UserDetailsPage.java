@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDetailsPage {
 
     WebDriver driver;
@@ -91,4 +94,5 @@ public class UserDetailsPage {
         String newEmail = driver.findElement(By.cssSelector(EMAIL)).getText();
         return newEmail;
     }
+
 }

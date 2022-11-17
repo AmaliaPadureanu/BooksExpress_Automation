@@ -26,6 +26,7 @@ public class NavigationPage {
     private String BUSINESS_CATEGORY = "//a[text()=' Business']";
     private String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
     private String PERSONAL_INFO = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
+    private String NAVIGATION_HISTORY = "//a[normalize-space()='Istoric de navigare']";
 
 
     public String selectProductsCategory() throws InterruptedException {
@@ -82,6 +83,13 @@ public class NavigationPage {
         actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
         driver.findElement(By.xpath(PERSONAL_INFO)).click();
         return new UserDetailsPage(driver);
+    }
+
+    public NavigationHistoryPage navigateToUserNavigationHistory() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
+        driver.findElement(By.xpath(NAVIGATION_HISTORY)).click();
+        return new NavigationHistoryPage(driver);
     }
 
 }
