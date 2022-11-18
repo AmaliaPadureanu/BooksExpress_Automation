@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Login Suite">
-    <test name="Login">
+<suite name="Item details Suite">
+    <test name="Item Details">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="TestClasses.LoginTests"></class>
+            <class name="TestClasses.ItemDetailsTests"></class>
         </classes>
     </test>
 </suite>

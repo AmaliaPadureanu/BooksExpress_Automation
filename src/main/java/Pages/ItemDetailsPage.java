@@ -24,7 +24,6 @@ public class ItemDetailsPage {
     private String ITEM_AUTHOR = "a[itemprop='author']";
     private String READ_MORE_BTN = "//a[@class='read-more']";
     private String READ_LESS_BTN = "//a[@class='read-less']";
-    private String ITEM_DESCRIPTION_EXPANDED = "//p[contains(text(),'What really happened during the Dance of the Drago')]";
     private String RATE_STARS = ".stars>a";
     private String AUTHOR_LINK = "//a[@itemprop='author']";
     private String PUBLISHER_LINK = "//a[@itemprop='publisher']";
@@ -66,7 +65,7 @@ public class ItemDetailsPage {
     public boolean readMore() throws InterruptedException {
         driver.findElement(By.xpath(READ_MORE_BTN)).click();
         Thread.sleep(2000);
-        if (driver.findElement(By.xpath(ITEM_DESCRIPTION_EXPANDED)).isDisplayed()) {
+        if (driver.findElement(By.xpath(READ_MORE_BTN)).getAttribute("style").equals("display: none;")) {
            return true;
         }
         return false;
@@ -76,10 +75,10 @@ public class ItemDetailsPage {
         WebElement element = driver.findElement(By.xpath(READ_LESS_BTN));
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 
-        if (driver.findElement(By.xpath(ITEM_DESCRIPTION_EXPANDED)).isDisplayed()) {
-            return false;
+        if (driver.findElement(By.xpath(READ_LESS_BTN)).getAttribute("style").equals("display: none;")) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void rate(int rating) throws InterruptedException {
@@ -134,7 +133,6 @@ public class ItemDetailsPage {
                 list.click();
             }
         }
-
     }
 
 }

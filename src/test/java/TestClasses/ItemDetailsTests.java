@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsTests extends BaseTest {
 
-    @Test(enabled = false)
+    @Test
     public void getItemTitleTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Empire of Ashes");
@@ -21,7 +21,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemTitle().contains("the empire of ashes"));
     }
 
-    @Test(enabled = false)
+    @Test
     public void getItemAuthorTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Legion of Flame");
@@ -29,7 +29,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("anthony ryan"));
     }
 
-    @Test(enabled = false)
+    @Test
     public void exapandCollapseItemDescriptionTest() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
@@ -38,7 +38,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.readLess());
     }
 
-    @Test(enabled = false)
+    @Test
     public void rateTest() throws InterruptedException {
         login();
         searchPage = new SearchPage(driver);
@@ -49,7 +49,7 @@ public class ItemDetailsTests extends BaseTest {
         logout();
     }
 
-    @Test(enabled = false)
+    @Test
     public void seeAllByAuthor() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -57,7 +57,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Jason Hickel"));
     }
 
-    @Test(enabled = false)
+    @Test
     public void seeAllByPublisher() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -65,7 +65,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
-    @Test (enabled = false)
+    @Test
     public void writeReviewTest() {
         login();
         searchPage = new SearchPage(driver);
@@ -76,7 +76,7 @@ public class ItemDetailsTests extends BaseTest {
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.SECONDS);
         int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
-        Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
+        Assert.assertTrue(nrOfReviewsAfter == (nrOfReviewsBefore + 1));
         logout();
     }
 
@@ -98,6 +98,7 @@ public class ItemDetailsTests extends BaseTest {
         itemDetailsPage.addToList("testtest");
         Thread.sleep(5000);
         Assert.assertTrue(listsPage.getItemsInList("testtest").contains("The Song of Achilles"));
+        logout();
     }
 
 }
