@@ -23,7 +23,8 @@ public class NavigationPage {
     private String BLOG_LINK = "//div[@id='submenu']//a[normalize-space()='Blog']";
     private String NEWSLETTER_LINK = "//a[contains(text(),'Abonează-te la newsletter!')]";
     private String CONTACT_LINK = "//a[normalize-space()='Contact']";
-    private String BUSINESS_CATEGORY = "//a[text()=' Business']";
+    private String PRODUCTS_LINK = "//a[@id='products']";
+    private String BUSINESS_CATEGORY = "//a[@class='category-menu'][normalize-space()='Business']";
     private String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
     private String PERSONAL_INFO = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
     private String NAVIGATION_HISTORY = "//a[normalize-space()='Istoric de navigare']";
@@ -32,8 +33,11 @@ public class NavigationPage {
     public String selectProductsCategory() throws InterruptedException {
         Actions actions = new Actions(driver);
 
+        WebElement products = driver.findElement(By.xpath(PRODUCTS_LINK));
         WebElement business = driver.findElement(By.xpath(BUSINESS_CATEGORY));
 
+        actions.moveToElement(products).perform();
+        Thread.sleep(2000);
         actions.moveToElement(business).perform();
 
         WebElement element = driver.findElement(By.partialLinkText("Economie"));
