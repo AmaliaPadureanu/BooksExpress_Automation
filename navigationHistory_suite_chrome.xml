@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Navigation History Suite">
+    <test name="Navigation History">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.NavigationHistoryTests"></class>
+        </classes>
+    </test>
+</suite>
