@@ -1,7 +1,6 @@
 package TestClasses;
 
 import Pages.NavigationPage;
-import Pages.NewsletterPage;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,7 +14,6 @@ public class NavigationTests extends BaseTest {
     public String BLOG_URL = "https://www.books-express.ro/blog/";
     public String NEWSLETTER_URL = "https://www.books-express.ro/newsletter";
     public String CONTACT_URL = "https://www.books-express.ro/contact";
-    public String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
 
     @Test
     public void searchProductsCategoryTest() throws InterruptedException {
@@ -70,13 +68,4 @@ public class NavigationTests extends BaseTest {
         navigationPage.navigateToContact();
         Assert.assertTrue(driver.getCurrentUrl().equals(CONTACT_URL));
     }
-
-    @Test
-    public void subscribeToNewsletter() {
-        navigationPage = new NavigationPage(driver);
-        NewsletterPage newsletterPage = navigationPage.navigateToNewsletter();
-        newsletterPage.subscribeToNewsletter("funnyb@yaho.com", "Funny Bunny", 3);
-        Assert.assertNotNull(AFTER_SUBSCRIBE_MESSAGE);
-    }
-
 }
