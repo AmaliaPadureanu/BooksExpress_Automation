@@ -1,6 +1,6 @@
 package TestClasses;
 
-import Pages.ResultsPage;
+import Pages.SearchResultsPage;
 import Pages.SearchPage;
 import base.BaseTest;
 import org.testng.Assert;
@@ -18,8 +18,8 @@ public class WishlistTests extends BaseTest {
     @Test
     public void addToWishlist() throws InterruptedException {
         searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("the secret history");
-        itemDetailsPage = resultsPage.getItemDetailsPage();
+        SearchResultsPage searchResultsPage = searchPage.search("the secret history");
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
         String title = itemDetailsPage.getItemTitle();
         wishlistPage = itemDetailsPage.addToWishlist();
         Thread.sleep(6000);

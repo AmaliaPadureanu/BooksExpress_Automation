@@ -15,13 +15,13 @@ public class SearchPage {
     private String SEARCH_BAR = "//input[@id='search']";
     private String SEARCH_BTN = "//button[@type='submit']";
 
-    public ResultsPage search(String item) {
+    public SearchResultsPage search(String item) {
         WebElement searchBar = driver.findElement(By.xpath(SEARCH_BAR));
         searchBar.click();
         searchBar.clear();
         searchBar.sendKeys(item);
         driver.findElement(By.xpath(SEARCH_BTN)).click();
-        return new ResultsPage(driver);
+        return new SearchResultsPage(driver);
     }
 
 

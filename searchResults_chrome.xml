@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Search Results Suite">
+    <test name="Search Results">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.SearchResultsTests"></class>
+        </classes>
+    </test>
+</suite>

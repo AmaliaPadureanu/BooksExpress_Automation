@@ -1,6 +1,6 @@
 package TestClasses;
 
-import Pages.ResultsPage;
+import Pages.SearchResultsPage;
 import Pages.SearchPage;
 import Pages.ShoppingCartPage;
 import base.BaseTest;
@@ -12,8 +12,8 @@ public class ShoppingCartTests extends BaseTest {
     @Test
     public void addToCartTest() {
         searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("George Martin");
-        itemDetailsPage = resultsPage.getItemDetailsPage();
+        SearchResultsPage searchResultsPage = searchPage.search("George Martin");
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 

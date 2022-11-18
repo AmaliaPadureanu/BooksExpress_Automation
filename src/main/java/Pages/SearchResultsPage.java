@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ResultsPage {
+public class SearchResultsPage {
 
     WebDriver driver;
 
-    public ResultsPage(WebDriver driver) {
+    public SearchResultsPage(WebDriver driver) {
         this.driver = driver;
     }
 

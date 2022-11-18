@@ -1,7 +1,7 @@
 package TestClasses;
 
 import Pages.NavigationPage;
-import Pages.ResultsPage;
+import Pages.SearchResultsPage;
 import Pages.SearchPage;
 import base.BaseTest;
 import org.testng.Assert;
@@ -18,8 +18,8 @@ public class NavigationHistoryTests extends BaseTest {
     @Test
     public void getUserNavigationHistoryTest() {
         searchPage = new SearchPage(driver);
-        ResultsPage resultsPage = searchPage.search("It Starts with Us");
-        itemDetailsPage = resultsPage.getItemDetailsPage();
+        SearchResultsPage searchResultsPage = searchPage.search("It Starts with Us");
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
         navigationPage = new NavigationPage(driver);
         navigationHistoryPage = navigationPage.navigateToUserNavigationHistory();
         Assert.assertFalse(navigationHistoryPage.getNavigationHistory().isEmpty());
