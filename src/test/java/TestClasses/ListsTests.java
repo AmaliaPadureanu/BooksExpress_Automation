@@ -16,8 +16,9 @@ public class ListsTests extends BaseTest {
     @Test
     public void createListTest() throws InterruptedException {
         listsPage = new ListsPage(driver);
-        listsPage.createList("new list");
+        listsPage.createList("testing list");
         driver.navigate().refresh();
-        Assert.assertTrue(listsPage.getListsCreatedByUser().contains("new list"));
+        Assert.assertFalse(listsPage.getListsCreatedByUser().isEmpty());
+        Assert.assertTrue(listsPage.getListsCreatedByUser().contains("testing list"));
     }
 }
