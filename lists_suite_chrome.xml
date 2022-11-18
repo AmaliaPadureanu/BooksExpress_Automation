@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Lists Suite">
+    <test name="Lists">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.ListsTests"></class>
+        </classes>
+    </test>
+</suite>
