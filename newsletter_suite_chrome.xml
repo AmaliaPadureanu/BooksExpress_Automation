@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Newsletter Suite">
+    <test name="Newsletter">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.NewsletterTests"></class>
+        </classes>
+    </test>
+</suite>
