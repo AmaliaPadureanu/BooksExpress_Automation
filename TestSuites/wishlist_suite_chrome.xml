@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Wishlist Suite">
+    <test name="Wishlist">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.WishlistTests"></class>
+        </classes>
+    </test>
+</suite>
