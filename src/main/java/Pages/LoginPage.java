@@ -22,17 +22,11 @@ public class LoginPage {
     private String CONTINUA_BTN = "//a[@id='email-button']";
     private String PASSWORD_FIELD = "//input[@id='password']";
     private String LOGOUT_BTN = "//a[normalize-space()='Log out']";
-    private final String URL = "login";
 
-
-    public void login() {
+    public void open() {
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
         driver.findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
-    }
-
-    public boolean isOpen() {
-        return driver.getCurrentUrl().contains(URL);
     }
 
     public void logInWith(String email, String password) {

@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Sign In Suite">
+    <test name="SignIn">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.SignInTests"></class>
+        </classes>
+    </test>
+</suite>

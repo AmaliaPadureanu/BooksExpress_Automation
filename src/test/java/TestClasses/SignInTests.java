@@ -31,13 +31,6 @@ public class SignInTests extends BaseTest {
         Assert.assertTrue(driver.getCurrentUrl().equals(afterSignInURL));
     }
 
-    @Test(enabled = false)
-    public void open() {
-        signInPage = new SignInPage(driver);
-        signInPage.open();
-        Assert.assertTrue(signInPage.isOpen());
-    }
-
     @AfterMethod
     public void cleanup() {
         loginPage = new LoginPage(driver);

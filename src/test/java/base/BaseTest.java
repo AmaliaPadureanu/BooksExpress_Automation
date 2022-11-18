@@ -35,7 +35,7 @@ public class BaseTest {
 
     public void login() {
         loginPage = new LoginPage(driver);
-        loginPage.login();
+        loginPage.open();
         loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
     }
 

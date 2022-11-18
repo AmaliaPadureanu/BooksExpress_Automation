@@ -20,16 +20,11 @@ public class SignInPage {
     private String PAROLA_FIELD = "//input[@id='password']";
     private String CONFIRMA_PAROLA_FIELD = "//input[@id='confirm']";
     private String CREAZA_CONTUL_BTN = "//a[@id='submit']";
-    private final String URL = "register";
 
     public void open() {
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
         driver.findElement(By.xpath(CONT_NOU_LINK)).click();
-    }
-
-    public boolean isOpen() {
-        return driver.getCurrentUrl().contains(URL);
     }
 
     public void signInWith(String email, String firstname, String lastname, String password) {

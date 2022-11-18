@@ -25,23 +25,10 @@ public class LoginTests extends BaseTest {
     @Test (dataProvider = "loginDataProvider")
     public void loginWithTest(String email, String password) throws InterruptedException {
         loginPage = new LoginPage(driver);
-        loginPage.login();
+        loginPage.open();
         loginPage.logInWith(email, password);
         Thread.sleep(3000);
         Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
-    }
-
-    @Test (enabled = false)
-    public void openLoginPageTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.login();
-        Assert.assertTrue(loginPage.isOpen());
-    }
-
-    @Test (enabled = false)
-    public void logoutTest() {
-        loginPage = new LoginPage(driver);
-        Assert.assertEquals(loginPage.logout(), 2);
     }
 
     @AfterMethod
