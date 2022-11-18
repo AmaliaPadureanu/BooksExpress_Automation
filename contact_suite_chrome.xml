@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression Login Suite">
+    <test name="Login">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="TestClasses.ContactTests"></class>
+        </classes>
+    </test>
+</suite>

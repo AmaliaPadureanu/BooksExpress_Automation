@@ -12,7 +12,7 @@ public class ContactTests extends BaseTest {
 
     private String MESSAGE_SENT_TEXT = "//div[@id='success']//div[1]";
 
-    @Test (enabled = true)
+    @Test
     public void sendContactFormUnregisteredUserTest() {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
@@ -20,7 +20,7 @@ public class ContactTests extends BaseTest {
         Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
     }
 
-    @Test (enabled = true)
+    @Test
     public void sendContactFormRegisteredUserTest() {
         login();
         NavigationPage navigationPage = new NavigationPage(driver);
