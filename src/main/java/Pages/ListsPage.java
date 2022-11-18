@@ -20,7 +20,8 @@ public class ListsPage {
     private String CREATE_LIST_OPTION = "//a[contains(text(),'Creează o listă')]";
     private String TITLE_INPUT = "//input[@id='list_new_title']";
     private String CREATE_BTN = "//a[@id='list-new-create']";
-    private String LIST_CREATED_BY_USER = "//div[@id='lists-data']//ul[@class='jq-dropdown-menu']//li[@class='user-list']/a";
+    private String LISTS_CREATED_BY_USER = "//div[@id='lists-data']//ul[@class='jq-dropdown-menu']//li[@class='user-list']/a";
+    private String ITEMS_IN_LIST = "//ul[@id='list-items']//li//h4//a";
 
 
     public void createList(String listName) throws InterruptedException {
@@ -38,12 +39,38 @@ public class ListsPage {
         actions.moveToElement(driver.findElement(By.xpath(LISTS))).perform();
 
         List<String> listsNames = new ArrayList<>();
-        List<WebElement> lists = driver.findElements(By.xpath(LIST_CREATED_BY_USER));
+        List<WebElement> lists = driver.findElements(By.xpath(LISTS_CREATED_BY_USER));
 
         for (WebElement list : lists) {
             listsNames.add(list.getText());
         }
 
         return listsNames;
+    }
+
+    public List<String> getItemsInList (String listName) throws InterruptedException {
+        List<String> itemsInList = new ArrayList<>();
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(LISTS))).perform();
+
+        List<WebElement> lists = driver.findElements(By.xpath(LISTS_CREATED_BY_USER));
+
+        for (WebElement list : lists) {
+            if(list.getText().equals(listName)) {
+                list.click();
+                break;
+            }
+        }
+
+        Thread.sleep(2000);
+
+        List<WebElement> items = driver.findElements(By.xpath(ITEMS_IN_LIST));
+
+        for (WebElement item : items) {
+            itemsInList.add(item.getText().substring(3));
+        }
+
+        return itemsInList;
     }
 }

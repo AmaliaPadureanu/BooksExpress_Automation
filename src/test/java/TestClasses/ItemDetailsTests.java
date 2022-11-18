@@ -1,5 +1,6 @@
 package TestClasses;
 
+import Pages.ListsPage;
 import Pages.ResultsPage;
 import Pages.SearchPage;
 import base.BaseTest;
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsTests extends BaseTest {
 
-    @Test
+    @Test(enabled = false)
     public void getItemTitleTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Empire of Ashes");
@@ -20,7 +21,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemTitle().contains("the empire of ashes"));
     }
 
-    @Test
+    @Test(enabled = false)
     public void getItemAuthorTest() {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("The Legion of Flame");
@@ -28,7 +29,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("anthony ryan"));
     }
 
-    @Test
+    @Test(enabled = false)
     public void exapandCollapseItemDescriptionTest() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("George Martin");
@@ -37,7 +38,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.readLess());
     }
 
-    @Test
+    @Test(enabled = false)
     public void rateTest() throws InterruptedException {
         login();
         searchPage = new SearchPage(driver);
@@ -48,7 +49,7 @@ public class ItemDetailsTests extends BaseTest {
         logout();
     }
 
-    @Test
+    @Test(enabled = false)
     public void seeAllByAuthor() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -56,7 +57,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Jason Hickel"));
     }
 
-    @Test
+    @Test(enabled = false)
     public void seeAllByPublisher() throws InterruptedException {
         searchPage = new SearchPage(driver);
         ResultsPage resultsPage = searchPage.search("less is more");
@@ -64,7 +65,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
-    @Test
+    @Test (enabled = false)
     public void writeReviewTest() {
         login();
         searchPage = new SearchPage(driver);
@@ -84,6 +85,19 @@ public class ItemDetailsTests extends BaseTest {
         Thread.sleep(2000);
         List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
         return ratingGiven.size();
+    }
+
+    @Test
+    public void addToListTest() throws InterruptedException {
+        login();
+        searchPage = new SearchPage(driver);
+        listsPage = new ListsPage(driver);
+        ResultsPage resultsPage = searchPage.search("The Song of Achilles");
+        itemDetailsPage = resultsPage.getItemDetailsPage();
+        Thread.sleep(2000);
+        itemDetailsPage.addToList("testtest");
+        Thread.sleep(5000);
+        Assert.assertTrue(listsPage.getItemsInList("testtest").contains("The Song of Achilles"));
     }
 
 }

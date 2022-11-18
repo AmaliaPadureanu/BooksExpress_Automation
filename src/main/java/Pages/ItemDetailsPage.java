@@ -1,10 +1,13 @@
 package Pages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsPage {
 
@@ -34,6 +37,8 @@ public class ItemDetailsPage {
     private String REVIEWS = "//section[@id='product-reviews']//div[@class='read-text serif']//h4[contains(.,'a dat nota: ')]";
     private String MODIFY_REVIEW_BTN = "//a[@id='modify-review']";
     private String REMOVE_REVIEW_BTN = "//a[@id='remove-review']";
+    private String LISTS_DROPDOWN = "//i[@class='fa fa-down-open icon-right']";
+    private String LISTS = "//a[@class='add2this-list']";
 
     public boolean isOpen() {
         return driver.getCurrentUrl().contains(URL);
@@ -116,6 +121,20 @@ public class ItemDetailsPage {
 
         driver.findElement(By.xpath(TEXT_INPUT)).sendKeys(reviewText);
         driver.findElement(By.xpath(SAVE_REVIEW_BTN)).click();
+    }
+
+    public void addToList(String listName) {
+        WebElement element = driver.findElement(By.xpath(LISTS_DROPDOWN));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+
+        List<WebElement> lists = driver.findElements(By.xpath(LISTS));
+
+        for (WebElement list : lists) {
+            if (list.getText().equals(listName)) {
+                list.click();
+            }
+        }
+
     }
 
 }
