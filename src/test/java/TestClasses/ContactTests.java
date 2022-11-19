@@ -1,7 +1,7 @@
 package TestClasses;
 
 import Pages.NavigationPage;
-import Utils.WaitsUtils;
+import Utils.WaitTestUtils;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -28,7 +28,7 @@ public class ContactTests extends BaseTest {
     }
 
     private String getConfirmationMessage() {
-       return WaitsUtils.waitForVisibilityOf(driver, By.xpath("//div[@id='success']//div[1]"), 5).getText();
+       return WaitTestUtils.waitForVisibilityOf(driver, By.xpath("//div[@id='success']//div[1]"), 5).getText();
     }
 
 }

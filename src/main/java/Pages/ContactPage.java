@@ -1,6 +1,6 @@
 package Pages;
 
-import Utils.WaitUtils;
+import Utils.WaitPageUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +22,7 @@ public class ContactPage {
         driver.findElement(By.id("name")).sendKeys(name);
         driver.findElement(By.id("email")).sendKeys(email);
         driver.findElement(By.id("order_number")).sendKeys(orderNo);
-        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(driver, By.id("send-message"), 5);
+        WebElement sendBtn = WaitPageUtils.waitForElementToBeClickable(driver, By.id("send-message"), 5);
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", sendBtn);
     }
 
@@ -31,7 +31,7 @@ public class ContactPage {
         select.selectByVisibleText(subject);
         driver.findElement(By.id("message")).sendKeys(message);
         driver.findElement(By.id("order_number")).sendKeys(orderNo);
-        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(driver, By.id("send-message"), 5);
+        WebElement sendBtn = WaitPageUtils.waitForElementToBeClickable(driver, By.id("send-message"), 5);
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", sendBtn);
     }
 
