@@ -1,16 +1,13 @@
 package TestClasses;
 
 import Pages.NavigationPage;
+import Utils.WaitsUtils;
 import base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ContactTests extends BaseTest {
-
-    private String MESSAGE_SENT_TEXT = "//div[@id='success']//div[1]";
 
     @Test
     public void sendContactFormUnregisteredUserTest() {
@@ -31,9 +28,7 @@ public class ContactTests extends BaseTest {
     }
 
     private String getConfirmationMessage() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        String message = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(MESSAGE_SENT_TEXT)))).getText();
-        return message;
+       return WaitsUtils.waitForVisibilityOf(driver, By.xpath("//div[@id='success']//div[1]"), 5).getText();
     }
 
 }
