@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.WaitPageUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -45,8 +46,7 @@ public class ItemDetailsPage {
 
     public boolean addToCart() {
         driver.findElement(By.xpath(ADAUGA_IN_COS_BTN)).click();
-        WebDriverWait wait = new WebDriverWait(driver, 6);
-        return wait.until(ExpectedConditions.urlContains("cart/added/"));
+        return WaitPageUtils.waitForUrlToContain(driver, "cart/added", 5);
     }
 
     public WishlistPage addToWishlist() {

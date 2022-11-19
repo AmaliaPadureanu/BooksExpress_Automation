@@ -17,14 +17,14 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 
-    @Test
+    @Test (enabled = false)
     public void changeQuantityTest() {
         shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.navigateToCart();
         Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
-    @Test
+    @Test (enabled = false)
     public void removeFromCartTest() throws InterruptedException {
         shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.navigateToCart();
