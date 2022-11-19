@@ -13,36 +13,50 @@ import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsTests extends BaseTest {
 
+    String searchText;
+
     @Test
     public void getItemTitleTest() {
+        searchText = "The Empire of Ashes";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("The Empire of Ashes");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.getItemTitle().contains("the empire of ashes"));
+        Assert.assertTrue(itemDetailsPage.getItemTitle().contains(searchText.toLowerCase()));
     }
 
     @Test
     public void getItemAuthorTest() {
+        searchText = "The Legion of Flame";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("The Legion of Flame");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("anthony ryan"));
     }
 
     @Test
-    public void exapandCollapseItemDescriptionTest() throws InterruptedException {
+    public void exapandCollapseItemDescriptionTest() {
+        searchText = "George Martin";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("George Martin");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.readMore());
         Assert.assertTrue(itemDetailsPage.readLess());
     }
 
     @Test
-    public void rateTest() throws InterruptedException {
+    public void rateTest() {
+        searchText = "The Song of Achilles";
         login();
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("The Song of Achilles");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         itemDetailsPage.rate(3);
         Assert.assertTrue(getRating() == 4);
@@ -50,26 +64,35 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    public void seeAllByAuthor() throws InterruptedException {
+    public void seeAllByAuthor() {
+        searchText = "less is more";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("less is more");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Jason Hickel"));
     }
 
     @Test
-    public void seeAllByPublisher() throws InterruptedException {
+    public void seeAllByPublisher() {
+        searchText = "less is more";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("less is more");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
     @Test
     public void writeReviewTest() {
+        searchText = "ugly love";
         login();
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("ugly love");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
@@ -80,23 +103,26 @@ public class ItemDetailsTests extends BaseTest {
         logout();
     }
 
-    private int getRating() throws InterruptedException {
+    private int getRating() {
         driver.navigate().refresh();
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         return ratingGiven.size();
     }
 
     @Test
     public void addToListTest() throws InterruptedException {
+        searchText = "The Song of Achilles";
         login();
         searchPage = new SearchPage(driver);
         listsPage = new ListsPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("The Song of Achilles");
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
+                .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         itemDetailsPage.addToList("testtest");
-        Thread.sleep(5000);
         Assert.assertTrue(listsPage.getItemsInList("testtest").contains("The Song of Achilles"));
         logout();
     }

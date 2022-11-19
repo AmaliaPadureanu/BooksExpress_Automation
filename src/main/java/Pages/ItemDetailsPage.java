@@ -1,12 +1,10 @@
 package Pages;
 
 import Utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsPage {
 
@@ -16,7 +14,6 @@ public class ItemDetailsPage {
         this.driver = driver;
     }
 
-    private String URL = "/p/";
     private String ADAUGA_IN_COS_BTN = "//a[@class='add2cart danger button full icon fa-basket']";
     private String WISHLIST_BTN = "//a[@class='4u plain align-center add2list-btn']//i[@class='fa fa-heart']";
     private String ITEM_TITLE = "section[id='book-main'] span[itemprop='name']";
@@ -38,10 +35,6 @@ public class ItemDetailsPage {
     private String LISTS_DROPDOWN = "//i[@class='fa fa-down-open icon-right']";
     private String LISTS = "//a[@class='add2this-list']";
 
-    public boolean isOpen() {
-        return driver.getCurrentUrl().contains(URL);
-    }
-
     public boolean addToCart() {
         driver.findElement(By.xpath(ADAUGA_IN_COS_BTN)).click();
         return WaitUtils.waitForUrlToContain(driver, "cart/added", 5);
@@ -60,9 +53,9 @@ public class ItemDetailsPage {
         return driver.findElement(By.cssSelector(ITEM_AUTHOR)).getText().toLowerCase();
     }
 
-    public boolean readMore() throws InterruptedException {
+    public boolean readMore() {
         driver.findElement(By.xpath(READ_MORE_BTN)).click();
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         if (driver.findElement(By.xpath(READ_MORE_BTN)).getAttribute("style").equals("display: none;")) {
            return true;
         }
@@ -72,31 +65,31 @@ public class ItemDetailsPage {
     public boolean readLess() {
         WebElement element = driver.findElement(By.xpath(READ_LESS_BTN));
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
-
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         if (driver.findElement(By.xpath(READ_LESS_BTN)).getAttribute("style").equals("display: none;")) {
             return true;
         }
         return false;
     }
 
-    public void rate(int rating) throws InterruptedException {
+    public void rate(int rating) {
         List<WebElement> stars = driver.findElements(By.cssSelector(RATE_STARS));
         stars.get(rating).click();
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
-    public String seeAllByAuthor() throws InterruptedException {
+    public String seeAllByAuthor() {
         String authorName = driver.findElement(By.xpath(AUTHOR_LINK)).getText();
         driver.findElement(By.xpath(AUTHOR_LINK)).click();
-        Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         return driver.findElement(By.xpath("//h1[contains(text(),'" + authorName + "')]")).getText();
     }
 
-    public String seeAllFromPublisher() throws InterruptedException {
+    public String seeAllFromPublisher() {
         String publisherName = driver.findElement(By.xpath(PUBLISHER_LINK)).getText();
         driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
         driver.findElement(By.xpath(PUBLISHER_LINK)).click();
-        Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         return driver.findElement(By.xpath("//h1[contains(text(),'" + publisherName + "')]")).getText();
     }
 
@@ -131,6 +124,8 @@ public class ItemDetailsPage {
                 list.click();
             }
         }
+
+        driver.navigate().refresh();
     }
 
 }
