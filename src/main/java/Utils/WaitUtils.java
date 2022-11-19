@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WaitPageUtils {
+public class WaitUtils {
 
     public static WebElement waitForElementToBeClickable(WebDriver driver, By locator, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
