@@ -13,6 +13,7 @@ public class ContactTests extends BaseTest {
     public void sendContactFormUnregisteredUserTest() {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.books-express.ro/contact");
         contactPage.sendContactFormUnregisteredUser("Unde este comanda mea?", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "John Doe", "jdoe@gmail.com", "34667");
         Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
     }
@@ -22,6 +23,7 @@ public class ContactTests extends BaseTest {
         login();
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.books-express.ro/contact");
         contactPage.sendContactFormRegisteredUser("Unde este comanda mea?", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "34667");
         Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
         logout();
