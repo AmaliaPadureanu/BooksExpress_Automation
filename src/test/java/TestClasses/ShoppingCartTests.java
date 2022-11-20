@@ -17,19 +17,20 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 
-    @Test (enabled = false)
+    @Test
     public void changeQuantityTest() {
         shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.navigateToCart();
         Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
-    @Test (enabled = false)
-    public void removeFromCartTest() throws InterruptedException {
+    @Test
+    public void removeFromCartTest() {
         shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.navigateToCart();
         int itemsNoBeforeRemoval = shoppingCartPage.getNoOfCartItems();
-        Assert.assertTrue(shoppingCartPage.removeFromCart() == itemsNoBeforeRemoval - 1);
+        System.out.println(itemsNoBeforeRemoval);
+        Assert.assertTrue(shoppingCartPage.removeFromCart() == (itemsNoBeforeRemoval - 1));
     }
 
 }

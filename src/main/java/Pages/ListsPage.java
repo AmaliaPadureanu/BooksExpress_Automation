@@ -7,7 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ListsPage {
 
@@ -25,11 +24,10 @@ public class ListsPage {
     private String ITEMS_IN_LIST = "//ul[@id='list-items']//li//h4//a";
 
 
-    public void createList(String listName) throws InterruptedException {
+    public void createList(String listName) {
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(By.xpath(LISTS))).perform();
         driver.findElement(By.xpath(CREATE_LIST_OPTION)).click();
-        Thread.sleep(2000);
         driver.switchTo().activeElement();
         driver.findElement(By.xpath(TITLE_INPUT)).sendKeys(listName);
         driver.findElement(By.xpath(CREATE_BTN)).click();
@@ -49,7 +47,7 @@ public class ListsPage {
         return listsNames;
     }
 
-    public List<String> getItemsInList (String listName) throws InterruptedException {
+    public List<String> getItemsInList (String listName) {
         List<String> itemsInList = new ArrayList<>();
 
         Actions actions = new Actions(driver);
@@ -63,8 +61,6 @@ public class ListsPage {
                 break;
             }
         }
-
-        Thread.sleep(2000);
 
         List<WebElement> items = driver.findElements(By.xpath(ITEMS_IN_LIST));
 

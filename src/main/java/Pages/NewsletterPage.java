@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +22,6 @@ public class NewsletterPage {
     private String LIMBILE_PREFERATE_FIELD = "//ul[@class='select2-selection__rendered']";
     private String ABONARE_CHECKBOX = "//label[@for='one_chapter']";
     private String MA_ABONEZ_BTN = "//button[@class='button big primary save']";
-    private String AFTER_SUBSCRIBE_MESSAGE = "//p[@class='align-center']";
 
     public void subscribeToNewsletter(String email, String nume, int language) {
         driver.findElement(By.xpath(EMAIL_FIELD)).sendKeys(email);
@@ -32,8 +32,6 @@ public class NewsletterPage {
         driver.findElement(By.xpath(ABONARE_CHECKBOX)).click();
         driver.findElement(By.xpath(ABONARE_CHECKBOX)).click();
         driver.findElement(By.xpath(MA_ABONEZ_BTN)).click();
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(AFTER_SUBSCRIBE_MESSAGE))));
     }
 
 }

@@ -28,9 +28,9 @@ public class ShoppingCartPage {
         return driver.getCurrentUrl();
     }
 
-    public int removeFromCart() throws InterruptedException {
+    public int removeFromCart() {
         driver.findElement(By.xpath(STERGE_BTN)).click();
-        Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
         return itemsInCart.size();
     }
