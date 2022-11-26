@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
@@ -16,17 +15,8 @@ public class ShoppingCartPage {
         this.driver = driver;
     }
 
-    private String VEZI_COSUL_BTN = "//a[@class='button special full']";
-    private String COS_BTN = "//span[contains(text(),'Coș')]";
     private String STERGE_BTN = "//a[@class='color-theme-5 cart-remove-item']";
     private String QUANTITY_FIELD = "//input[contains(@type,'number')]";
-
-
-    public String navigateToCart() {
-        Actions actions = new Actions(driver);
-        actions.click(driver.findElement(By.xpath(COS_BTN))).click(driver.findElement(By.xpath(VEZI_COSUL_BTN))).perform();
-        return driver.getCurrentUrl();
-    }
 
     public int removeFromCart() throws InterruptedException {
         driver.findElement(By.xpath(STERGE_BTN)).click();

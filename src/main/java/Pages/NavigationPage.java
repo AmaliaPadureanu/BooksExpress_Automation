@@ -32,6 +32,8 @@ public class NavigationPage {
     private String LISTS = "//span[normalize-space()='Liste']";
     private String WISHLIST_BTN = "//a[@href='/user/wishlist']";
     private String WISHLIST_LINK = "//a[@id='show-lists']//i[@class='fa fa-angle-down']";
+    private String VEZI_COSUL_BTN = "//a[@class='button special full']";
+    private String COS_BTN = "//span[contains(text(),'Coș')]";
 
     public String selectProductsCategory() {
         Actions actions = new Actions(driver);
@@ -94,6 +96,12 @@ public class NavigationPage {
         actions.moveToElement(driver.findElement(By.xpath("//a[@id='show-lists']//i[@class='fa fa-angle-down']")))
                 .click(driver.findElement(By.xpath("//a[@href='/user/wishlist']//i[@class='fa fa-heart']"))).perform();
         return new WishlistPage(driver);
+    }
+
+    public ShoppingCartPage navigateToCart() {
+        Actions actions = new Actions(driver);
+        actions.click(driver.findElement(By.xpath(COS_BTN))).click(driver.findElement(By.xpath(VEZI_COSUL_BTN))).perform();
+        return new ShoppingCartPage(driver);
     }
 
 }

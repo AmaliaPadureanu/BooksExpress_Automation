@@ -1,5 +1,6 @@
 package TestClasses;
 
+import Pages.NavigationPage;
 import Pages.SearchResultsPage;
 import Pages.SearchPage;
 import Pages.ShoppingCartPage;
@@ -20,15 +21,15 @@ public class ShoppingCartTests extends BaseTest {
 
     @Test
     public void changeQuantityTest() {
-        shoppingCartPage = new ShoppingCartPage(driver);
-        shoppingCartPage.navigateToCart();
+        navigationPage = new NavigationPage(driver);
+        shoppingCartPage = navigationPage.navigateToCart();
         Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
     @Test
     public void removeFromCartTest() throws InterruptedException {
-        shoppingCartPage = new ShoppingCartPage(driver);
-        shoppingCartPage.navigateToCart();
+        navigationPage = new NavigationPage(driver);
+        shoppingCartPage = navigationPage.navigateToCart();
         int itemsNoBeforeRemoval = shoppingCartPage.getNoOfCartItems();
         Assert.assertTrue(shoppingCartPage.removeFromCart() == (itemsNoBeforeRemoval - 1));
     }
