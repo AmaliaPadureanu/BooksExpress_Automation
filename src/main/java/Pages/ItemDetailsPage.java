@@ -40,9 +40,8 @@ public class ItemDetailsPage {
         return WaitUtils.waitForUrlToContain(driver, "cart/added", 5);
     }
 
-    public WishlistPage addToWishlist() {
+    public void addToWishlist() {
         driver.findElement(By.xpath(WISHLIST_BTN)).click();
-        return new WishlistPage(driver);
     }
 
     public String getItemTitle() {

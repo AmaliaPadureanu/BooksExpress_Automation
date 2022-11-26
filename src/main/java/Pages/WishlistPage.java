@@ -1,11 +1,10 @@
 package Pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class WishlistPage {
 
@@ -16,20 +15,19 @@ public class WishlistPage {
     }
 
     private String LISTS_BTN = "//span[normalize-space()='Liste']";
-    private String WISHLIST_BTN = "//a[@href='/user/wishlist']";
     private String ITEM_TITLE = "div[class='cart-details'] h4 a";
     private String REMOVE_BTN = "//a[@class='color-theme-5 remove-item']";
     private String ITEMS_IN_LIST = "#list-items>li";
     private String ADD_TO_CART = "button[type='button']";
 
-    public void navigateToWishlist() {
-        driver.findElement(By.xpath(LISTS_BTN)).click();
-        WebElement element = driver.findElement(By.xpath(WISHLIST_BTN));
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
-    }
+    public List<String> getItemsTitle() {
+        List<String> itemsInWishlist = new ArrayList<>();
 
-    public String getItemTitle() {
-        return driver.findElement(By.cssSelector(ITEM_TITLE)).getText().toLowerCase(Locale.ROOT);
+        for (WebElement element : driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"))) {
+            itemsInWishlist.add(element.getText().substring(3).toLowerCase());
+        }
+
+        return itemsInWishlist;
     }
 
     public void removeItem() {

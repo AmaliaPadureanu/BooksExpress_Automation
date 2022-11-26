@@ -25,11 +25,10 @@ public class ShoppingCartTests extends BaseTest {
     }
 
     @Test
-    public void removeFromCartTest() {
+    public void removeFromCartTest() throws InterruptedException {
         shoppingCartPage = new ShoppingCartPage(driver);
         shoppingCartPage.navigateToCart();
         int itemsNoBeforeRemoval = shoppingCartPage.getNoOfCartItems();
-        System.out.println(itemsNoBeforeRemoval);
         Assert.assertTrue(shoppingCartPage.removeFromCart() == (itemsNoBeforeRemoval - 1));
     }
 

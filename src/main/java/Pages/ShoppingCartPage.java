@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ShoppingCartPage {
 
@@ -22,15 +23,14 @@ public class ShoppingCartPage {
 
 
     public String navigateToCart() {
-        driver.findElement(By.xpath(COS_BTN)).click();
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        driver.findElement(By.xpath(VEZI_COSUL_BTN)).click();
+        Actions actions = new Actions(driver);
+        actions.click(driver.findElement(By.xpath(COS_BTN))).click(driver.findElement(By.xpath(VEZI_COSUL_BTN))).perform();
         return driver.getCurrentUrl();
     }
 
-    public int removeFromCart() {
+    public int removeFromCart() throws InterruptedException {
         driver.findElement(By.xpath(STERGE_BTN)).click();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Thread.sleep(3000);
         List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
         return itemsInCart.size();
     }

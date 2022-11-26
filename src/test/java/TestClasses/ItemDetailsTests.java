@@ -7,7 +7,7 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -51,8 +51,8 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void rateTest() {
-        searchText = "The Song of Achilles";
         login();
+        searchText = "The Song of Achilles";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
@@ -87,8 +87,8 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void writeReviewTest() {
-        searchText = "ugly love";
         login();
+        searchText = "ugly love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
@@ -112,19 +112,18 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    public void addToListTest() throws InterruptedException {
-        searchText = "The Song of Achilles";
+    public void addToListTest() {
         login();
+        String listName = "listli";
+        searchText = "The Song of Achilles";
         searchPage = new SearchPage(driver);
         listsPage = new ListsPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        itemDetailsPage.addToList("testtest");
-        Assert.assertTrue(listsPage.getItemsInList("testtest").contains("The Song of Achilles"));
+        itemDetailsPage.addToList(listName);
+        Assert.assertTrue(listsPage.getItemsInList(listName).contains(searchText));
         logout();
     }
-
 }

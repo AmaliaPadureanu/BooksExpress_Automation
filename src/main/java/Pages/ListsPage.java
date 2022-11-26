@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ListsPage {
 
@@ -26,8 +26,8 @@ public class ListsPage {
 
     public void createList(String listName) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(LISTS))).perform();
-        driver.findElement(By.xpath(CREATE_LIST_OPTION)).click();
+        actions.moveToElement(driver.findElement(By.xpath(LISTS)))
+                .click(driver.findElement(By.xpath(CREATE_LIST_OPTION))).perform();
         driver.switchTo().activeElement();
         driver.findElement(By.xpath(TITLE_INPUT)).sendKeys(listName);
         driver.findElement(By.xpath(CREATE_BTN)).click();
@@ -35,34 +35,30 @@ public class ListsPage {
 
     public List<String> getListsCreatedByUser() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(LISTS))).perform();
+        actions.moveToElement(driver.findElement(By.xpath(LISTS)))
+                .click(driver.findElement(By.linkText("Toate listele"))).perform();
 
         List<String> listsNames = new ArrayList<>();
-        List<WebElement> lists = driver.findElements(By.xpath(LISTS_CREATED_BY_USER));
+        List<WebElement> lists = driver.findElements(By.xpath("//h4//a"));
 
         for (WebElement list : lists) {
             listsNames.add(list.getText());
         }
-
         return listsNames;
     }
 
-    public List<String> getItemsInList (String listName) {
-        List<String> itemsInList = new ArrayList<>();
-
+    public List<String> getItemsInList(String listName) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(LISTS))).perform();
+        actions.moveToElement(driver.findElement(By.xpath(LISTS)))
+                .click(driver.findElement(By.xpath("//a[normalize-space()='Toate listele']"))).perform();
 
-        List<WebElement> lists = driver.findElements(By.xpath(LISTS_CREATED_BY_USER));
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.xpath("//a[normalize-space()='" + listName + "']")).click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        for (WebElement list : lists) {
-            if(list.getText().equals(listName)) {
-                list.click();
-                break;
-            }
-        }
+        List<WebElement> items = driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"));
 
-        List<WebElement> items = driver.findElements(By.xpath(ITEMS_IN_LIST));
+        List<String> itemsInList = new ArrayList<>();
 
         for (WebElement item : items) {
             itemsInList.add(item.getText().substring(3));

@@ -1,7 +1,8 @@
 package TestClasses;
 
-import Pages.SearchResultsPage;
+import Pages.NavigationPage;
 import Pages.SearchPage;
+import Pages.SearchResultsPage;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -18,20 +19,20 @@ public class WishlistTests extends BaseTest {
     @Test
     public void addToWishlist() throws InterruptedException {
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("the secret history");
+        SearchResultsPage searchResultsPage = searchPage.search("It Starts with Us");
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         String title = itemDetailsPage.getItemTitle();
-        wishlistPage = itemDetailsPage.addToWishlist();
+        itemDetailsPage.addToWishlist();
         Thread.sleep(6000);
-        wishlistPage.navigateToWishlist();
-        Thread.sleep(3000);
-        Assert.assertTrue(wishlistPage.getItemTitle().contains(title));
+        navigationPage = new NavigationPage(driver);
+        wishlistPage = navigationPage.navigateToWishlist();
+        Assert.assertTrue(wishlistPage.getItemsTitle().contains(title));
     }
 
     @Test
-    public void removeFromWishlist() throws InterruptedException {
+    public void removeFromWishlist() {
         wishlistPage.removeItem();
-        Thread.sleep(6000);
+        driver.navigate().refresh();
         Assert.assertTrue(wishlistPage.isEmpty());
     }
 

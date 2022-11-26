@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -28,26 +29,20 @@ public class NavigationPage {
     private String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
     private String PERSONAL_INFO = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']";
     private String NAVIGATION_HISTORY = "//a[normalize-space()='Istoric de navigare']";
+    private String LISTS = "//span[normalize-space()='Liste']";
+    private String WISHLIST_BTN = "//a[@href='/user/wishlist']";
+    private String WISHLIST_LINK = "//a[@id='show-lists']//i[@class='fa fa-angle-down']";
 
-
-    public String selectProductsCategory() throws InterruptedException {
+    public String selectProductsCategory() {
         Actions actions = new Actions(driver);
 
         WebElement products = driver.findElement(By.xpath(PRODUCTS_LINK));
         WebElement business = driver.findElement(By.xpath(BUSINESS_CATEGORY));
 
-        actions.moveToElement(products).perform();
-        Thread.sleep(2000);
-        actions.moveToElement(business).perform();
-
-        WebElement element = driver.findElement(By.partialLinkText("Economie"));
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-
+        actions.moveToElement(products).moveToElement(business).perform();
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Economie"), 5);
         JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].click();", element);
-
-        Thread.sleep(5000);
+        executor.executeScript("arguments[0].click();", driver.findElement(By.partialLinkText("Economie")));
 
         return driver.getTitle().toLowerCase();
     }
@@ -84,16 +79,21 @@ public class NavigationPage {
 
     public UserDetailsPage navigateToUserDetails() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
-        driver.findElement(By.xpath(PERSONAL_INFO)).click();
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).click(driver.findElement(By.xpath(PERSONAL_INFO))).perform();
         return new UserDetailsPage(driver);
     }
 
     public NavigationHistoryPage navigateToUserNavigationHistory() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
-        driver.findElement(By.xpath(NAVIGATION_HISTORY)).click();
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).click(driver.findElement(By.xpath(NAVIGATION_HISTORY))).perform();
         return new NavigationHistoryPage(driver);
+    }
+
+    public WishlistPage navigateToWishlist() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath("//a[@id='show-lists']//i[@class='fa fa-angle-down']")))
+                .click(driver.findElement(By.xpath("//a[@href='/user/wishlist']//i[@class='fa fa-heart']"))).perform();
+        return new WishlistPage(driver);
     }
 
 }

@@ -23,8 +23,7 @@ public class SignInPage {
 
     public void open() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
-        driver.findElement(By.xpath(CONT_NOU_LINK)).click();
+        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).click(driver.findElement(By.xpath(CONT_NOU_LINK))).perform();
     }
 
     public void signInWith(String email, String firstname, String lastname, String password) {

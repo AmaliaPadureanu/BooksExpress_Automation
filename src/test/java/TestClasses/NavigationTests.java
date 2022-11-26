@@ -16,7 +16,7 @@ public class NavigationTests extends BaseTest {
     public String CONTACT_URL = "https://www.books-express.ro/contact";
 
     @Test
-    public void searchProductsCategoryTest() throws InterruptedException {
+    public void searchProductsCategoryTest() {
         navigationPage = new NavigationPage(driver);
         Assert.assertTrue(navigationPage.selectProductsCategory().contains("economie"));
     }

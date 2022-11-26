@@ -16,9 +16,9 @@ public class ListsTests extends BaseTest {
     @Test
     public void createListTest() {
         listsPage = new ListsPage(driver);
-        listsPage.createList("listli");
+        listsPage.createList("another list");
         driver.navigate().refresh();
         Assert.assertFalse(listsPage.getListsCreatedByUser().isEmpty());
-        Assert.assertTrue(listsPage.getListsCreatedByUser().contains("listli"));
+        Assert.assertTrue(listsPage.getListsCreatedByUser().contains("another list"));
     }
 }
