@@ -18,9 +18,10 @@ public class WishlistTests extends BaseTest {
 
     @Test
     public void addToWishlist() throws InterruptedException {
+        String searchText = "It Starts with Us";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("It Starts with Us");
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         String title = itemDetailsPage.getItemTitle();
         itemDetailsPage.addToWishlist();
         Thread.sleep(6000);

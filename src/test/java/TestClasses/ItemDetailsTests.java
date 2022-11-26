@@ -22,7 +22,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         Assert.assertTrue(itemDetailsPage.getItemTitle().contains(searchText.toLowerCase()));
     }
 
@@ -33,7 +33,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("anthony ryan"));
     }
 
@@ -44,7 +44,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         Assert.assertTrue(itemDetailsPage.readMore());
         Assert.assertTrue(itemDetailsPage.readLess());
     }
@@ -57,7 +57,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         itemDetailsPage.rate(3);
         Assert.assertTrue(getRating() == 4);
         logout();
@@ -70,7 +70,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Jason Hickel"));
     }
 
@@ -81,7 +81,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
     }
 
@@ -93,7 +93,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
@@ -121,7 +121,7 @@ public class ItemDetailsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         itemDetailsPage.addToList(listName);
         Assert.assertTrue(listsPage.getItemsInList(listName).contains(searchText));
         logout();

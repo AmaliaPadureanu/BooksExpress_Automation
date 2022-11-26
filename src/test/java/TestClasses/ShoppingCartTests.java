@@ -11,9 +11,10 @@ public class ShoppingCartTests extends BaseTest {
 
     @Test
     public void addToCartTest() {
+        String searchText = "Fire and Blood";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("George Martin");
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 

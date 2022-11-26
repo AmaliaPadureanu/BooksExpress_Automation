@@ -16,7 +16,6 @@ public class SearchResultsPage {
     }
 
     private String URL = "search?q=";
-    private String ITEM_TO_BE_ADDED = "//article/descendant::a[1]";
     private String FILTER_DROPDOWN = "//i[@class='fa fa-down-open icon-right']";
     private String ASCENDING_PRICE_BTN = "//a[contains(text(),'Preț crescător')]";
     private String DESCENDING_PRICE_BTN = "//a[contains(text(),'Preț descrescător')]";
@@ -25,9 +24,12 @@ public class SearchResultsPage {
         return driver.getCurrentUrl().contains(URL);
     }
 
-    public ItemDetailsPage getItemDetailsPage() {
-        WebElement item = driver.findElement(By.xpath(ITEM_TO_BE_ADDED));
-        item.click();
+    public ItemDetailsPage getItemDetailsPage(String itemName) {
+        List<WebElement> searchItems = driver.findElements(By
+                .xpath("//article[@class='12u(large) 6u(xlarge) 4u(xxlarge)']//h2"));
+        WebElement product = searchItems.stream()
+                .filter(item -> item.getText().equalsIgnoreCase(itemName)).findFirst().get();
+        product.click();
         return new ItemDetailsPage(driver);
     }
 

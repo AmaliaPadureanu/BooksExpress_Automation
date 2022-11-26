@@ -17,9 +17,10 @@ public class NavigationHistoryTests extends BaseTest {
 
     @Test
     public void getUserNavigationHistoryTest() {
+        String searchText = "It Starts with Us";
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search("It Starts with Us");
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
         navigationPage = new NavigationPage(driver);
         navigationHistoryPage = navigationPage.navigateToUserNavigationHistory();
         Assert.assertFalse(navigationHistoryPage.getNavigationHistory().isEmpty());

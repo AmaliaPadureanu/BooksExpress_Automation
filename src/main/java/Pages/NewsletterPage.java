@@ -33,5 +33,4 @@ public class NewsletterPage {
         driver.findElement(By.xpath(ABONARE_CHECKBOX)).click();
         driver.findElement(By.xpath(MA_ABONEZ_BTN)).click();
     }
-
 }
