@@ -63,7 +63,7 @@ public class ShoppingCartTests extends BaseTest {
     }
 
     @Test
-    public void checkDeliveryPrice() {
+    public void checkFreeDelivery() {
         String searchText = "Fire and Blood";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -74,11 +74,22 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertEquals(driver.findElement(By.id("title")).getText(), "Coș de cumpărături");
         Assert.assertEquals(shoppingCartPage.changeQuantity(5), 5);
         driver.navigate().refresh();
-        if (shoppingCartPage.getTotalPriceFormatted() > 300.00) {
-            Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), "GRATUIT");
-        } else {
-            Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), 9.99);
-        }
+        Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), "GRATUIT");
+    }
+
+    @Test
+    public void checkDeliveryPrice() {
+        String searchText = "Fire and Blood";
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.addToCart());
+        NavigationPage navigationPage = new NavigationPage(driver);
+        shoppingCartPage = navigationPage.navigateToCart();
+        Assert.assertEquals(driver.findElement(By.id("title")).getText(), "Coș de cumpărături");
+        Assert.assertEquals(shoppingCartPage.changeQuantity(1), 1);
+        driver.navigate().refresh();
+        Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), 9.99);
     }
 
 }
