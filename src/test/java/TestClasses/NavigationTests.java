@@ -3,7 +3,6 @@ package TestClasses;
 import Pages.NavigationPage;
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class NavigationTests extends BaseTest {

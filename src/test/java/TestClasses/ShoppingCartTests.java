@@ -3,9 +3,9 @@ package TestClasses;
 import Pages.NavigationPage;
 import Pages.SearchPage;
 import Pages.SearchResultsPage;
-import Pages.ShoppingCartPage;
 import Utils.WaitUtils;
 import base.BaseTest;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ShoppingCartTests extends BaseTest {
 
-    @Test (enabled = false)
+    @Test
     public void addToCartTest() {
         String searchText = "Fire and Blood";
         searchPage = new SearchPage(driver);
@@ -23,26 +23,29 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 
-    @Test (enabled = false)
+    @Test
     public void changeQuantityTest() {
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
+        Assert.assertEquals(driver.findElement(By.id("title")).getText(), "Coș de cumpărături");
         Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
-    @Test (enabled = false)
+    @Test
     public void removeFromCartTest() throws InterruptedException {
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
+        Assert.assertEquals(driver.findElement(By.id("title")).getText(), "Coș de cumpărături");
         int itemsNoBeforeRemoval = shoppingCartPage.getNoOfCartItems();
         Assert.assertTrue(shoppingCartPage.removeFromCart() == itemsNoBeforeRemoval - 1);
     }
 
-    @Test (priority = 1, enabled = false)
+    @Test (priority = 1)
     public void checkCartTotal() {
         addMultipleItemsToCart("Fire and Blood", "Little Women", "No Longer Human", "Currency Wars", "A Darker Shade of Magic");
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
+        Assert.assertEquals(driver.findElement(By.id("title")).getText(), "Coș de cumpărături");
         WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/cart", 10);
         Assert.assertEquals(shoppingCartPage.computeTotalCartPrice(), shoppingCartPage.getTotalPriceFormatted());
     }
@@ -68,7 +71,9 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.addToCart());
         NavigationPage navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
+        Assert.assertEquals(driver.findElement(By.id("title")).getText(), "Coș de cumpărături");
         Assert.assertEquals(shoppingCartPage.changeQuantity(5), 5);
+        driver.navigate().refresh();
         if (shoppingCartPage.getTotalPriceFormatted() > 300.00) {
             Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), "GRATUIT");
         } else {
