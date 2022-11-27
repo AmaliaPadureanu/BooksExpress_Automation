@@ -9,6 +9,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class NavigationPage {
 
     WebDriver driver;
@@ -32,7 +34,7 @@ public class NavigationPage {
     private String LISTS = "//span[normalize-space()='Liste']";
     private String WISHLIST_BTN = "//a[@href='/user/wishlist']";
     private String WISHLIST_LINK = "//a[@id='show-lists']//i[@class='fa fa-angle-down']";
-    private String VEZI_COSUL_BTN = "//a[@class='button special full']";
+    private String VEZI_COSUL_BTN = "//a[contains(text(),'Vezi coșul')]";
     private String COS_BTN = "//span[contains(text(),'Coș')]";
 
     public String selectProductsCategory() {
@@ -99,8 +101,8 @@ public class NavigationPage {
     }
 
     public ShoppingCartPage navigateToCart() {
-        Actions actions = new Actions(driver);
-        actions.click(driver.findElement(By.xpath(COS_BTN))).click(driver.findElement(By.xpath(VEZI_COSUL_BTN))).perform();
+        driver.findElement(By.xpath(COS_BTN)).click();
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(VEZI_COSUL_BTN), 5).click();
         return new ShoppingCartPage(driver);
     }
 

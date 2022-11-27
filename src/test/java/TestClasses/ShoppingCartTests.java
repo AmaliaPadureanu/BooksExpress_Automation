@@ -5,11 +5,10 @@ import Pages.SearchPage;
 import Pages.SearchResultsPage;
 import Utils.WaitUtils;
 import base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ShoppingCartTests extends BaseTest {
@@ -40,40 +39,28 @@ public class ShoppingCartTests extends BaseTest {
 
     @Test (priority = 1)
     public void checkCartTotal() {
-        List<String> searchText = new ArrayList<>();
-        searchText.add("Fire and Blood");
-        searchText.add("Little Women");
-        searchText.add("No Longer Human");
-        searchText.add("Currency Wars");
+        addMultipleItemsToCart("Fire and Blood", "Little Women", "No Longer Human", "Currency Wars", "A Darker Shade of Magic");
+        navigationPage = new NavigationPage(driver);
+        shoppingCartPage = navigationPage.navigateToCart();
+        WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/cart", 10);
+        Assert.assertEquals(shoppingCartPage.computeTotalCartPrice(), shoppingCartPage.getTotalPriceFormatted());
+    }
 
+    private void addMultipleItemsToCart(String... items) {
+        List<String> searchText = new ArrayList<>();
+        Collections.addAll(searchText, items);
         searchPage = new SearchPage(driver);
 
         for (String searchItem : searchText) {
             SearchResultsPage searchResultsPage = searchPage.search(searchItem);
             itemDetailsPage = searchResultsPage.getItemDetailsPage(searchItem);
-            Assert.assertTrue(itemDetailsPage.addToCart());
+            itemDetailsPage.addToCart();
         }
-
-        navigationPage = new NavigationPage(driver);
-        shoppingCartPage = navigationPage.navigateToCart();
-
-        WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/cart", 10);
-
-        List<WebElement> items = driver.findElements(By.xpath("//div[@class='color-theme-5 line']"));
-
-        String totalPriceOnSite = driver.findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='products-total line strong']"))
-                .getText().replace(" lei", "");
-        Double totalPriceOnSiteFormatted = shoppingCartPage.formatPrice(Integer.valueOf(totalPriceOnSite));
-
-        Double totalPrice = 0.0;
-
-        for (WebElement item : items) {
-            totalPrice += shoppingCartPage.formatPrice(Integer.valueOf(item.getText().replace(" lei", "")));
-
-        }
-        Assert.assertEquals(totalPrice, totalPriceOnSiteFormatted);
     }
 
+    @Test (enabled = false)
+    public void checkFreeDelivery() {
 
+    }
 
 }

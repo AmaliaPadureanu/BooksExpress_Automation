@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
 
 public class ShoppingCartPage {
@@ -54,8 +53,27 @@ public class ShoppingCartPage {
 
         decimalPart.append(chars[chars.length - 2]);
         decimalPart.append(chars[chars.length - 1]);
-
         double finalNumber = Double.valueOf(integerPart + "." + decimalPart);
         return finalNumber;
+    }
+
+    public Double getTotalPriceFormatted() {
+        WebElement totalPriceOnSite = driver.findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='products-total line strong']"));
+        String priceWithoutSuffix = removeSuffix(totalPriceOnSite.getText());
+        return formatPrice(Integer.valueOf(priceWithoutSuffix));
+    }
+
+    public String removeSuffix(String price) {
+        return price.replace(" lei", "");
+    }
+
+    public Double computeTotalCartPrice() {
+        Double totalPrice = 0.0;
+        List<WebElement> items = driver.findElements(By.xpath("//div[@class='color-theme-5 line']"));
+        for (WebElement item : items) {
+            String price = removeSuffix(item.getText());
+            totalPrice += formatPrice(Integer.valueOf(price));
+        }
+        return totalPrice;
     }
 }
