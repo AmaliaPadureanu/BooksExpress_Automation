@@ -3,6 +3,7 @@ package TestClasses;
 import Pages.NavigationPage;
 import Pages.SearchPage;
 import Pages.SearchResultsPage;
+import Pages.ShoppingCartPage;
 import Utils.WaitUtils;
 import base.BaseTest;
 import org.testng.Assert;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class ShoppingCartTests extends BaseTest {
 
-    @Test
+    @Test (enabled = false)
     public void addToCartTest() {
         String searchText = "Fire and Blood";
         searchPage = new SearchPage(driver);
@@ -22,14 +23,14 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 
-    @Test
+    @Test (enabled = false)
     public void changeQuantityTest() {
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
         Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
-    @Test
+    @Test (enabled = false)
     public void removeFromCartTest() throws InterruptedException {
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
@@ -37,7 +38,7 @@ public class ShoppingCartTests extends BaseTest {
         Assert.assertTrue(shoppingCartPage.removeFromCart() == itemsNoBeforeRemoval - 1);
     }
 
-    @Test (priority = 1)
+    @Test (priority = 1, enabled = false)
     public void checkCartTotal() {
         addMultipleItemsToCart("Fire and Blood", "Little Women", "No Longer Human", "Currency Wars", "A Darker Shade of Magic");
         navigationPage = new NavigationPage(driver);
@@ -58,9 +59,21 @@ public class ShoppingCartTests extends BaseTest {
         }
     }
 
-    @Test (enabled = false)
-    public void checkFreeDelivery() {
-
+    @Test
+    public void checkDeliveryPrice() {
+        String searchText = "Fire and Blood";
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.addToCart());
+        NavigationPage navigationPage = new NavigationPage(driver);
+        shoppingCartPage = navigationPage.navigateToCart();
+        Assert.assertEquals(shoppingCartPage.changeQuantity(5), 5);
+        if (shoppingCartPage.getTotalPriceFormatted() > 300.00) {
+            Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), "GRATUIT");
+        } else {
+            Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), 9.99);
+        }
     }
 
 }

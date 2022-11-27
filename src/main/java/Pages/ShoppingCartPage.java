@@ -38,10 +38,6 @@ public class ShoppingCartPage {
         return value;
     }
 
-    public List<WebElement> getItemsInCart() {
-        return driver.findElements(By.cssSelector("#cart-items > li"));
-    }
-
     public double formatPrice(Integer price) {
         char[] chars = String.valueOf(price).toCharArray();
         StringBuilder integerPart = new StringBuilder();
@@ -63,7 +59,17 @@ public class ShoppingCartPage {
         return formatPrice(Integer.valueOf(priceWithoutSuffix));
     }
 
-    public String removeSuffix(String price) {
+    public Object getDeliveryPriceFormatted() {
+        String deliveryPrice = driver.findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='transport-total line']")).getText();
+
+        if (deliveryPrice.contains("lei")) {
+            String priceWithoutSuffix = removeSuffix(deliveryPrice);
+            return formatPrice(Integer.valueOf(priceWithoutSuffix));
+        }
+        return deliveryPrice;
+    }
+
+    private String removeSuffix(String price) {
         return price.replace(" lei", "");
     }
 
@@ -76,4 +82,5 @@ public class ShoppingCartPage {
         }
         return totalPrice;
     }
+
 }
