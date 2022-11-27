@@ -18,6 +18,11 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.urlContains(text));
     }
 
+    public static boolean waitForUrlToBe(WebDriver driver, String URL, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        return wait.until(ExpectedConditions.urlToBe(URL));
+    }
+
     public static WebElement waitForVisibilityOf(WebDriver driver, By locator, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));

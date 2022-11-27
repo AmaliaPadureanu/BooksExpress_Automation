@@ -39,5 +39,23 @@ public class ShoppingCartPage {
         return value;
     }
 
+    public List<WebElement> getItemsInCart() {
+        return driver.findElements(By.cssSelector("#cart-items > li"));
+    }
 
+    public double formatPrice(Integer price) {
+        char[] chars = String.valueOf(price).toCharArray();
+        StringBuilder integerPart = new StringBuilder();
+        StringBuilder decimalPart = new StringBuilder();
+
+        for (int i = 0; i < chars.length - 2; i++) {
+            integerPart.append(chars[i]);
+        }
+
+        decimalPart.append(chars[chars.length - 2]);
+        decimalPart.append(chars[chars.length - 1]);
+
+        double finalNumber = Double.valueOf(integerPart + "." + decimalPart);
+        return finalNumber;
+    }
 }

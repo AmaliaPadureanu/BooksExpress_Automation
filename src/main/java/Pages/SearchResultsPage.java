@@ -28,7 +28,7 @@ public class SearchResultsPage {
         List<WebElement> searchItems = driver.findElements(By
                 .xpath("//article[@class='12u(large) 6u(xlarge) 4u(xxlarge)']//h2"));
         WebElement product = searchItems.stream()
-                .filter(item -> item.getText().equalsIgnoreCase(itemName)).findFirst().get();
+                .filter(item -> item.getText().contains(itemName)).findFirst().get();
         product.click();
         return new ItemDetailsPage(driver);
     }
