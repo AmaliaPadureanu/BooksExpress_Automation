@@ -1,9 +1,11 @@
 package base;
 
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import pages.*;
 import utils.Constants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.*;
 
 public class BaseTest {
     protected WebDriver driver;

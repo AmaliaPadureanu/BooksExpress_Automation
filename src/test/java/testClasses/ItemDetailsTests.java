@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.List;
 
 public class ItemDetailsTests extends BaseTest {
@@ -21,11 +20,11 @@ public class ItemDetailsTests extends BaseTest {
         searchText = "The Empire of Ashes";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        Assert.assertTrue(itemDetailsPage.getItemTitle().contains(searchText));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
     }
 
     @Test
@@ -33,10 +32,10 @@ public class ItemDetailsTests extends BaseTest {
         searchText = "No Longer Human";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("Osamu Dazai"));
     }
 
@@ -45,10 +44,10 @@ public class ItemDetailsTests extends BaseTest {
         searchText = "Fire and Blood";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.readMore());
         Assert.assertTrue(itemDetailsPage.readLess());
     }
@@ -59,10 +58,10 @@ public class ItemDetailsTests extends BaseTest {
         searchText = "The Song of Achilles";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         itemDetailsPage.rate(3);
         driver.navigate().refresh();
         Assert.assertTrue(getRating() == 4);
@@ -71,14 +70,15 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void seeAllByAuthor() {
-        searchText = "The Atlas Six";
+        searchText = "The Hobbit";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        Assert.assertTrue(itemDetailsPage.seeAllByAuthor().contains("Olivie Blake"));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        itemDetailsPage.seeAllByAuthor();
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains("J. R. R. Tolkien"));
     }
 
     @Test
@@ -86,11 +86,12 @@ public class ItemDetailsTests extends BaseTest {
         searchText = "Less is More";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        Assert.assertTrue(itemDetailsPage.seeAllFromPublisher().contains("Random House"));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        itemDetailsPage.seeAllFromPublisher();
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains("Random House"));
     }
 
     @Test
@@ -99,16 +100,16 @@ public class ItemDetailsTests extends BaseTest {
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
         driver.navigate().refresh();
         int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
-        Assert.assertTrue(nrOfReviewsAfter == (nrOfReviewsBefore + 1));
+        Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
         logout();
     }
 
@@ -128,10 +129,10 @@ public class ItemDetailsTests extends BaseTest {
         searchPage = new SearchPage(driver);
         listsPage = new ListsPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(driver.findElement(By.cssSelector("#breadcrumbs > li:nth-child(2)"))
-                .getText().toLowerCase().contains(searchText.toLowerCase()));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         itemDetailsPage.addToList(listName);
         Assert.assertTrue(listsPage.getItemsInList(listName).contains(searchText));
         logout();

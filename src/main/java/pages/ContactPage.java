@@ -1,5 +1,6 @@
 package pages;
 
+import base.BasePage;
 import utils.JavaScriptUtils;
 import utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class ContactPage {
+public class ContactPage extends BasePage {
 
     WebDriver driver;
 
@@ -35,4 +36,13 @@ public class ContactPage {
         JavaScriptUtils.click(driver, sendBtn);
     }
 
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
+    }
 }

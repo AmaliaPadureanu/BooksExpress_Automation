@@ -15,7 +15,6 @@ public class ListsPage {
     public ListsPage(WebDriver driver) {
         this.driver = driver;
     }
-
     private String LISTS = "//span[normalize-space()='Liste']";
     private String CREATE_LIST_OPTION = "//a[contains(text(),'Creează o listă')]";
     private String TITLE_INPUT = "//input[@id='list_new_title']";

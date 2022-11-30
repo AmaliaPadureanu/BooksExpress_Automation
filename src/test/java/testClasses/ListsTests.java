@@ -1,5 +1,6 @@
 package testClasses;
 
+import org.testng.annotations.AfterClass;
 import pages.ListsPage;
 import base.BaseTest;
 import org.testng.Assert;
@@ -20,5 +21,10 @@ public class ListsTests extends BaseTest {
         driver.navigate().refresh();
         Assert.assertFalse(listsPage.getListsCreatedByUser().isEmpty());
         Assert.assertTrue(listsPage.getListsCreatedByUser().contains("another list"));
+    }
+
+    @AfterClass
+    private void listsTestsTeardown() {
+        logout();
     }
 }

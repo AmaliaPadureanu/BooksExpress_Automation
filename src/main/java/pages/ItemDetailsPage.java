@@ -1,5 +1,6 @@
 package pages;
 
+import base.BasePage;
 import utils.JavaScriptUtils;
 import utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.List;
 
-public class ItemDetailsPage {
+public class ItemDetailsPage extends BasePage {
 
     WebDriver driver;
 
@@ -78,19 +79,15 @@ public class ItemDetailsPage {
         WaitUtils.wait(driver, 5);
     }
 
-    public String seeAllByAuthor() {
+    public void seeAllByAuthor() {
         String authorName = driver.findElement(By.xpath(AUTHOR_LINK)).getText();
         driver.findElement(By.xpath(AUTHOR_LINK)).click();
-        WaitUtils.wait(driver, 5);
-        return driver.findElement(By.xpath("//h1[contains(text(),'" + authorName + "')]")).getText();
     }
 
-    public String seeAllFromPublisher() {
+    public void seeAllFromPublisher() {
         String publisherName = driver.findElement(By.xpath(PUBLISHER_LINK)).getText();
         driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
         driver.findElement(By.xpath(PUBLISHER_LINK)).click();
-        WaitUtils.wait(driver, 5);
-        return driver.findElement(By.xpath("//h1[contains(text(),'" + publisherName + "')]")).getText();
     }
 
     public int getNrOfReviews() {
@@ -126,4 +123,13 @@ public class ItemDetailsPage {
         driver.navigate().refresh();
     }
 
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
+    }
 }
