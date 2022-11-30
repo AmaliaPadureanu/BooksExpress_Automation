@@ -25,8 +25,7 @@ public class SearchResultsPage {
     }
 
     public ItemDetailsPage getItemDetailsPage(String itemName) {
-        List<WebElement> searchItems = driver.findElements(By
-                .xpath("//article[@class='12u(large) 6u(xlarge) 4u(xxlarge)']//h2"));
+        List<WebElement> searchItems = driver.findElements(By.xpath("//article//header//h2//a//span"));
         WebElement product = searchItems.stream()
                 .filter(item -> item.getText().contains(itemName)).findFirst().get();
         product.click();

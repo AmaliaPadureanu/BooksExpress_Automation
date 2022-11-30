@@ -1,13 +1,11 @@
 package Pages;
 
+import Utils.JavaScriptUtils;
 import Utils.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ItemDetailsPage {
 
@@ -57,7 +55,7 @@ public class ItemDetailsPage {
 
     public boolean readMore() {
         driver.findElement(By.xpath(READ_MORE_BTN)).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WaitUtils.wait(driver, 5);
         if (driver.findElement(By.xpath(READ_MORE_BTN)).getAttribute("style").equals("display: none;")) {
            return true;
         }
@@ -65,9 +63,9 @@ public class ItemDetailsPage {
     }
 
     public boolean readLess() {
-        WebElement element = driver.findElement(By.xpath(READ_LESS_BTN));
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WebElement readLessBtn = driver.findElement(By.xpath(READ_LESS_BTN));
+        JavaScriptUtils.click(driver, readLessBtn);
+        WaitUtils.wait(driver, 5);
         if (driver.findElement(By.xpath(READ_LESS_BTN)).getAttribute("style").equals("display: none;")) {
             return true;
         }
@@ -77,13 +75,13 @@ public class ItemDetailsPage {
     public void rate(int rating) {
         List<WebElement> stars = driver.findElements(By.cssSelector(RATE_STARS));
         stars.get(rating).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WaitUtils.wait(driver, 5);
     }
 
     public String seeAllByAuthor() {
         String authorName = driver.findElement(By.xpath(AUTHOR_LINK)).getText();
         driver.findElement(By.xpath(AUTHOR_LINK)).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WaitUtils.wait(driver, 5);
         return driver.findElement(By.xpath("//h1[contains(text(),'" + authorName + "')]")).getText();
     }
 
@@ -91,7 +89,7 @@ public class ItemDetailsPage {
         String publisherName = driver.findElement(By.xpath(PUBLISHER_LINK)).getText();
         driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
         driver.findElement(By.xpath(PUBLISHER_LINK)).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WaitUtils.wait(driver, 5);
         return driver.findElement(By.xpath("//h1[contains(text(),'" + publisherName + "')]")).getText();
     }
 
@@ -107,8 +105,7 @@ public class ItemDetailsPage {
         stars.get(rating).click();
 
         if (postAnonymous) {
-            WebElement element = driver.findElement(By.xpath(POST_ANONYMOUSLY_CHECKBOX));
-            ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+            JavaScriptUtils.click(driver, driver.findElement(By.xpath(POST_ANONYMOUSLY_CHECKBOX)));
         }
 
         driver.findElement(By.xpath(TEXT_INPUT)).sendKeys(reviewText);
@@ -116,8 +113,7 @@ public class ItemDetailsPage {
     }
 
     public void addToList(String listName) {
-        WebElement element = driver.findElement(By.xpath(LISTS_DROPDOWN));
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+        JavaScriptUtils.click(driver, driver.findElement(By.xpath(LISTS_DROPDOWN)));
 
         List<WebElement> lists = driver.findElements(By.xpath(LISTS));
 

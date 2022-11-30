@@ -1,5 +1,6 @@
 package Pages;
 
+import Utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -52,9 +53,9 @@ public class ListsPage {
         actions.moveToElement(driver.findElement(By.xpath(LISTS)))
                 .click(driver.findElement(By.xpath("//a[normalize-space()='Toate listele']"))).perform();
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WaitUtils.wait(driver, 5);
         driver.findElement(By.xpath("//a[normalize-space()='" + listName + "']")).click();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WaitUtils.wait(driver, 5);
 
         List<WebElement> items = driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"));
 

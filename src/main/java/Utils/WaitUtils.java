@@ -6,7 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class WaitUtils {
+
+    public static void wait(WebDriver driver, int seconds) {
+        driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+    }
 
     public static WebElement waitForElementToBeClickable(WebDriver driver, By locator, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
