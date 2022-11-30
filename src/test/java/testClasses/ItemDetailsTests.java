@@ -1,9 +1,9 @@
-package TestClasses;
+package testClasses;
 
-import Pages.ListsPage;
-import Pages.SearchPage;
-import Pages.SearchResultsPage;
-import Utils.WaitUtils;
+import pages.ListsPage;
+import pages.SearchPage;
+import pages.SearchResultsPage;
+import utils.WaitUtils;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

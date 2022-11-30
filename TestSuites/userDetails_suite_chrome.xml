@@ -4,7 +4,7 @@
     <test name="User Details">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="TestClasses.UserDetailsTests"></class>
+            <class name="testClasses.UserDetailsTests"></class>
         </classes>
     </test>
 </suite>

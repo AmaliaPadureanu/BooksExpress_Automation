@@ -1,7 +1,7 @@
 package base;
 
-import Pages.*;
-import Utils.Constants;
+import pages.*;
+import utils.Constants;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 

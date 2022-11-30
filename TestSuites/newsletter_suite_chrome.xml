@@ -4,7 +4,7 @@
     <test name="Newsletter">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="TestClasses.NewsletterTests"></class>
+            <class name="testClasses.NewsletterTests"></class>
         </classes>
     </test>
 </suite>

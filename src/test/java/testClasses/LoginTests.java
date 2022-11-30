@@ -1,6 +1,6 @@
-package TestClasses;
+package testClasses;
 
-import Pages.LoginPage;
+import pages.LoginPage;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;

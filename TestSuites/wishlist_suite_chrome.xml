@@ -4,7 +4,7 @@
     <test name="Wishlist">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="TestClasses.WishlistTests"></class>
+            <class name="testClasses.WishlistTests"></class>
         </classes>
     </test>
 </suite>

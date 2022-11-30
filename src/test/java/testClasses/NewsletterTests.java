@@ -1,7 +1,7 @@
-package TestClasses;
+package testClasses;
 
-import Pages.NavigationPage;
-import Pages.NewsletterPage;
+import pages.NavigationPage;
+import pages.NewsletterPage;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;

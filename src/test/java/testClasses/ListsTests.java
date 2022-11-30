@@ -1,6 +1,6 @@
-package TestClasses;
+package testClasses;
 
-import Pages.ListsPage;
+import pages.ListsPage;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

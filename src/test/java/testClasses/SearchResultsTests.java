@@ -1,7 +1,7 @@
-package TestClasses;
+package testClasses;
 
-import Pages.SearchResultsPage;
-import Pages.SearchPage;
+import pages.SearchResultsPage;
+import pages.SearchPage;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;

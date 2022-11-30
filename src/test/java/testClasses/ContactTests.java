@@ -1,7 +1,7 @@
-package TestClasses;
+package testClasses;
 
-import Pages.NavigationPage;
-import Utils.WaitUtils;
+import pages.NavigationPage;
+import utils.WaitUtils;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;

@@ -4,7 +4,7 @@
     <test name="Shopping Cart">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="TestClasses.ShoppingCartTests"></class>
+            <class name="testClasses.ShoppingCartTests"></class>
         </classes>
     </test>
 </suite>
