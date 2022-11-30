@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.util.List;
 
 public class ItemDetailsTests extends BaseTest {
@@ -24,7 +25,7 @@ public class ItemDetailsTests extends BaseTest {
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        Assert.assertTrue(itemDetailsPage.getItemTitle().equalsIgnoreCase(searchText));
+        Assert.assertTrue(itemDetailsPage.getItemTitle().contains(searchText));
     }
 
     @Test
@@ -36,7 +37,7 @@ public class ItemDetailsTests extends BaseTest {
                 .getText().toLowerCase().contains(searchText.toLowerCase()));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        Assert.assertTrue(itemDetailsPage.getItemAuthor().equalsIgnoreCase("Osamu Dazai"));
+        Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("Osamu Dazai"));
     }
 
     @Test

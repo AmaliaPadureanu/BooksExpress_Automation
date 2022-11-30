@@ -46,11 +46,11 @@ public class ItemDetailsPage {
     }
 
     public String getItemTitle() {
-        return driver.findElement(By.cssSelector(ITEM_TITLE)).getText().toLowerCase();
+        return driver.findElement(By.cssSelector(ITEM_TITLE)).getText();
     }
 
     public String getItemAuthor() {
-        return driver.findElement(By.cssSelector(ITEM_AUTHOR)).getText().toLowerCase();
+        return driver.findElement(By.cssSelector(ITEM_AUTHOR)).getText();
     }
 
     public boolean readMore() {
