@@ -4,6 +4,8 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.ListsPage;
 import pages.NavigationPage;
@@ -14,9 +16,14 @@ import java.util.List;
 
 public class ItemDetailsTests extends BaseTest {
 
+    @BeforeClass
+    public void setup() {
+        login();
+    }
+
     String searchText;
 
-    @Test (enabled = false)
+    @Test
     public void getItemTitleTest() {
         searchText = "The Empire of Ashes";
         searchPage = new SearchPage(driver);
@@ -27,7 +34,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
     }
 
-    @Test (enabled = false)
+    @Test
     public void getItemAuthorTest() {
         searchText = "No Longer Human";
         searchPage = new SearchPage(driver);
@@ -39,7 +46,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("Osamu Dazai"));
     }
 
-    @Test (enabled = false)
+    @Test
     public void exapandCollapseItemDescriptionTest() {
         searchText = "Fire and Blood";
         searchPage = new SearchPage(driver);
@@ -52,9 +59,8 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.readLess());
     }
 
-    @Test (enabled = false)
+    @Test
     public void rateTest() {
-        login();
         searchText = "Song of Achilles";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -65,10 +71,9 @@ public class ItemDetailsTests extends BaseTest {
         itemDetailsPage.rate(3);
         driver.navigate().refresh();
         Assert.assertTrue(getRating() == 4);
-        logout();
     }
 
-    @Test (enabled = false)
+    @Test
     public void seeAllByAuthor() {
         searchText = "The Hobbit";
         searchPage = new SearchPage(driver);
@@ -81,7 +86,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(searchResultsPage.getPageTitle().contains("J. R. R. Tolkien"));
     }
 
-    @Test (enabled = false)
+    @Test
     public void seeAllByPublisher() {
         searchText = "Less is More";
         searchPage = new SearchPage(driver);
@@ -94,9 +99,8 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(searchResultsPage.getPageTitle().contains("Random House"));
     }
 
-    @Test (enabled = false)
+    @Test
     public void writeReviewTest() {
-        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -110,7 +114,6 @@ public class ItemDetailsTests extends BaseTest {
         driver.navigate().refresh();
         int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
         Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
-        logout();
     }
 
     private int getRating() {
@@ -123,7 +126,6 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void addToListTest() {
-        login();
         String listName = "abc list";
         searchText = "Song of Achilles";
         searchPage = new SearchPage(driver);
@@ -138,6 +140,10 @@ public class ItemDetailsTests extends BaseTest {
         navigationPage.navigateToLists();
         Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));
         Assert.assertTrue(listsPage.getItemsInList(listName).contains(searchText));
+    }
+
+    @AfterClass
+    public void teardown() {
         logout();
     }
 }

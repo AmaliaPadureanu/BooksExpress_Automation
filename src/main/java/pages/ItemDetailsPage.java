@@ -80,12 +80,10 @@ public class ItemDetailsPage extends BasePage {
     }
 
     public void seeAllByAuthor() {
-        String authorName = driver.findElement(By.xpath(AUTHOR_LINK)).getText();
         driver.findElement(By.xpath(AUTHOR_LINK)).click();
     }
 
     public void seeAllFromPublisher() {
-        String publisherName = driver.findElement(By.xpath(PUBLISHER_LINK)).getText();
         driver.findElement(By.xpath(ACCEPT_COOKIES_BTN)).click();
         driver.findElement(By.xpath(PUBLISHER_LINK)).click();
     }
