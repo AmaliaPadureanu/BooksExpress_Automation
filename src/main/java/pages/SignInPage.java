@@ -1,10 +1,11 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class SignInPage {
+public class SignInPage extends BasePage {
 
     public WebDriver driver;
 
@@ -33,5 +34,15 @@ public class SignInPage {
         driver.findElement(By.xpath(PAROLA_FIELD)).sendKeys(password);
         driver.findElement(By.xpath(CONFIRMA_PAROLA_FIELD)).sendKeys(password);
         driver.findElement(By.xpath(CREAZA_CONTUL_BTN)).click();
+    }
+
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
     }
 }

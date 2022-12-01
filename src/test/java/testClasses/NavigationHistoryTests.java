@@ -21,8 +21,10 @@ public class NavigationHistoryTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         navigationPage = new NavigationPage(driver);
         navigationHistoryPage = navigationPage.navigateToUserNavigationHistory();
+        Assert.assertTrue(navigationHistoryPage.getPageTitle().contains("Produse văzute recent"));
         Assert.assertFalse(navigationHistoryPage.getNavigationHistory().isEmpty());
         Assert.assertTrue(navigationHistoryPage.getNavigationHistory().get(0).equals("It Starts with Us"));
     }

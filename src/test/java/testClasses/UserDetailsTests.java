@@ -17,6 +17,7 @@ public class UserDetailsTests extends BaseTest {
     public void editUserTitleTest() {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
         Assert.assertTrue(userDetailsPage.editUserTitle('F').equals("Dna."));
     }
 
@@ -24,6 +25,7 @@ public class UserDetailsTests extends BaseTest {
     public void editUserFirstNameTest() {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
         Assert.assertTrue(userDetailsPage.editFirstName("Jenny").contains("Jenny"));
     }
 
@@ -31,6 +33,7 @@ public class UserDetailsTests extends BaseTest {
     public void editUserLastNameTest() {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
         Assert.assertTrue(userDetailsPage.editLastName("Smith").contains("Smith"));
     }
 
@@ -38,6 +41,7 @@ public class UserDetailsTests extends BaseTest {
     public void editPhoneNumberTest() {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
         Assert.assertTrue(userDetailsPage.editPhoneNumber("0947688845").equals("0947688845"));
     }
 
@@ -45,12 +49,14 @@ public class UserDetailsTests extends BaseTest {
     public void editEmailTest() {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
         Assert.assertTrue(userDetailsPage.editEmail("automationtesting631@gmail.com").equals("automationtesting631@gmail.com"));
     }
 
     private void resetOriginlEmailAddress() {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
+        Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
         userDetailsPage.editEmail("automationtesting630@gmail.com");
     }
 

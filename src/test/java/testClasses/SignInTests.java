@@ -16,7 +16,7 @@ public class SignInTests extends BaseTest {
     @DataProvider
     public Object[][] signInDataProvider() {
         return new Object[][] {
-                {"mithtest@gmail.com", "Nicole", "Smith", "testpass123"},
+                {"oithtest@gmail.com", "Nicole", "Smith", "testpass123"},
                 {"onestest@gmail.com", "Marry", "Jones", "passtest321"},
                 {"estest@gmail.com", "Joe", "Smith", "qatestpass99"},
                 {"ttjtest@gmail.com", "Matt", "Jones", "testqaqa60"}
@@ -27,13 +27,14 @@ public class SignInTests extends BaseTest {
     public void testSignIn(String email, String firstname, String lastname, String password) {
         signInPage = new SignInPage(driver);
         signInPage.open();
+        Assert.assertEquals(signInPage.getPageTitle(), "Creează cont | Books Express");
         signInPage.signInWith(email, firstname, lastname, password);
         WaitUtils.waitForUrlToContain(driver, "/user/details", 5);
         Assert.assertTrue(driver.getCurrentUrl().equals(afterSignInURL));
     }
 
     @AfterMethod
-    public void cleanup() {
+    public void teardown() {
         loginPage = new LoginPage(driver);
         loginPage.logout();
     }

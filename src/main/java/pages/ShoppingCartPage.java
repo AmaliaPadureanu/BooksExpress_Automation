@@ -1,12 +1,14 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import java.text.DecimalFormat;
 import java.util.List;
 
-public class ShoppingCartPage {
+public class ShoppingCartPage extends BasePage {
 
     public WebDriver driver;
 
@@ -17,9 +19,9 @@ public class ShoppingCartPage {
     private String STERGE_BTN = "//a[@class='color-theme-5 cart-remove-item']";
     private String QUANTITY_FIELD = "//input[contains(@type,'number')]";
 
-    public int removeFromCart() throws InterruptedException {
+    public int removeFromCart() {
         driver.findElement(By.xpath(STERGE_BTN)).click();
-        Thread.sleep(3000);
+        driver.navigate().refresh();
         List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
         return itemsInCart.size();
     }
@@ -50,13 +52,15 @@ public class ShoppingCartPage {
         decimalPart.append(chars[chars.length - 2]);
         decimalPart.append(chars[chars.length - 1]);
         double finalNumber = Double.valueOf(integerPart + "." + decimalPart);
+        df.format(finalNumber);
         return finalNumber;
     }
 
-    public Double getTotalPriceFormatted() {
+    public String getTotalPriceFormatted() {
         WebElement totalPriceOnSite = driver.findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='products-total line strong']"));
         String priceWithoutSuffix = removeSuffix(totalPriceOnSite.getText());
-        return formatPrice(Integer.valueOf(priceWithoutSuffix));
+        Double formattedPriceWithoutSuffix = formatPrice(Integer.valueOf(priceWithoutSuffix));
+        return df.format(formattedPriceWithoutSuffix);
     }
 
     public Object getDeliveryPriceFormatted() {
@@ -73,14 +77,25 @@ public class ShoppingCartPage {
         return price.replace(" lei", "");
     }
 
-    public Double computeTotalCartPrice() {
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
+    public String computeTotalCartPrice() {
         Double totalPrice = 0.0;
         List<WebElement> items = driver.findElements(By.xpath("//div[@class='color-theme-5 line']"));
         for (WebElement item : items) {
             String price = removeSuffix(item.getText());
             totalPrice += formatPrice(Integer.valueOf(price));
         }
-        return totalPrice;
+        return df.format(totalPrice);
     }
 
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
+    }
 }

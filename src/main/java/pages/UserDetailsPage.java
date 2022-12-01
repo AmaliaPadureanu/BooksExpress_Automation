@@ -1,10 +1,11 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class UserDetailsPage {
+public class UserDetailsPage extends BasePage {
 
     WebDriver driver;
 
@@ -92,4 +93,13 @@ public class UserDetailsPage {
         return newEmail;
     }
 
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
+    }
 }

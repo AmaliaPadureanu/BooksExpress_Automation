@@ -25,6 +25,7 @@ public class NavigationTests extends BaseTest {
     public void openSalesPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToSales();
+        
         Assert.assertTrue(driver.getCurrentUrl().equals(REDUCERI_URL));
     }
 

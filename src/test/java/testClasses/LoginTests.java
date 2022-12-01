@@ -26,6 +26,7 @@ public class LoginTests extends BaseTest {
     public void loginWithTest(String email, String password) {
         loginPage = new LoginPage(driver);
         loginPage.open();
+        Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
         loginPage.logInWith(email, password);
         Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
     }

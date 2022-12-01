@@ -1,12 +1,13 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class NewsletterPage {
+public class NewsletterPage extends BasePage {
 
     WebDriver driver;
 
@@ -29,5 +30,15 @@ public class NewsletterPage {
         driver.findElement(By.xpath(ABONARE_CHECKBOX)).click();
         driver.findElement(By.xpath(ABONARE_CHECKBOX)).click();
         driver.findElement(By.xpath(MA_ABONEZ_BTN)).click();
+    }
+
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
     }
 }

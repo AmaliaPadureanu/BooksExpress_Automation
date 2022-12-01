@@ -1,12 +1,13 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationHistoryPage {
+public class NavigationHistoryPage extends BasePage {
 
     WebDriver driver;
 
@@ -24,5 +25,15 @@ public class NavigationHistoryPage {
             titles.add(articleHeader.getText());
         }
         return titles;
+    }
+
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
     }
 }

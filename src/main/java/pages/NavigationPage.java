@@ -102,4 +102,11 @@ public class NavigationPage {
         return new ShoppingCartPage(driver);
     }
 
+    public ListsPage navigateToLists() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.id("show-lists"))).perform();
+        driver.findElement(By.linkText("Toate listele")).click();
+        return new ListsPage(driver);
+    }
+
 }

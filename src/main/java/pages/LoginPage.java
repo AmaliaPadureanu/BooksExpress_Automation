@@ -1,11 +1,12 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     WebDriver driver;
 
@@ -41,5 +42,13 @@ public class LoginPage {
         return optionsAvailableAfterLogout;
     }
 
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
 
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
+    }
 }

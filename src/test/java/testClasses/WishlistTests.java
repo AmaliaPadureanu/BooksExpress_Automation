@@ -27,7 +27,8 @@ public class WishlistTests extends BaseTest {
         Thread.sleep(6000);
         navigationPage = new NavigationPage(driver);
         wishlistPage = navigationPage.navigateToWishlist();
-        Assert.assertTrue(wishlistPage.getItemsTitle().contains(title));
+        Assert.assertEquals(wishlistPage.getPageTitle(), "Liste Express - Books Express | Books Express");
+        Assert.assertTrue(wishlistPage.getItemsTitle().contains(searchText));
     }
 
     @Test

@@ -1,6 +1,6 @@
 package pages;
 
-import utils.WaitUtils;
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListsPage {
+public class ListsPage extends BasePage {
 
     WebDriver driver;
 
@@ -19,9 +19,6 @@ public class ListsPage {
     private String CREATE_LIST_OPTION = "//a[contains(text(),'Creează o listă')]";
     private String TITLE_INPUT = "//input[@id='list_new_title']";
     private String CREATE_BTN = "//a[@id='list-new-create']";
-    private String LISTS_CREATED_BY_USER = "//div[@id='lists-data']//ul[@class='jq-dropdown-menu']//li[@class='user-list']/a";
-    private String ITEMS_IN_LIST = "//ul[@id='list-items']//li//h4//a";
-
 
     public void createList(String listName) {
         Actions actions = new Actions(driver);
@@ -33,10 +30,6 @@ public class ListsPage {
     }
 
     public List<String> getListsCreatedByUser() {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(LISTS)))
-                .click(driver.findElement(By.linkText("Toate listele"))).perform();
-
         List<String> listsNames = new ArrayList<>();
         List<WebElement> lists = driver.findElements(By.xpath("//h4//a"));
 
@@ -47,16 +40,8 @@ public class ListsPage {
     }
 
     public List<String> getItemsInList(String listName) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(LISTS)))
-                .click(driver.findElement(By.xpath("//a[normalize-space()='Toate listele']"))).perform();
-
-        WaitUtils.wait(driver, 5);
         driver.findElement(By.xpath("//a[normalize-space()='" + listName + "']")).click();
-        WaitUtils.wait(driver, 5);
-
         List<WebElement> items = driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"));
-
         List<String> itemsInList = new ArrayList<>();
 
         for (WebElement item : items) {
@@ -64,5 +49,15 @@ public class ListsPage {
         }
 
         return itemsInList;
+    }
+
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
     }
 }

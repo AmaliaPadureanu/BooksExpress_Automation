@@ -1,12 +1,13 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishlistPage {
+public class WishlistPage extends BasePage {
 
     WebDriver driver;
 
@@ -24,7 +25,7 @@ public class WishlistPage {
         List<String> itemsInWishlist = new ArrayList<>();
 
         for (WebElement element : driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"))) {
-            itemsInWishlist.add(element.getText().substring(3).toLowerCase());
+            itemsInWishlist.add(element.getText().substring(3));
         }
 
         return itemsInWishlist;
@@ -46,4 +47,13 @@ public class WishlistPage {
         driver.findElement(By.cssSelector(ADD_TO_CART)).click();
     }
 
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public String getPageURL() {
+        return driver.getCurrentUrl();
+    }
 }
