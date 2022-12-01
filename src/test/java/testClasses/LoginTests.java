@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
-    public String USER_INFO = "//a[normalize-space()='Info']";
+    private String USER_INFO = "//a[normalize-space()='Info']";
 
     @DataProvider
     public Object[][] loginDataProvider() {
@@ -26,7 +26,7 @@ public class LoginTests extends BaseTest {
     public void loginWithTest(String email, String password) {
         loginPage = new LoginPage(driver);
         loginPage.open();
-        //Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
+        Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
         loginPage.logInWith(email, password);
         Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
     }
