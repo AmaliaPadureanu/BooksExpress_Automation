@@ -22,7 +22,7 @@ public class ListsTests extends BaseTest {
         driver.navigate().refresh();
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToLists();
-        Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));
+        //Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));
         Assert.assertFalse(listsPage.getListsCreatedByUser().isEmpty());
         Assert.assertTrue(listsPage.getListsCreatedByUser().contains("abc list"));
     }

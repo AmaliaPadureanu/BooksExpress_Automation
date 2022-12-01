@@ -5,14 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
-    WebDriver driver;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-    }
+    By accountBtn = By.xpath("//a[@id='show-user']//i[@class='fa fa-angle-down']");
 
     private String CONT_LINK = "//a[@id='show-user']//i[@class='fa fa-angle-down']";
     private String INTRA_IN_CONT_LINK = "//a[contains(text(),'Intră în cont')]";
@@ -21,34 +19,40 @@ public class LoginPage extends BasePage {
     private String PASSWORD_FIELD = "//input[@id='password']";
     private String LOGOUT_BTN = "//a[normalize-space()='Log out']";
 
+    //WebDriver driver;
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
     public void open() {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).click(driver.findElement(By.xpath(INTRA_IN_CONT_LINK))).perform();
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(getDriver().findElement(accountBtn)).click(getDriver().findElement(By.xpath(INTRA_IN_CONT_LINK))).perform();
     }
 
     public void logInWith(String email, String password) {
-        WebElement emailField = driver.findElement(By.xpath(EMAIL_FIELD));
+        WebElement emailField = getDriver().findElement(By.xpath(EMAIL_FIELD));
         emailField.sendKeys(email);
-        driver.findElement(By.xpath(CONTINUA_BTN)).click();
-        driver.findElement(By.xpath(PASSWORD_FIELD)).sendKeys(password);
-        driver.findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
+        getDriver().findElement(By.xpath(CONTINUA_BTN)).click();
+        getDriver().findElement(By.xpath(PASSWORD_FIELD)).sendKeys(password);
+        getDriver().findElement(By.xpath(INTRA_IN_CONT_LINK)).click();
     }
 
     public int logout() {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(CONT_LINK))).perform();
-        driver.findElement(By.xpath(LOGOUT_BTN)).click();
-        int optionsAvailableAfterLogout = driver.findElements(By.xpath("(//ul[@class='jq-dropdown-menu'])[3] //a")).size();
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(getDriver().findElement(accountBtn)).perform();
+        getDriver().findElement(By.xpath(LOGOUT_BTN)).click();
+        int optionsAvailableAfterLogout = getDriver().findElements(By.xpath("(//ul[@class='jq-dropdown-menu'])[3] //a")).size();
         return optionsAvailableAfterLogout;
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }

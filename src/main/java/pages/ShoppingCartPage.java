@@ -13,7 +13,7 @@ public class ShoppingCartPage extends BasePage {
     public WebDriver driver;
 
     public ShoppingCartPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     private String STERGE_BTN = "//a[@class='color-theme-5 cart-remove-item']";
@@ -89,13 +89,13 @@ public class ShoppingCartPage extends BasePage {
         return df.format(totalPrice);
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }

@@ -10,39 +10,33 @@ import org.openqa.selenium.support.ui.Select;
 
 public class ContactPage extends BasePage {
 
-    WebDriver driver;
+    By SUBJECT = By.id("subject");
+    By MESSAGE = By.id("message");
+    By NAME = By.id("name");
+    By EMAIL = By.id("email");
+    By ORDER_NO = By.id("order_number");
 
     public ContactPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void sendContactFormUnregisteredUser(String subject, String message, String name, String email, String orderNo) {
-        Select select = new Select(driver.findElement(By.id("subject")));
+        Select select = new Select(find(SUBJECT));
         select.selectByVisibleText(subject);
-        driver.findElement(By.id("message")).sendKeys(message);
-        driver.findElement(By.id("name")).sendKeys(name);
-        driver.findElement(By.id("email")).sendKeys(email);
-        driver.findElement(By.id("order_number")).sendKeys(orderNo);
-        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(driver, By.id("send-message"), 5);
-        JavaScriptUtils.click(driver, sendBtn);
+        type(MESSAGE, message);
+        type(NAME, name);
+        type(EMAIL, email);
+        type(ORDER_NO, orderNo);
+        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(getDriver(), By.id("send-message"), 5);
+        JavaScriptUtils.click(getDriver(), sendBtn);
     }
 
     public void sendContactFormRegisteredUser(String subject, String message, String orderNo) {
-        Select select = new Select(driver.findElement(By.id("subject")));
+        Select select = new Select(find(SUBJECT));
         select.selectByVisibleText(subject);
-        driver.findElement(By.id("message")).sendKeys(message);
-        driver.findElement(By.id("order_number")).sendKeys(orderNo);
-        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(driver, By.id("send-message"), 5);
-        JavaScriptUtils.click(driver, sendBtn);
-    }
-
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
+        type(MESSAGE, message);
+        type(ORDER_NO, orderNo);
+        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(getDriver(), By.id("send-message"), 5);
+        JavaScriptUtils.click(getDriver(), sendBtn);
     }
 }

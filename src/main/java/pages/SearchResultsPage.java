@@ -10,41 +10,41 @@ import java.util.List;
 
 public class SearchResultsPage extends BasePage {
 
-    WebDriver driver;
+    private String URL = "search?q=";
+    private By FILTER_DROPDOWN = By.xpath("//i[@class='fa fa-down-open icon-right']");
+    private By ASCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț crescător')]");
+    private By DESCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț descrescător')]");
+    private By SEARCH_ITEMS = By.xpath("//article//header//h2//a//span");
+    private By ITEMS_ON_RESULTS_PAGE = By.xpath("//b[@class='color-theme-5']");
 
     public SearchResultsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    private String URL = "search?q=";
-    private String FILTER_DROPDOWN = "//i[@class='fa fa-down-open icon-right']";
-    private String ASCENDING_PRICE_BTN = "//a[contains(text(),'Preț crescător')]";
-    private String DESCENDING_PRICE_BTN = "//a[contains(text(),'Preț descrescător')]";
-
     public boolean isOpen() {
-        return driver.getCurrentUrl().contains(URL);
+        return getDriver().getCurrentUrl().contains(URL);
     }
 
     public ItemDetailsPage getItemDetailsPage(String itemName) {
-        List<WebElement> searchItems = driver.findElements(By.xpath("//article//header//h2//a//span"));
+        List<WebElement> searchItems = findAll(SEARCH_ITEMS);
         WebElement product = searchItems.stream()
                 .filter(item -> item.getText().contains(itemName)).findFirst().get();
         product.click();
-        return new ItemDetailsPage(driver);
+        return new ItemDetailsPage(getDriver());
     }
 
     public void filterAscendingOrder() {
-        driver.findElement(By.xpath(FILTER_DROPDOWN)).click();
-        driver.findElement(By.xpath(ASCENDING_PRICE_BTN)).click();
+        find(FILTER_DROPDOWN).click();
+        find(ASCENDING_PRICE_BTN).click();
     }
 
     public void filterDescendingOrder() {
-        driver.findElement(By.xpath(FILTER_DROPDOWN)).click();
-        driver.findElement(By.xpath(DESCENDING_PRICE_BTN)).click();
+        find(FILTER_DROPDOWN).click();
+        find(DESCENDING_PRICE_BTN).click();
     }
 
     public boolean checkAscendingOrder() {
-        List<WebElement> items = driver.findElements(By.xpath("//b[@class='color-theme-5']"));
+        List<WebElement> items = findAll(ITEMS_ON_RESULTS_PAGE);
 
         List<Integer> prices = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public boolean checkDescendingOrder() {
-        List<WebElement> items = driver.findElements(By.xpath("//b[@class='color-theme-5']"));
+        List<WebElement> items = findAll(ITEMS_ON_RESULTS_PAGE);
         List<Integer> prices = new ArrayList<>();
 
         for (WebElement item : items) {
@@ -79,15 +79,5 @@ public class SearchResultsPage extends BasePage {
         pricesOrdered.sort(Collections.reverseOrder());
 
         return prices.equals(pricesOrdered);
-    }
-
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
     }
 }

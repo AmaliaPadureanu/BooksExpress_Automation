@@ -12,7 +12,7 @@ public class NavigationHistoryPage extends BasePage {
     WebDriver driver;
 
     public NavigationHistoryPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     private String ARTICLES_HEADERS = "//article//h2";
@@ -27,13 +27,13 @@ public class NavigationHistoryPage extends BasePage {
         return titles;
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }

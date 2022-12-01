@@ -117,8 +117,6 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     private int getRating() {
-        driver.navigate().refresh();
-        WaitUtils.wait(driver, 3);
         List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
         WaitUtils.wait(driver, 3);
         return ratingGiven.size();

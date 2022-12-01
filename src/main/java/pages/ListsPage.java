@@ -13,7 +13,7 @@ public class ListsPage extends BasePage {
     WebDriver driver;
 
     public ListsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
     private String LISTS = "//span[normalize-space()='Liste']";
     private String CREATE_LIST_OPTION = "//a[contains(text(),'Creează o listă')]";
@@ -51,13 +51,13 @@ public class ListsPage extends BasePage {
         return itemsInList;
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }

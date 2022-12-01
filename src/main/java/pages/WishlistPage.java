@@ -12,7 +12,7 @@ public class WishlistPage extends BasePage {
     WebDriver driver;
 
     public WishlistPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     private String LISTS_BTN = "//span[normalize-space()='Liste']";
@@ -47,13 +47,13 @@ public class WishlistPage extends BasePage {
         driver.findElement(By.cssSelector(ADD_TO_CART)).click();
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }

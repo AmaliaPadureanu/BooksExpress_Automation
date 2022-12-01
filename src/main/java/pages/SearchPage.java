@@ -23,8 +23,4 @@ public class SearchPage {
         driver.findElement(By.xpath(SEARCH_BTN)).click();
         return new SearchResultsPage(driver);
     }
-
-
-
-
 }

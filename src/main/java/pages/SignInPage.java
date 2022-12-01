@@ -10,7 +10,7 @@ public class SignInPage extends BasePage {
     public WebDriver driver;
 
     public SignInPage(WebDriver driver) {
-        this.driver = driver;
+       super(driver);
     }
 
     private String CONT_LINK = "//span[normalize-space()='Cont']";
@@ -36,13 +36,13 @@ public class SignInPage extends BasePage {
         driver.findElement(By.xpath(CREAZA_CONTUL_BTN)).click();
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }

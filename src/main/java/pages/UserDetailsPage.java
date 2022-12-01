@@ -10,7 +10,7 @@ public class UserDetailsPage extends BasePage {
     WebDriver driver;
 
     public UserDetailsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     private String MODIFY_BTN = "//div[@id='profile']//button[@class='button primary edit'][contains(text(),'Modifică')]";
@@ -93,13 +93,13 @@ public class UserDetailsPage extends BasePage {
         return newEmail;
     }
 
-    @Override
-    public String getPageTitle() {
-        return driver.getTitle();
-    }
-
-    @Override
-    public String getPageURL() {
-        return driver.getCurrentUrl();
-    }
+//    @Override
+//    public String getPageTitle() {
+//        return driver.getTitle();
+//    }
+//
+//    @Override
+//    public String getPageURL() {
+//        return driver.getCurrentUrl();
+//    }
 }
