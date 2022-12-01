@@ -10,28 +10,29 @@ import java.util.List;
 
 public class ListsPage extends BasePage {
 
-    WebDriver driver;
+    private By LISTS = By.xpath("//span[normalize-space()='Liste']");
+    private By CREATE_LIST_OPTION = By.xpath("//a[contains(text(),'Creează o listă')]");
+    private By TITLE_INPUT = By.id("list_new_title");
+    private By CREATE_BTN = By.id("list-new-create");
+    private By LISTS_CREATED_BY_USER = By.xpath("//h4//a");
+
+    private By ITEMS_IN_LIST = By.cssSelector("div[class='cart-details'] h4 a");
 
     public ListsPage(WebDriver driver) {
         super(driver);
     }
-    private String LISTS = "//span[normalize-space()='Liste']";
-    private String CREATE_LIST_OPTION = "//a[contains(text(),'Creează o listă')]";
-    private String TITLE_INPUT = "//input[@id='list_new_title']";
-    private String CREATE_BTN = "//a[@id='list-new-create']";
 
     public void createList(String listName) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath(LISTS)))
-                .click(driver.findElement(By.xpath(CREATE_LIST_OPTION))).perform();
-        driver.switchTo().activeElement();
-        driver.findElement(By.xpath(TITLE_INPUT)).sendKeys(listName);
-        driver.findElement(By.xpath(CREATE_BTN)).click();
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(find(LISTS)).click(find(CREATE_LIST_OPTION)).perform();
+        getDriver().switchTo().activeElement();
+        type(TITLE_INPUT, listName);
+        find(CREATE_BTN).click();
     }
 
     public List<String> getListsCreatedByUser() {
         List<String> listsNames = new ArrayList<>();
-        List<WebElement> lists = driver.findElements(By.xpath("//h4//a"));
+        List<WebElement> lists = findAll(LISTS_CREATED_BY_USER);
 
         for (WebElement list : lists) {
             listsNames.add(list.getText());
@@ -40,8 +41,8 @@ public class ListsPage extends BasePage {
     }
 
     public List<String> getItemsInList(String listName) {
-        driver.findElement(By.xpath("//a[normalize-space()='" + listName + "']")).click();
-        List<WebElement> items = driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"));
+        find(By.xpath("//a[normalize-space()='" + listName + "']")).click();
+        List<WebElement> items = findAll(ITEMS_IN_LIST);
         List<String> itemsInList = new ArrayList<>();
 
         for (WebElement item : items) {
@@ -50,14 +51,4 @@ public class ListsPage extends BasePage {
 
         return itemsInList;
     }
-
-//    @Override
-//    public String getPageTitle() {
-//        return driver.getTitle();
-//    }
-//
-//    @Override
-//    public String getPageURL() {
-//        return driver.getCurrentUrl();
-//    }
 }
