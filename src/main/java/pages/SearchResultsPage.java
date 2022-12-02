@@ -26,21 +26,20 @@ public class SearchResultsPage extends BasePage {
     }
 
     public ItemDetailsPage getItemDetailsPage(String itemName) {
-        List<WebElement> searchItems = findAll(SEARCH_ITEMS);
-        WebElement product = searchItems.stream()
+        WebElement product = findAll(SEARCH_ITEMS).stream()
                 .filter(item -> item.getText().contains(itemName)).findFirst().get();
         product.click();
         return new ItemDetailsPage(getDriver());
     }
 
     public void filterAscendingOrder() {
-        find(FILTER_DROPDOWN).click();
-        find(ASCENDING_PRICE_BTN).click();
+        click(FILTER_DROPDOWN);
+        click(ASCENDING_PRICE_BTN);
     }
 
     public void filterDescendingOrder() {
-        find(FILTER_DROPDOWN).click();
-        find(DESCENDING_PRICE_BTN).click();
+        click(FILTER_DROPDOWN);
+        click(DESCENDING_PRICE_BTN);
     }
 
     public boolean checkAscendingOrder() {
