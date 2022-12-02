@@ -9,31 +9,19 @@ import java.util.List;
 
 public class NavigationHistoryPage extends BasePage {
 
-    WebDriver driver;
+    private By ARTICLES_HEADERS = By.xpath("//article//h2");
 
     public NavigationHistoryPage(WebDriver driver) {
         super(driver);
     }
 
-    private String ARTICLES_HEADERS = "//article//h2";
-
     public List<String> getNavigationHistory() {
         List<String> titles = new ArrayList<>();
-        List<WebElement> articlesHeaders = driver.findElements(By.xpath(ARTICLES_HEADERS));
+        List<WebElement> articlesHeaders = findAll(ARTICLES_HEADERS);
 
         for (WebElement articleHeader : articlesHeaders) {
             titles.add(articleHeader.getText());
         }
         return titles;
     }
-
-//    @Override
-//    public String getPageTitle() {
-//        return driver.getTitle();
-//    }
-//
-//    @Override
-//    public String getPageURL() {
-//        return driver.getCurrentUrl();
-//    }
 }
