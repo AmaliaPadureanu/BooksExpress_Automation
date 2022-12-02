@@ -1,26 +1,23 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-public class SearchPage {
+public class SearchPage extends BasePage {
 
-    WebDriver driver;
+    private By SEARCH_BAR = By.id("search");
+    private By SEARCH_BTN = By.xpath("//button[@type='submit']");
 
     public SearchPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    private String SEARCH_BAR = "//input[@id='search']";
-    private String SEARCH_BTN = "//button[@type='submit']";
-
     public SearchResultsPage search(String item) {
-        WebElement searchBar = driver.findElement(By.xpath(SEARCH_BAR));
-        searchBar.click();
-        searchBar.clear();
-        searchBar.sendKeys(item);
-        driver.findElement(By.xpath(SEARCH_BTN)).click();
-        return new SearchResultsPage(driver);
+        click(SEARCH_BAR);
+        clear(SEARCH_BAR);
+        type(SEARCH_BAR, item);
+        click(SEARCH_BTN);
+        return new SearchResultsPage(getDriver());
     }
 }

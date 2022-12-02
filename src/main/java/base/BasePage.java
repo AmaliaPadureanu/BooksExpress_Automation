@@ -33,6 +33,10 @@ public class BasePage {
         find(locator).click();
     }
 
+    public void clear(By locator) {
+        find(locator).clear();
+    }
+
     public void type(By locator, String text) {
         find(locator).sendKeys(text);
     }
