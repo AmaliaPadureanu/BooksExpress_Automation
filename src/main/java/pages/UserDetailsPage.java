@@ -3,44 +3,41 @@ package pages;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class UserDetailsPage extends BasePage {
 
-    WebDriver driver;
+    private By MODIFY_BTN = By.xpath("//div[@id='profile']//button[@class='button primary edit'][contains(text(),'Modifică')]");
+    private By UPDATE_BTN = By.xpath("//button[@class='button primary save'][contains(.,'Actualizează')]");
+    private By MS_TITLE_RADIOBTN = By.xpath("//label[@for='gender_F']");
+    private By MR_TITLE_RADIOBTN = By.xpath("//label[@for='gender_M']");
+    private By MR_TITLE = By.xpath("//div[contains(text(),'Dl.')]");
+    private By MS_TITLE = By.xpath("//div[contains(text(),'Dna.')]");
+    private By FIRST_NAME_FIELD = By.id("first_name");
+    private By LAST_NAME_FIELD = By.id("last_name");
+    private By NAME = By.cssSelector("div[id='profile'] div:nth-child(4)");
+    private By PHONE_NUMBER = By.cssSelector("div[id='main'] div:nth-child(6)");
+    private By PHONE_NUMBER_INPUT = By.id("phone");
+    private By EMAIL = By.cssSelector("div[id='main'] div:nth-child(8)");
+    private By EMAIL_INPUT = By.id("email");
 
     public UserDetailsPage(WebDriver driver) {
         super(driver);
     }
 
-    private String MODIFY_BTN = "//div[@id='profile']//button[@class='button primary edit'][contains(text(),'Modifică')]";
-    private String UPDATE_BTN = "//button[@class='button primary save'][contains(.,'Actualizează')]";
-    private String MS_TITLE_RADIOBTN = "//label[@for='gender_F']";
-    private String MR_TITLE_RADIOBTN = "//label[@for='gender_M']";
-    private String MR_TITLE = "//div[contains(text(),'Dl.')]";
-    private String MS_TITLE = "//div[contains(text(),'Dna.')]";
-    private String FIRST_NAME_FIELD = "//input[@id='first_name']";
-    private String LAST_NAME_FIELD = "//input[@id='last_name']";
-    private String NAME = "div[id='profile'] div:nth-child(4)";
-    private String PHONE_NUMBER = "div[id='main'] div:nth-child(6)";
-    private String PHONE_NUMBER_INPUT = "//input[@id='phone']";
-    private String EMAIL = "div[id='main'] div:nth-child(8)";
-    private String EMAIL_INPUT = "//input[@id='email']";
-
     public String editUserTitle(Character gender) {
-        driver.findElement(By.xpath(MODIFY_BTN)).click();
+        click(MODIFY_BTN);
 
         if (gender.equals('M')) {
-            driver.findElement(By.xpath(MR_TITLE_RADIOBTN)).click();
-            driver.findElement(By.xpath(UPDATE_BTN)).click();
-            driver.navigate().refresh();
-            return driver.findElement(By.xpath(MR_TITLE)).getText();
+            click(MR_TITLE_RADIOBTN);
+            click(UPDATE_BTN);
+            getDriver().navigate().refresh();
+            return find(MR_TITLE).getText();
         }
         else if (gender.equals('F')) {
-            driver.findElement(By.xpath(MS_TITLE_RADIOBTN)).click();
-            driver.findElement(By.xpath(UPDATE_BTN)).click();
-            driver.navigate().refresh();
-            return driver.findElement(By.xpath(MS_TITLE)).getText();
+            click(MS_TITLE_RADIOBTN);
+            click(UPDATE_BTN);
+            getDriver().navigate().refresh();
+            return find(MS_TITLE).getText();
         }
         else {
             System.out.println("Value is not valid. Please choose between M and F");
@@ -50,56 +47,39 @@ public class UserDetailsPage extends BasePage {
     }
 
     public String editFirstName(String firstName) {
-        driver.findElement(By.xpath(MODIFY_BTN)).click();
-        WebElement inputFirstName = driver.findElement(By.xpath(FIRST_NAME_FIELD));
-        inputFirstName.clear();
-        inputFirstName.sendKeys(firstName);
-        driver.findElement(By.xpath(UPDATE_BTN)).click();
-        driver.navigate().refresh();
-        String newFirstName = driver.findElement(By.cssSelector(NAME)).getText();
-        return newFirstName;
+        click(MODIFY_BTN);
+        clear(FIRST_NAME_FIELD);
+        type(FIRST_NAME_FIELD, firstName);
+        click(UPDATE_BTN);
+        getDriver().navigate().refresh();
+        return find(NAME).getText();
     }
 
     public String editLastName(String lastName) {
-        driver.findElement(By.xpath(MODIFY_BTN)).click();
-        WebElement inputLastName = driver.findElement(By.xpath(LAST_NAME_FIELD));
-        inputLastName.clear();
-        inputLastName.sendKeys(lastName);
-        driver.findElement(By.xpath(UPDATE_BTN)).click();
-        driver.navigate().refresh();
-        String newLastName = driver.findElement(By.cssSelector(NAME)).getText();
-        return newLastName;
+        click(MODIFY_BTN);
+        clear(LAST_NAME_FIELD);
+        type(LAST_NAME_FIELD, lastName);
+        click(UPDATE_BTN);
+        getDriver().navigate().refresh();
+        return find(NAME).getText();
     }
 
     public String editPhoneNumber(String phoneNr) {
-        driver.findElement(By.xpath(MODIFY_BTN)).click();
-        WebElement inputPhoneNumber = driver.findElement(By.xpath(PHONE_NUMBER_INPUT));
-        inputPhoneNumber.clear();
-        inputPhoneNumber.sendKeys(phoneNr);
-        driver.findElement(By.xpath(UPDATE_BTN)).click();
-        driver.navigate().refresh();
-        String newPhoneNumber = driver.findElement(By.cssSelector(PHONE_NUMBER)).getText();
-        return newPhoneNumber;
+        click(MODIFY_BTN);
+        clear(PHONE_NUMBER_INPUT);
+        type(PHONE_NUMBER_INPUT, phoneNr);
+        click(UPDATE_BTN);
+        getDriver().navigate().refresh();
+        return find(PHONE_NUMBER).getText();
     }
 
     public String editEmail(String email) {
-        driver.findElement(By.xpath(MODIFY_BTN)).click();
-        WebElement inputEmail = driver.findElement(By.xpath(EMAIL_INPUT));
-        inputEmail.clear();
-        inputEmail.sendKeys(email);
-        driver.findElement(By.xpath(UPDATE_BTN)).click();
-        driver.navigate().refresh();
-        String newEmail = driver.findElement(By.cssSelector(EMAIL)).getText();
-        return newEmail;
+        click(MODIFY_BTN);
+        clear(EMAIL_INPUT);
+        type(EMAIL_INPUT, email);
+        click(UPDATE_BTN);
+        getDriver().navigate().refresh();
+        return find(EMAIL).getText();
     }
 
-//    @Override
-//    public String getPageTitle() {
-//        return driver.getTitle();
-//    }
-//
-//    @Override
-//    public String getPageURL() {
-//        return driver.getCurrentUrl();
-//    }
 }
