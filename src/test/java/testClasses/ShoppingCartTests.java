@@ -17,9 +17,9 @@ public class ShoppingCartTests extends BaseTest {
         String searchText = "Harry Potter and the Half-Blood Prince";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        //Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        //Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
 
@@ -27,7 +27,7 @@ public class ShoppingCartTests extends BaseTest {
     public void changeQuantityTest() {
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
-        //Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
+        Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
         Assert.assertEquals(shoppingCartPage.changeQuantity(7), 7);
     }
 
@@ -35,7 +35,7 @@ public class ShoppingCartTests extends BaseTest {
     public void removeFromCartTest() {
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
-        //Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
+        Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
         int itemsNoBeforeRemoval = shoppingCartPage.getNoOfCartItems();
         Assert.assertTrue(shoppingCartPage.removeFromCart() == itemsNoBeforeRemoval - 1);
     }
@@ -45,7 +45,7 @@ public class ShoppingCartTests extends BaseTest {
         addMultipleItemsToCart("Harry Potter and the Half-Blood Prince", "Little Women", "No Longer Human", "Currency Wars", "A Darker Shade of Magic");
         navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
-        //Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
+        Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
         Assert.assertEquals(shoppingCartPage.computeTotalCartPrice(), shoppingCartPage.getTotalPriceFormatted());
     }
 
@@ -66,13 +66,13 @@ public class ShoppingCartTests extends BaseTest {
         String searchText = "Harry Potter and the Half-Blood Prince";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        //Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        //Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.addToCart());
         NavigationPage navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
-        //Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
+        Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
         Assert.assertEquals(shoppingCartPage.changeQuantity(5), 5);
         driver.navigate().refresh();
         Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), "GRATUIT");
@@ -83,14 +83,14 @@ public class ShoppingCartTests extends BaseTest {
         String searchText = "Harry Potter and the Half-Blood Prince";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        //Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
-        //Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.addToCart());
         NavigationPage navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
-        //Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
+        Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
         Assert.assertEquals(shoppingCartPage.changeQuantity(1), 1);
         driver.navigate().refresh();
         Assert.assertEquals(shoppingCartPage.getDeliveryPriceFormatted(), 9.99);

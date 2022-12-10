@@ -16,6 +16,7 @@ public class ListsPage extends BasePage {
     private By CREATE_BTN = By.id("list-new-create");
     private By LISTS_CREATED_BY_USER = By.xpath("//h4//a");
     private By ITEMS_IN_LIST = By.cssSelector("div[class='cart-details'] h4 a");
+
     public ListsPage(WebDriver driver) {
         super(driver);
     }
@@ -27,6 +28,7 @@ public class ListsPage extends BasePage {
         type(TITLE_INPUT, listName);
         find(CREATE_BTN).click();
     }
+
     public List<String> getListsCreatedByUser() {
         List<String> listsNames = new ArrayList<>();
         List<WebElement> lists = findAll(LISTS_CREATED_BY_USER);
@@ -36,6 +38,7 @@ public class ListsPage extends BasePage {
         }
         return listsNames;
     }
+
     public List<String> getItemsInList(String listName) {
         find(By.xpath("//a[normalize-space()='" + listName + "']")).click();
         List<WebElement> items = findAll(ITEMS_IN_LIST);

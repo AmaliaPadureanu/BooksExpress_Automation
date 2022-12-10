@@ -10,33 +10,31 @@ import java.util.List;
 
 public class ShoppingCartPage extends BasePage {
 
-    public WebDriver driver;
+    private By STERGE_BTN = By.xpath("//a[@class='color-theme-5 cart-remove-item']");
+    private By QUANTITY_FIELD = By.xpath("//input[contains(@type,'number')]");
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
     }
 
-    private String STERGE_BTN = "//a[@class='color-theme-5 cart-remove-item']";
-    private String QUANTITY_FIELD = "//input[contains(@type,'number')]";
-
     public int removeFromCart() {
-        driver.findElement(By.xpath(STERGE_BTN)).click();
-        driver.navigate().refresh();
-        List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
+        find(STERGE_BTN).click();
+        getDriver().navigate().refresh();
+        List<WebElement> itemsInCart = getDriver().findElements(By.xpath("//li[@class='row 25%']"));
         return itemsInCart.size();
     }
 
     public int getNoOfCartItems() {
-        List<WebElement> itemsInCart = driver.findElements(By.xpath("//li[@class='row 25%']"));
+        List<WebElement> itemsInCart = getDriver().findElements(By.xpath("//li[@class='row 25%']"));
         return itemsInCart.size();
     }
 
     public int changeQuantity(int qty) {
-        WebElement quantity = driver.findElement(By.xpath(QUANTITY_FIELD));
+        WebElement quantity = find(QUANTITY_FIELD);
         quantity.sendKeys(Keys.DELETE);
         quantity.sendKeys(String.valueOf(qty));
         quantity.sendKeys(Keys.ENTER);
-        int value = Integer.valueOf(driver.findElement(By.xpath(QUANTITY_FIELD)).getAttribute("value"));
+        int value = Integer.valueOf(getDriver().findElement(QUANTITY_FIELD).getAttribute("value"));
         return value;
     }
 
@@ -57,14 +55,14 @@ public class ShoppingCartPage extends BasePage {
     }
 
     public String getTotalPriceFormatted() {
-        WebElement totalPriceOnSite = driver.findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='products-total line strong']"));
+        WebElement totalPriceOnSite = getDriver().findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='products-total line strong']"));
         String priceWithoutSuffix = removeSuffix(totalPriceOnSite.getText());
         Double formattedPriceWithoutSuffix = formatPrice(Integer.valueOf(priceWithoutSuffix));
         return df.format(formattedPriceWithoutSuffix);
     }
 
     public Object getDeliveryPriceFormatted() {
-        String deliveryPrice = driver.findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='transport-total line']")).getText();
+        String deliveryPrice = getDriver().findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='transport-total line']")).getText();
 
         if (deliveryPrice.contains("lei")) {
             String priceWithoutSuffix = removeSuffix(deliveryPrice);
@@ -81,21 +79,11 @@ public class ShoppingCartPage extends BasePage {
 
     public String computeTotalCartPrice() {
         Double totalPrice = 0.0;
-        List<WebElement> items = driver.findElements(By.xpath("//div[@class='color-theme-5 line']"));
+        List<WebElement> items = getDriver().findElements(By.xpath("//div[@class='color-theme-5 line']"));
         for (WebElement item : items) {
             String price = removeSuffix(item.getText());
             totalPrice += formatPrice(Integer.valueOf(price));
         }
         return df.format(totalPrice);
     }
-
-//    @Override
-//    public String getPageTitle() {
-//        return driver.getTitle();
-//    }
-//
-//    @Override
-//    public String getPageURL() {
-//        return driver.getCurrentUrl();
-//    }
 }

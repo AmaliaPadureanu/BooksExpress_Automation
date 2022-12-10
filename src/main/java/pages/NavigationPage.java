@@ -23,7 +23,6 @@ public class NavigationPage extends BasePage {
     private By PERSONAL_INFO = By.xpath("//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']");
     private By NAVIGATION_HISTORY = By.xpath("//a[normalize-space()='Istoric de navigare']");
     private By LISTS = By.id("show-lists");
-
     private By SEE_ALL_LISTS = By.linkText("Toate listele");
     private By WISHLIST_LINK = By.cssSelector("a[href='/user/wishlist']");
     private By SEE_CART_BTN = By.xpath("//a[contains(text(),'Vezi coșul')]");
