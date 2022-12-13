@@ -38,15 +38,18 @@ public class ItemDetailsPage extends BasePage {
     }
 
     public void addToWishlist() {
-        find(WISHLIST_BTN).click();
+        WebElement wishlistButton = find(WISHLIST_BTN);
+        wishlistButton.click();
     }
 
     public String getItemTitle() {
-        return find(ITEM_TITLE).getText();
+        String itemTitle = find(ITEM_TITLE).getText();
+        return itemTitle;
     }
 
     public String getItemAuthor() {
-        return find(ITEM_AUTHOR).getText();
+        String authorName = find(ITEM_AUTHOR).getText();
+        return authorName;
     }
 
     public boolean readMore() {

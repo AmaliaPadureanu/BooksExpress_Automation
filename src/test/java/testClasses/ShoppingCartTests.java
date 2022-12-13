@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import pages.NavigationPage;
 import pages.SearchPage;
 import pages.SearchResultsPage;
+import utils.WaitUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +20,7 @@ public class ShoppingCartTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.addToCart());
     }
@@ -52,12 +54,15 @@ public class ShoppingCartTests extends BaseTest {
     private void addMultipleItemsToCart(String... items) {
         List<String> searchText = new ArrayList<>();
         Collections.addAll(searchText, items);
-        searchPage = new SearchPage(driver);
 
         for (String searchItem : searchText) {
+
+            searchPage = new SearchPage(driver);
             SearchResultsPage searchResultsPage = searchPage.search(searchItem);
-            itemDetailsPage = searchResultsPage.getItemDetailsPage(searchItem);
-            itemDetailsPage.addToCart();
+            Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchItem));
+            itemDetailsPage = searchResultsPage.getItemDetailsPage();
+            Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchItem));
+            Assert.assertTrue(itemDetailsPage.addToCart());
         }
     }
 
@@ -67,7 +72,8 @@ public class ShoppingCartTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        WaitUtils.wait(driver, 5);
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.addToCart());
         NavigationPage navigationPage = new NavigationPage(driver);
@@ -85,11 +91,12 @@ public class ShoppingCartTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
-        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.addToCart());
         NavigationPage navigationPage = new NavigationPage(driver);
         shoppingCartPage = navigationPage.navigateToCart();
+        WaitUtils.wait(driver, 5);
         Assert.assertEquals(shoppingCartPage.getPageTitle(), "Coș de cumpărături | Books Express");
         Assert.assertEquals(shoppingCartPage.changeQuantity(1), 1);
         driver.navigate().refresh();

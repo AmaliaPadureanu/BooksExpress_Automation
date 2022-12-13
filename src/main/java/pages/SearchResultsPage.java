@@ -2,8 +2,11 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +17,7 @@ public class SearchResultsPage extends BasePage {
     private By FILTER_DROPDOWN = By.xpath("//i[@class='fa fa-down-open icon-right']");
     private By ASCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț crescător')]");
     private By DESCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț descrescător')]");
-    private By SEARCH_ITEMS = By.xpath("//article//header//h2//a//span");
+    private By FIRST_PRODUCT_IN_SEARCH_LIST = By.cssSelector("#results-list > div > article:nth-child(1) > header > h2 > a > span");
     private By ITEMS_ON_RESULTS_PAGE = By.xpath("//b[@class='color-theme-5']");
 
     public SearchResultsPage(WebDriver driver) {
@@ -25,10 +28,13 @@ public class SearchResultsPage extends BasePage {
         return getDriver().getCurrentUrl().contains(URL);
     }
 
-    public ItemDetailsPage getItemDetailsPage(String itemName) {
-        WebElement product = findAll(SEARCH_ITEMS).stream()
-                .filter(item -> item.getText().contains(itemName)).findFirst().get();
-        product.click();
+    public ItemDetailsPage getItemDetailsPage() {
+        new WebDriverWait(getDriver(), 10)
+                .ignoring(StaleElementReferenceException.class)
+                .until((WebDriver driver) -> {
+                    driver.findElement(FIRST_PRODUCT_IN_SEARCH_LIST).click();
+                    return true;
+                });
         return new ItemDetailsPage(getDriver());
     }
 

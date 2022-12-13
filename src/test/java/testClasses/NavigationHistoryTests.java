@@ -20,7 +20,7 @@ public class NavigationHistoryTests extends BaseTest {
         String searchText = "It Starts with Us";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        itemDetailsPage = searchResultsPage.getItemDetailsPage(searchText);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         navigationPage = new NavigationPage(driver);
         navigationHistoryPage = navigationPage.navigateToUserNavigationHistory();

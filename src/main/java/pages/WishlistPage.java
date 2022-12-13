@@ -9,22 +9,20 @@ import java.util.List;
 
 public class WishlistPage extends BasePage {
 
-    WebDriver driver;
+    private By ITEM_TITLE = By.cssSelector("div[class='cart-details'] h4 a");
+    private By REMOVE_BTN = By.xpath("//a[@class='color-theme-5 remove-item']");
+    private By ITEMS_IN_LIST = By.cssSelector("#list-items>li");
+    private By ADD_TO_CART = By.cssSelector("button[type='button']");
+    private By ITEMS_IN_WISHLIST = By.cssSelector("div[class='cart-details'] h4 a");
 
     public WishlistPage(WebDriver driver) {
         super(driver);
     }
 
-    private String LISTS_BTN = "//span[normalize-space()='Liste']";
-    private String ITEM_TITLE = "div[class='cart-details'] h4 a";
-    private String REMOVE_BTN = "//a[@class='color-theme-5 remove-item']";
-    private String ITEMS_IN_LIST = "#list-items>li";
-    private String ADD_TO_CART = "button[type='button']";
-
     public List<String> getItemsTitle() {
         List<String> itemsInWishlist = new ArrayList<>();
 
-        for (WebElement element : driver.findElements(By.cssSelector("div[class='cart-details'] h4 a"))) {
+        for (WebElement element : findAll(ITEMS_IN_WISHLIST)) {
             itemsInWishlist.add(element.getText().substring(3));
         }
 
@@ -32,11 +30,11 @@ public class WishlistPage extends BasePage {
     }
 
     public void removeItem() {
-        driver.findElement(By.xpath(REMOVE_BTN)).click();
+        click(REMOVE_BTN);
     }
 
     public boolean isEmpty() {
-        List<WebElement> items = driver.findElements(By.cssSelector(ITEMS_IN_LIST));
+        List<WebElement> items = findAll(ITEMS_IN_LIST);
         if (items.size() != 0) {
             return false;
         }
@@ -44,16 +42,6 @@ public class WishlistPage extends BasePage {
     }
 
     public void addToCart() {
-        driver.findElement(By.cssSelector(ADD_TO_CART)).click();
+        click(ADD_TO_CART);
     }
-
-//    @Override
-//    public String getPageTitle() {
-//        return driver.getTitle();
-//    }
-//
-//    @Override
-//    public String getPageURL() {
-//        return driver.getCurrentUrl();
-//    }
 }
