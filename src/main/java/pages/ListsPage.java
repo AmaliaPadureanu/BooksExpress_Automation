@@ -16,6 +16,9 @@ public class ListsPage extends BasePage {
     private By CREATE_BTN = By.id("list-new-create");
     private By LISTS_CREATED_BY_USER = By.xpath("//h4//a");
     private By ITEMS_IN_LIST = By.cssSelector("div[class='cart-details'] h4 a");
+    private By PUBLIC_LISTS_SEARCHBAR = By.id("search-public-list");
+    private By PUBLIC_LIST_SEARCHBUTTON = By.id("search-button");
+    private By FIRST_LIST_IN_PUBLIC_LISTS = By.cssSelector("body > div:nth-child(10) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(3) > a:nth-child(1)");
 
     public ListsPage(WebDriver driver) {
         super(driver);
@@ -50,4 +53,11 @@ public class ListsPage extends BasePage {
 
         return itemsInList;
     }
+
+    public String searchInPublicLists(String listName) {
+        type(PUBLIC_LISTS_SEARCHBAR, listName);
+        click(PUBLIC_LIST_SEARCHBUTTON);
+        return getText(FIRST_LIST_IN_PUBLIC_LISTS);
+    }
+
 }

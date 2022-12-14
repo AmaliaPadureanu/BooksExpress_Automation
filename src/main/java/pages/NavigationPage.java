@@ -27,6 +27,7 @@ public class NavigationPage extends BasePage {
     private By WISHLIST_LINK = By.cssSelector("a[href='/user/wishlist']");
     private By SEE_CART_BTN = By.xpath("//a[contains(text(),'Vezi coșul')]");
     private By CART_BTN = By.xpath("//span[contains(text(),'Coș')]");
+    private By PUBLIC_LISTS = By.xpath("//b[contains(text(),'Explorează listele publice')]");
 
     public NavigationPage(WebDriver driver) {
         super(driver);
@@ -104,6 +105,13 @@ public class NavigationPage extends BasePage {
         Actions actions = new Actions(getDriver());
         actions.moveToElement(find(LISTS)).perform();
         find(SEE_ALL_LISTS).click();
+        return new ListsPage(getDriver());
+    }
+
+    public ListsPage navigateToPublicLists() {
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(find(LISTS)).perform();
+        click(PUBLIC_LISTS);
         return new ListsPage(getDriver());
     }
 

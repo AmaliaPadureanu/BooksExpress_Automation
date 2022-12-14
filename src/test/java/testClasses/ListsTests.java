@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.NavigationPage;
+import utils.WaitUtils;
 
 public class ListsTests extends BaseTest {
 
@@ -18,13 +19,23 @@ public class ListsTests extends BaseTest {
     @Test
     public void createListTest() {
         listsPage = new ListsPage(driver);
-        listsPage.createList("abc list");
+        listsPage.createList("bbb list");
         driver.navigate().refresh();
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToLists();
         Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));
         Assert.assertFalse(listsPage.getListsCreatedByUser().isEmpty());
-        Assert.assertTrue(listsPage.getListsCreatedByUser().contains("abc list"));
+        Assert.assertTrue(listsPage.getListsCreatedByUser().contains("bbb list"));
+    }
+
+    @Test
+    public void searchInPublicListsTest() {
+        String searchText = "software";
+        navigationPage = new NavigationPage(driver);
+        listsPage = navigationPage.navigateToPublicLists();
+        WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/lists", 5);
+        Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));
+        Assert.assertTrue(listsPage.searchInPublicLists("software").toLowerCase().contains(searchText.toLowerCase()));
     }
 
     @AfterClass
