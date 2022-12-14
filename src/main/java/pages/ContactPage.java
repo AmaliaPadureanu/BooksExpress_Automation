@@ -15,8 +15,9 @@ public class ContactPage extends BasePage {
     By NAME = By.id("name");
     By EMAIL = By.id("email");
     By ORDER_NO = By.id("order_number");
-
     By ANOTHER_SUBJECT = By.id("another_subject");
+
+    By SUBJECT_ERROR_MESSAGE = By.cssSelector("div[data-for='subject']");
 
     public ContactPage(WebDriver driver) {
         super(driver);

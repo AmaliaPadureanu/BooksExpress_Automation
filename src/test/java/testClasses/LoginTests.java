@@ -1,12 +1,11 @@
 package testClasses;
 
-import pages.LoginPage;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
 
@@ -29,11 +28,14 @@ public class LoginTests extends BaseTest {
         Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
         loginPage.logInWith(email, password);
         Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
+        loginPage.logout();
     }
 
-    @AfterMethod
-    public void logout() {
+    @Test
+    public void resetPasswordTest() {
         loginPage = new LoginPage(driver);
-        loginPage.logout();
+        loginPage.open();
+        Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
+        Assert.assertEquals(loginPage.resetPassword("nsmithtest@gmail.com"), "Instructiunile de resetare a parolei au fost trimise la adresa de email.");
     }
 }

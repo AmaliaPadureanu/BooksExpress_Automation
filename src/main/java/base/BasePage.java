@@ -41,5 +41,7 @@ public class BasePage {
         find(locator).sendKeys(text);
     }
 
-
+    public String getText(By locator) {
+        return find(locator).getText();
+    }
 }

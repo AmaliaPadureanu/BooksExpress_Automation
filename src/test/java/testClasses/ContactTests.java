@@ -28,7 +28,7 @@ public class ContactTests extends BaseTest {
         };
     }
 
-    @Test (dataProvider = "contactUnregisteredDataProvider")
+    @Test (dataProvider = "contactUnregisteredDataProvider", enabled = false)
     public void sendContactFormUnregisteredUserTest(String subject, String anotherSubject, String message, String name, String email, String orderNo) {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
@@ -37,7 +37,7 @@ public class ContactTests extends BaseTest {
         Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
     }
 
-    @Test (dataProvider = "contactRegisteredDataProvider")
+    @Test (dataProvider = "contactRegisteredDataProvider", enabled = false)
     public void sendContactFormRegisteredUserTest(String subject, String anotherSubject, String message,String orderNo) {
         login();
         NavigationPage navigationPage = new NavigationPage(driver);

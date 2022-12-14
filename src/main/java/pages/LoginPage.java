@@ -4,6 +4,7 @@ import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import utils.WaitUtils;
 
 public class LoginPage extends BasePage {
 
@@ -14,6 +15,8 @@ public class LoginPage extends BasePage {
     private By PASSWORD_FIELD = By.id("password");
     private By LOGOUT_BTN = By.xpath("//a[normalize-space()='Log out']");
     private By ACCOUNT_OPTIONS = By.xpath("(//ul[@class='jq-dropdown-menu'])[3] //a");
+    private By RESET_PASSWORD_BTN = By.id("reset-password");
+    private By RESET_PASSWORD_MESSAGE = By.id("reset-message");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -36,5 +39,14 @@ public class LoginPage extends BasePage {
         actions.moveToElement(find(ACCOUNT_BTN)).perform();
         find(LOGOUT_BTN).click();
         return findAll(ACCOUNT_OPTIONS).size();
+    }
+
+    public String resetPassword(String email) {
+        type(EMAIL_FIELD, email);
+        find(CONTINUA_BTN).click();
+        WaitUtils.waitForVisibilityOf(getDriver(), RESET_PASSWORD_BTN, 5);
+        click(RESET_PASSWORD_BTN);
+        WaitUtils.waitForVisibilityOf(getDriver(), RESET_PASSWORD_MESSAGE, 5);
+        return getText(RESET_PASSWORD_MESSAGE);
     }
 }
