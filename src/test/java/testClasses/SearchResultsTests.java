@@ -30,4 +30,16 @@ public class SearchResultsTests extends BaseTest {
         Assert.assertTrue(searchResultsPage.checkDescendingOrder());
     }
 
+    @Test
+    public void filterByLanguageTest() {
+        String language = "fra";
+        searchText = "computers";
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
+        searchResultsPage.filterByLanguage(language);
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        Assert.assertTrue(itemDetailsPage.getProductLanguage().toLowerCase().contains(language));
+    }
+
 }

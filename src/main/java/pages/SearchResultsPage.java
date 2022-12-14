@@ -6,6 +6,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.JavaScriptUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +20,11 @@ public class SearchResultsPage extends BasePage {
     private By DESCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț descrescător')]");
     private By FIRST_PRODUCT_IN_SEARCH_LIST = By.cssSelector("#results-list > div > article:nth-child(1) > header > h2 > a > span");
     private By ITEMS_ON_RESULTS_PAGE = By.xpath("//b[@class='color-theme-5']");
+    private By ENGLISH_FILTER = By.xpath("//a[contains(text(),'Engleză')]");
+    private By GERMAN_FILTER = By.xpath("//a[@rel='nofollow'][contains(text(),'Germană')]");
+    private By SPANISH_FILTER = By.xpath("//a[contains(text(),'Spaniolă')]");
+    private By ITALIAN_FILTER = By.xpath("//a[contains(text(),'Italiană')]");
+    private By FRENCH_FILTER = By.xpath("//a[contains(text(),'Franceză')]");
 
     public SearchResultsPage(WebDriver driver) {
         super(driver);
@@ -84,5 +90,15 @@ public class SearchResultsPage extends BasePage {
         pricesOrdered.sort(Collections.reverseOrder());
 
         return prices.equals(pricesOrdered);
+    }
+
+    public void filterByLanguage(String language) {
+        switch (language) {
+            case "eng" -> JavaScriptUtils.click(getDriver(), find(ENGLISH_FILTER));
+            case "ger" -> JavaScriptUtils.click(getDriver(), find(GERMAN_FILTER));
+            case "spa" -> JavaScriptUtils.click(getDriver(), find(SPANISH_FILTER));
+            case "fra" -> JavaScriptUtils.click(getDriver(), find(FRENCH_FILTER));
+            case "ita" -> JavaScriptUtils.click(getDriver(), find(ITALIAN_FILTER));
+        }
     }
 }

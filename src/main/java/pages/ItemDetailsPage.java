@@ -27,6 +27,7 @@ public class ItemDetailsPage extends BasePage {
     private By REVIEWS = By.xpath("//section[@id='product-reviews']//div[@class='read-text serif']//h4[contains(.,'a dat nota: ')]");
     private By LISTS_DROPDOWN = By.xpath("//i[@class='fa fa-down-open icon-right']");
     private By LISTS = By.xpath("//a[@class='add2this-list']");
+    private By PRODUCT_LANGUAGE = By.xpath("//a[contains(text(),'Limba')]");
 
     public ItemDetailsPage(WebDriver driver) {
         super(driver);
@@ -116,5 +117,9 @@ public class ItemDetailsPage extends BasePage {
         }
 
         getDriver().navigate().refresh();
+    }
+
+    public String getProductLanguage() {
+        return getText(PRODUCT_LANGUAGE);
     }
 }
