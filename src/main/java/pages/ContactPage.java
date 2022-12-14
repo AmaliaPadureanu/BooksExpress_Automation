@@ -16,13 +16,18 @@ public class ContactPage extends BasePage {
     By EMAIL = By.id("email");
     By ORDER_NO = By.id("order_number");
 
+    By ANOTHER_SUBJECT = By.id("another_subject");
+
     public ContactPage(WebDriver driver) {
         super(driver);
     }
 
-    public void sendContactFormUnregisteredUser(String subject, String message, String name, String email, String orderNo) {
+    public void sendContactFormUnregisteredUser(String subject, String anotherSubject, String message, String name, String email, String orderNo) {
         Select select = new Select(find(SUBJECT));
         select.selectByVisibleText(subject);
+        if (find(ANOTHER_SUBJECT).isDisplayed()) {
+            type(ANOTHER_SUBJECT, anotherSubject);
+        }
         type(MESSAGE, message);
         type(NAME, name);
         type(EMAIL, email);
@@ -31,9 +36,12 @@ public class ContactPage extends BasePage {
         JavaScriptUtils.click(getDriver(), sendBtn);
     }
 
-    public void sendContactFormRegisteredUser(String subject, String message, String orderNo) {
+    public void sendContactFormRegisteredUser(String subject, String anotherSubject, String message, String orderNo) {
         Select select = new Select(find(SUBJECT));
         select.selectByVisibleText(subject);
+        if (find(ANOTHER_SUBJECT).isDisplayed()) {
+            type(ANOTHER_SUBJECT, anotherSubject);
+        }
         type(MESSAGE, message);
         type(ORDER_NO, orderNo);
         WebElement sendBtn = WaitUtils.waitForElementToBeClickable(getDriver(), By.id("send-message"), 5);
