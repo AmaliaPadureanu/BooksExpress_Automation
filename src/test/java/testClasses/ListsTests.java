@@ -19,7 +19,7 @@ public class ListsTests extends BaseTest {
     @Test
     public void createListTest() {
         listsPage = new ListsPage(driver);
-        listsPage.createList("bbb list");
+        listsPage.createList("bbb list", "private");
         driver.navigate().refresh();
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToLists();

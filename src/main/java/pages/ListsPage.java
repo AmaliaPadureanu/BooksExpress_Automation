@@ -19,16 +19,25 @@ public class ListsPage extends BasePage {
     private By PUBLIC_LISTS_SEARCHBAR = By.id("search-public-list");
     private By PUBLIC_LIST_SEARCHBUTTON = By.id("search-button");
     private By FIRST_LIST_IN_PUBLIC_LISTS = By.cssSelector("body > div:nth-child(10) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(3) > a:nth-child(1)");
+    private By PUBLIC_LIST_RADIOBUTTON = By.xpath("//label[contains(text(),'Publică')]");
+    private By PRIVATE_LIST_RADIOBUTTON = By.xpath("//label[contains(text(),'Privată')]");
 
     public ListsPage(WebDriver driver) {
         super(driver);
     }
 
-    public void createList(String listName) {
+    public void createList(String listName, String listVisibility) {
         Actions actions = new Actions(getDriver());
         actions.moveToElement(find(LISTS)).click(find(CREATE_LIST_OPTION)).perform();
         getDriver().switchTo().activeElement();
         type(TITLE_INPUT, listName);
+        if (listVisibility.equals("public")) {
+            click(PUBLIC_LIST_RADIOBUTTON);
+        } else if (listVisibility.equals("private")){
+            click(PRIVATE_LIST_RADIOBUTTON);
+        } else {
+            System.out.println("Please choose between public and private");
+        }
         find(CREATE_BTN).click();
     }
 
