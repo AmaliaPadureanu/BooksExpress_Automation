@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import utils.JavaScriptUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class ListsPage extends BasePage {
     }
 
     public List<String> getItemsInList(String listName) {
-        find(By.xpath("//a[normalize-space()='" + listName + "']")).click();
+        JavaScriptUtils.click(getDriver(), find(By.xpath("(//a[contains(text(),'" + listName + "')])[1]")));
         List<WebElement> items = findAll(ITEMS_IN_LIST);
         List<String> itemsInList = new ArrayList<>();
 

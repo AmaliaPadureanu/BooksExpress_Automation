@@ -116,6 +116,36 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
     }
 
+    @Test (dependsOnMethods = {"writeReviewTest"})
+    public void editReviewTest() {
+        searchText = "Ugly Love";
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
+        driver.navigate().refresh();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        itemDetailsPage.editReview(1,false, " edited text");
+        driver.navigate().refresh();
+        Assert.assertTrue(itemDetailsPage.getCommnetContent().contains("edited text"));
+    }
+
+    @Test (priority = 1)
+    public void removeReviewTest() {
+        searchText = "Ugly Love";
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.search(searchText);
+        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
+        driver.navigate().refresh();
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
+        itemDetailsPage.removeReview();
+        driver.navigate().refresh();
+        int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
+        Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore - 1);
+    }
+
     private int getRating() {
         List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
         WaitUtils.wait(driver, 3);
@@ -124,7 +154,7 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void addToListTest() {
-        String listName = "abc list";
+        String listName = "x list";
         searchText = "The Song of Achilles";
         searchPage = new SearchPage(driver);
         listsPage = new ListsPage(driver);
@@ -133,7 +163,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
+        Assert.assertTrue(itemDetailsPage.getPageTitle().toLowerCase().contains(searchText.toLowerCase()));
         itemDetailsPage.addToList(listName);
         navigationPage.navigateToLists();
         Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));

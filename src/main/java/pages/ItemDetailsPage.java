@@ -28,6 +28,9 @@ public class ItemDetailsPage extends BasePage {
     private By LISTS_DROPDOWN = By.xpath("//i[@class='fa fa-down-open icon-right']");
     private By LISTS = By.xpath("//a[@class='add2this-list']");
     private By PRODUCT_LANGUAGE = By.xpath("//a[contains(text(),'Limba')]");
+    private By EDIT_REVIEW_BUTTON = By.id("modify-review");
+    private By COMMENTS_SECTION = By.cssSelector("section[class='12u']");
+    private By REMOVE_REVIEW_BUTTON = By.id("remove-review");
 
     public ItemDetailsPage(WebDriver driver) {
         super(driver);
@@ -105,6 +108,25 @@ public class ItemDetailsPage extends BasePage {
         find(SAVE_REVIEW_BTN).click();
     }
 
+    public void editReview(Integer rating, Boolean postAnonymous, String reviewText) {
+        JavaScriptUtils.click(getDriver(), find(EDIT_REVIEW_BUTTON));
+        getDriver().switchTo().activeElement();
+
+        List<WebElement> stars = findAll(RATE_STARS_POPUP);
+        stars.get(rating).click();
+
+        if (postAnonymous) {
+            JavaScriptUtils.click(getDriver(), find(POST_ANONYMOUSLY_CHECKBOX));
+        }
+
+        type(TEXT_INPUT, reviewText);
+        find(SAVE_REVIEW_BTN).click();
+    }
+
+    public void removeReview() {
+        JavaScriptUtils.click(getDriver(), find(REMOVE_REVIEW_BUTTON));
+    }
+
     public void addToList(String listName) {
         JavaScriptUtils.click(getDriver(), find(LISTS_DROPDOWN));
 
@@ -117,6 +139,10 @@ public class ItemDetailsPage extends BasePage {
         }
 
         getDriver().navigate().refresh();
+    }
+
+    public String getCommnetContent() {
+        return getText(COMMENTS_SECTION);
     }
 
     public String getProductLanguage() {
