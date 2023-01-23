@@ -127,7 +127,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         itemDetailsPage.editReview(1,false, " edited text");
         driver.navigate().refresh();
-        Assert.assertTrue(itemDetailsPage.getCommnetContent().contains("edited text"));
+        Assert.assertTrue(itemDetailsPage.getCommentContent().contains("edited text"));
     }
 
     @Test (priority = 1)

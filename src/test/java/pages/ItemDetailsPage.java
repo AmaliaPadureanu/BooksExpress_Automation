@@ -1,6 +1,5 @@
 package pages;
 
-import base.BasePage;
 import utils.JavaScriptUtils;
 import utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -141,7 +140,7 @@ public class ItemDetailsPage extends BasePage {
         getDriver().navigate().refresh();
     }
 
-    public String getCommnetContent() {
+    public String getCommentContent() {
         return getText(COMMENTS_SECTION);
     }
 

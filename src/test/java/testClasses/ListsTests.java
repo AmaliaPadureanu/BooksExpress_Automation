@@ -1,11 +1,11 @@
 package testClasses;
 
-import org.testng.annotations.AfterClass;
-import pages.ListsPage;
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pages.ListsPage;
 import pages.NavigationPage;
 import utils.WaitUtils;
 

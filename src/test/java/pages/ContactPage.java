@@ -1,6 +1,5 @@
 package pages;
 
-import base.BasePage;
 import utils.JavaScriptUtils;
 import utils.WaitUtils;
 import org.openqa.selenium.By;
