@@ -40,12 +40,12 @@ public class LoginPage extends BasePage {
         return findAll(ACCOUNT_OPTIONS).size();
     }
 
-    public String resetPassword(String email) {
-        type(EMAIL_FIELD, email);
-        find(CONTINUA_BTN).click();
-        WaitUtils.waitForVisibilityOf(getDriver(), RESET_PASSWORD_BTN, 5);
-        click(RESET_PASSWORD_BTN);
-        WaitUtils.waitForVisibilityOf(getDriver(), RESET_PASSWORD_MESSAGE, 5);
-        return getText(RESET_PASSWORD_MESSAGE);
-    }
+//    public String resetPassword(String email) {
+//        type(EMAIL_FIELD, email);
+//        find(CONTINUA_BTN).click();
+//        WaitUtils.waitForVisibilityOf(getDriver(), RESET_PASSWORD_BTN, 5);
+//        click(RESET_PASSWORD_BTN);
+//        WaitUtils.waitForVisibilityOf(getDriver(), RESET_PASSWORD_MESSAGE, 5);
+//        return getText(RESET_PASSWORD_MESSAGE);
+//    }
 }

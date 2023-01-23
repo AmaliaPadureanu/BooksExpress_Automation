@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.JavaScriptUtils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public ItemDetailsPage getItemDetailsPage() {
-        new WebDriverWait(getDriver(), 10)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
                 .ignoring(StaleElementReferenceException.class)
                 .until((WebDriver driver) -> {
                     driver.findElement(FIRST_PRODUCT_IN_SEARCH_LIST).click();

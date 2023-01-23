@@ -2,7 +2,6 @@ package testClasses;
 
 import pages.SearchResultsPage;
 import pages.SearchPage;
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

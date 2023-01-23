@@ -1,17 +1,16 @@
 package testClasses;
 
 import pages.NavigationPage;
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 public class UserDetailsTests extends BaseTest {
 
-    @BeforeClass
-    public void userDetailsTestsSetup() {
-        login();
-    }
+//    @BeforeClass
+//    public void userDetailsTestsSetup() {
+//        login();
+//    }
 
     @Test
     public void editUserTitleTest() {
@@ -60,10 +59,10 @@ public class UserDetailsTests extends BaseTest {
         userDetailsPage.editEmail("automationtesting630@gmail.com");
     }
 
-    @AfterClass
-    public void userDetailsTestsTearDown() {
-        resetOriginlEmailAddress();
-        logout();
-    }
+//    @AfterClass
+//    public void userDetailsTestsTearDown() {
+//        resetOriginlEmailAddress();
+//        logout();
+//    }
 
 }

@@ -1,6 +1,5 @@
 package testClasses;
 
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,10 +10,10 @@ import utils.WaitUtils;
 
 public class ListsTests extends BaseTest {
 
-    @BeforeClass
-    private void listsTestsSetup() {
-        login();
-    }
+//    @BeforeClass
+//    private void listsTestsSetup() {
+//        login();
+//    }
 
     @Test
     public void createListTest() {
@@ -38,8 +37,8 @@ public class ListsTests extends BaseTest {
         Assert.assertTrue(listsPage.searchInPublicLists("software").toLowerCase().contains(searchText.toLowerCase()));
     }
 
-    @AfterClass
-    private void listsTestsTeardown() {
-        logout();
-    }
+//    @AfterClass
+//    private void listsTestsTeardown() {
+//        logout();
+//    }
 }

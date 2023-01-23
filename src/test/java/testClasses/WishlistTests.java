@@ -3,7 +3,6 @@ package testClasses;
 import pages.NavigationPage;
 import pages.SearchPage;
 import pages.SearchResultsPage;
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,10 +10,10 @@ import org.testng.annotations.Test;
 
 public class WishlistTests extends BaseTest {
 
-    @BeforeClass
-    public void wishlistTestsSetup() {
-        login();
-    }
+//    @BeforeClass
+//    public void wishlistTestsSetup() {
+//        login();
+//    }
 
     @Test
     public void addToWishlist() throws InterruptedException {
@@ -38,8 +37,8 @@ public class WishlistTests extends BaseTest {
         Assert.assertTrue(wishlistPage.isEmpty());
     }
 
-    @AfterClass
-    public void wishlistTestsTearDown() {
-        logout();
-    }
+//    @AfterClass
+//    public void wishlistTestsTearDown() {
+//        logout();
+//    }
 }

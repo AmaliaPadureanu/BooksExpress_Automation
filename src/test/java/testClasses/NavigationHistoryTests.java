@@ -3,17 +3,16 @@ package testClasses;
 import pages.NavigationPage;
 import pages.SearchResultsPage;
 import pages.SearchPage;
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class NavigationHistoryTests extends BaseTest {
 
-    @BeforeClass
-    public void userNavigationHistorySetup() {
-        login();
-    }
+//    @BeforeClass
+//    public void userNavigationHistorySetup() {
+//        login();
+//    }
 
     @Test
     public void getUserNavigationHistoryTest() {

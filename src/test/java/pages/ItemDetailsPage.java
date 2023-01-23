@@ -35,10 +35,10 @@ public class ItemDetailsPage extends BasePage {
         super(driver);
     }
 
-    public boolean addToCart() {
-        find(ADD_TO_CART_BTN).click();
-        return WaitUtils.waitForUrlToContain(getDriver(), "cart/added", 5);
-    }
+//    public boolean addToCart() {
+//        find(ADD_TO_CART_BTN).click();
+//        return WaitUtils.waitForUrlToContain(getDriver(), "cart/added", 5);
+//    }
 
     public void addToWishlist() {
         WebElement wishlistButton = find(WISHLIST_BTN);

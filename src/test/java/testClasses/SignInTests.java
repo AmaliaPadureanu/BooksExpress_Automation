@@ -3,7 +3,6 @@ package testClasses;
 import pages.LoginPage;
 import pages.SignInPage;
 import utils.WaitUtils;
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;

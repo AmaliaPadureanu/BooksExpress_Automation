@@ -1,6 +1,5 @@
 package testClasses;
 
-import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -16,10 +15,10 @@ import java.util.List;
 
 public class ItemDetailsTests extends BaseTest {
 
-    @BeforeClass
-    public void setup() {
-        login();
-    }
+//    @BeforeClass
+//    public void setup() {
+//        login();
+//    }
 
     String searchText;
 
@@ -170,8 +169,8 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(listsPage.getItemsInList(listName).contains(searchText));
     }
 
-    @AfterClass
-    public void teardown() {
-        logout();
-    }
+//    @AfterClass
+//    public void teardown() {
+//        logout();
+//    }
 }
