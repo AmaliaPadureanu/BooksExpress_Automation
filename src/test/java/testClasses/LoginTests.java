@@ -1,10 +1,11 @@
 package testClasses;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import pages.NavigationPage;
+import utils.WaitUtils;
 
 public class LoginTests extends BaseTest {
 
@@ -22,11 +23,12 @@ public class LoginTests extends BaseTest {
 
     @Test (dataProvider = "loginDataProvider")
     public void loginWithTest(String email, String password) {
-        loginPage = new LoginPage(driver);
-        loginPage.open();
+        navigationPage = new NavigationPage(driver);
+        loginPage = navigationPage.navigateToLogin();
         Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
         loginPage.logInWith(email, password);
-        Assert.assertTrue(driver.findElement(By.xpath(USER_INFO)).isEnabled());
+        WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/", 10);
+        Assert.assertTrue(loginPage.getInfo());
         loginPage.logout();
     }
 

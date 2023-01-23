@@ -5,10 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import pages.*;
-import utils.BrowserUtils;
-import utils.ConstantUtils;
-import utils.Constants;
-import utils.GenericUtils;
+import utils.*;
 
 public class BaseTest {
 
@@ -37,7 +34,6 @@ public class BaseTest {
     public void beforeTest() {
         //driver = BrowserUtils.getBrowser(BrowserTypes.CHROME).getDriver();
         driver = BrowserUtils.getBrowser(browser);
-        //driver.manage().window().maximize();
         driver.get(baseURL);
         driver.findElement(By.linkText("Accept cookie-uri")).click();
         dbHostname = GenericUtils.getDbHostnameFromConfig(config);
@@ -52,14 +48,11 @@ public class BaseTest {
         driver.quit();
     }
 
-//    public void login() {
-//        loginPage = new LoginPage(driver);
-//        loginPage.open();
-//        loginPage.logInWith(Constants.EMAIL, Constants.PASSWORD);
-//    }
-//
-//    public void logout() {
-//        loginPage = new LoginPage(driver);
-//        loginPage.logout();
-//    }
+    public void login() {
+        navigationPage = new NavigationPage(driver);
+        loginPage = navigationPage.navigateToLogin();
+        loginPage.logInWith(ConstantUtils.EMAIL, ConstantUtils.PASSWORD);
+        WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/", 10);
+    }
+
 }

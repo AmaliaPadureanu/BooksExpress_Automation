@@ -2,42 +2,73 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.WaitUtils;
+import java.time.Duration;
 
 public class LoginPage extends BasePage {
 
-    private By ACCOUNT_BTN = By.xpath("//a[@id='show-user']//i[@class='fa fa-angle-down']");
-    private By ENTER_ACCOUNT_LINK = By.xpath("//a[contains(text(),'Intră în cont')]");
-    private By EMAIL_FIELD = By.id("username");
-    private By CONTINUA_BTN = By.id("email-button");
-    private By PASSWORD_FIELD = By.id("password");
-    private By LOGOUT_BTN = By.xpath("//a[normalize-space()='Log out']");
+    WebDriverWait wait;
+
+    @FindBy(how = How.ID, using = "show-user")
+    private WebElement accountButton;
+    @FindBy(how = How.CSS, using = "#user-data > ul > li:nth-child(1) > a")
+    private WebElement enterAccountButton;
+    @FindBy(how = How.ID, using = "username")
+    private WebElement emailInput;
+    @FindBy(how = How.ID, using = "email-button")
+    private WebElement continueButton;
+    @FindBy(how = How.ID, using = "password")
+    private WebElement passwordInput;
+    @FindBy(how = How.CSS, using = "#user-data > ul > li:nth-child(8) > a")
+    private WebElement logoutButton;
+    @FindBy(how = How.ID, using = "login-button")
+    private WebElement loginButton;
+    @FindBy(how = How.LINK_TEXT, using = "Info")
+    private WebElement info;
     private By ACCOUNT_OPTIONS = By.xpath("(//ul[@class='jq-dropdown-menu'])[3] //a");
     private By RESET_PASSWORD_BTN = By.id("reset-password");
     private By RESET_PASSWORD_MESSAGE = By.id("reset-message");
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     public void open() {
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(ACCOUNT_BTN)).click(find(ENTER_ACCOUNT_LINK)).perform();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(accountButton).moveToElement(enterAccountButton).click(enterAccountButton).build().perform();
     }
 
     public void logInWith(String email, String password) {
-        type(EMAIL_FIELD, email);
-        find(CONTINUA_BTN).click();
-        type(PASSWORD_FIELD, password);
-        find(ENTER_ACCOUNT_LINK).click();
+        emailInput.sendKeys(email);
+        continueButton.click();
+        WaitUtils.waitForElementToBeClickable(driver, passwordInput, 10);
+        passwordInput.sendKeys(password);
+        loginButton.click();
     }
 
     public int logout() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(ACCOUNT_BTN)).perform();
-        find(LOGOUT_BTN).click();
+        actions.moveToElement(accountButton).perform();
+        logoutButton.click();
         return findAll(ACCOUNT_OPTIONS).size();
+    }
+
+    public boolean getInfo() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(accountButton).perform();
+
+        if (info.isDisplayed()) {
+            return true;
+        }
+        return false;
     }
 
 //    public String resetPassword(String email) {

@@ -4,11 +4,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.JavaScriptUtils;
-import utils.WaitUtils;
+
+import java.time.Duration;
 
 public class NavigationPage extends BasePage {
 
+    WebDriverWait wait;
+
+    @FindBy(how = How.ID, using = "show-user")
+    private WebElement accountButton;
+    @FindBy(how = How.CSS, using = "#user-data > ul > li:nth-child(1) > a")
+    private WebElement enterAccountButton;
     private By SALES_LINK = By.xpath("//a[@href='/reduceri']");
     private By TOP_SALES_LINK = By.xpath("//a[@href='/top/carti']");
     private By NEW_PRODUCTS_LINK = By.xpath("//div[@id='submenu']//a[contains(text(),'Noutăți')]");
@@ -30,6 +41,14 @@ public class NavigationPage extends BasePage {
 
     public NavigationPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
+    }
+
+    public LoginPage navigateToLogin() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(accountButton).moveToElement(enterAccountButton).click(enterAccountButton).build().perform();
+        return new LoginPage(driver);
     }
 
     public String selectProductsCategory() {
@@ -39,7 +58,7 @@ public class NavigationPage extends BasePage {
         WebElement business = find(BUSINESS_CATEGORY);
 
         actions.moveToElement(products).moveToElement(business).perform();
-        WaitUtils.waitForElementToBeClickable(getDriver(), By.partialLinkText("Economie"), 5);
+        //WaitUtils.waitForElementToBeClickable(getDriver(), By.partialLinkText("Economie"), 5);
         JavaScriptUtils.click(getDriver(), find(By.partialLinkText("Economie")));
 
         return getDriver().getTitle().toLowerCase();
@@ -96,7 +115,7 @@ public class NavigationPage extends BasePage {
 
     public ShoppingCartPage navigateToCart() {
         find(CART_BTN).click();
-        WaitUtils.waitForElementToBeClickable(getDriver(), SEE_CART_BTN, 5).click();
+        //WaitUtils.waitForElementToBeClickable(getDriver(), SEE_CART_BTN, 5).click();
         return new ShoppingCartPage(getDriver());
     }
 

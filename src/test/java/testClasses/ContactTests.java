@@ -27,26 +27,21 @@ public class ContactTests extends BaseTest {
     }
 
     @Test(dataProvider = "contactUnregisteredDataProvider")
-    public void sendContactFormUnregisteredUserTest(String anotherSubject, String message, String name, String email, String orderNo) throws InterruptedException {
+    public void sendContactFormUnregisteredUserTest(String anotherSubject, String message, String name, String email, String orderNo) {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
         Assert.assertEquals(contactPage.getPageTitle(), "Contactați-ne | Books Express");
-
         contactPage.contactAsUnregisteredUser(anotherSubject, message, name, email, orderNo);
-        System.out.println(contactPage.getConfirmationMessage());
         Assert.assertTrue(contactPage.getConfirmationMessage().contains("a fost trimis"));
     }
 
-//    @Test (dataProvider = "contactRegisteredDataProvider", enabled = false)
-//    public void sendContactFormRegisteredUserTest(String subject, String anotherSubject, String message,String orderNo) {
-//        login();
-//        NavigationPage navigationPage = new NavigationPage(driver);
-//        contactPage = navigationPage.navigateToContact();
-//        Assert.assertEquals(contactPage.getPageTitle(), "Contactați-ne | Books Express");
-//        contactPage.sendContactFormRegisteredUser(subject, anotherSubject, message, orderNo);
-//        Assert.assertTrue(getConfirmationMessage().contains("a fost trimis"));
-//        logout();
-//    }
-
-
+    @Test (dataProvider = "contactRegisteredDataProvider")
+    public void sendContactFormRegisteredUserTest(String anotherSubject, String message, String orderNo) {
+        NavigationPage navigationPage = new NavigationPage(driver);
+        login();
+        contactPage = navigationPage.navigateToContact();
+        Assert.assertEquals(contactPage.getPageTitle(), "Contactați-ne | Books Express");
+        contactPage.contactAsRegisteredUser(anotherSubject, message, orderNo);
+        Assert.assertTrue(contactPage.getConfirmationMessage().contains("a fost trimis"));
+    }
 }

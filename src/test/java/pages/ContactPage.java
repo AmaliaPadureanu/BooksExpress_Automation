@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.GenericUtils;
-import utils.JavaScriptUtils;
 import utils.WaitUtils;
 
 import java.time.Duration;
@@ -43,8 +41,7 @@ public class ContactPage extends BasePage {
     }
 
     public String getConfirmationMessage() {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(confirmationMessage));
+        WaitUtils.waitForVisibilityOf(driver, confirmationMessage, 10);
         return confirmationMessage.getText();
     }
 
@@ -63,15 +60,16 @@ public class ContactPage extends BasePage {
         sendButton.click();
     }
 
-//    public void sendContactFormRegisteredUser(String subject, String anotherSubject, String message, String orderNo) {
-//        Select select = new Select(find(SUBJECT));
-//        select.selectByVisibleText(subject);
-//        if (find(ANOTHER_SUBJECT).isDisplayed()) {
-//            type(ANOTHER_SUBJECT, anotherSubject);
-//        }
-//        type(MESSAGE, message);
-//        type(ORDER_NO, orderNo);
-//        WebElement sendBtn = WaitUtils.waitForElementToBeClickable(getDriver(), By.id("send-message"), 5);
-//        JavaScriptUtils.click(getDriver(), sendBtn);
-//    }
+    public void contactAsRegisteredUser(String anotherSubject, String message, String orderNo) {
+        Select selectSubject = new Select(subjectInput);
+        selectSubject.selectByIndex(GenericUtils.getRandomNumber(1, 4));
+        WebElement selectedOption = selectSubject.getFirstSelectedOption();
+
+        if (selectedOption.getText().contains("Altul")) {
+            anotherSubjectInput.sendKeys(anotherSubject);
+        }
+        messageInput.sendKeys(message);
+        orderNoInput.sendKeys(orderNo);
+        sendButton.click();
+    }
 }
