@@ -26,7 +26,8 @@ public class NavigationPage extends BasePage {
     private By GIFTS_LINK = By.xpath("//a[normalize-space()='Cadouri']");
     private By BLOG_LINK = By.xpath("//div[@id='submenu']//a[normalize-space()='Blog']");
     private By NEWSLETTER_LINK = By.xpath("//a[contains(text(),'Abonează-te la newsletter!')]");
-    private By CONTACT_LINK = By.xpath("//a[normalize-space()='Contact']");
+    @FindBy(how = How.XPATH, using = "//a[normalize-space()='Contact']")
+    private WebElement contactButton;
     private By PRODUCTS_LINK = By.id("products");
     private By BUSINESS_CATEGORY = By.xpath("//a[@class='category-menu'][normalize-space()='Business']");
     private By ACCOUNT_LINK = By.xpath("//a[@id='show-user']//i[@class='fa fa-angle-down']");
@@ -47,7 +48,7 @@ public class NavigationPage extends BasePage {
 
     public LoginPage navigateToLogin() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(accountButton).moveToElement(enterAccountButton).click(enterAccountButton).build().perform();
+        actions.moveToElement(accountButton).moveToElement(enterAccountButton).click().build().perform();
         return new LoginPage(driver);
     }
 
@@ -90,7 +91,7 @@ public class NavigationPage extends BasePage {
     }
 
     public ContactPage navigateToContact() {
-        find(CONTACT_LINK).click();
+        contactButton.click();
         return new ContactPage(getDriver());
     }
 

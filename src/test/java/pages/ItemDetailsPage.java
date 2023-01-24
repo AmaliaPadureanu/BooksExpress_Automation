@@ -1,135 +1,182 @@
 package pages;
 
-import utils.JavaScriptUtils;
-import utils.WaitUtils;
-import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.GenericUtils;
+import utils.JavaScriptUtils;
+import utils.WaitUtils;
+import java.time.Duration;
+import java.util.AbstractCollection;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 public class ItemDetailsPage extends BasePage {
-    private By ADD_TO_CART_BTN = By.xpath("//a[@class='add2cart danger button full icon fa-basket']");
-    private By WISHLIST_BTN = By.xpath("//a[@class='4u plain align-center add2list-btn']//i[@class='fa fa-heart']");
-    private By ITEM_TITLE = By.cssSelector("section[id='book-main'] span[itemprop='name']");
-    private By ITEM_AUTHOR = By.cssSelector("a[itemprop='author']");
-    private By READ_MORE_BTN = By.xpath("//a[@class='read-more']");
-    private By READ_LESS_BTN = By.xpath("//a[@class='read-less']");
-    private By RATE_STARS = By.cssSelector(".stars>a");
-    private By AUTHOR_LINK = By.xpath("//a[@itemprop='author']");
-    private By PUBLISHER_LINK = By.xpath("//a[@itemprop='publisher']");
-    private By ACCEPT_COOKIES_BTN = By.xpath("//a[contains(text(),'Accept cookie-uri')]");
-    private By REVIEW_BTN = By.xpath("//a[normalize-space()='Am citit!']");
-    private By TEXT_INPUT =  By.id("review");
-    private By RATE_STARS_POPUP = By.xpath("//div[@class='box lightbox']//a[@class='fa fa-star']");
-    private By POST_ANONYMOUSLY_CHECKBOX = By.xpath("//input[@id='post_anon'][@class='small']");
-    private By SAVE_REVIEW_BTN = By.id("saveReview");
-    private By REVIEWS = By.xpath("//section[@id='product-reviews']//div[@class='read-text serif']//h4[contains(.,'a dat nota: ')]");
-    private By LISTS_DROPDOWN = By.xpath("//i[@class='fa fa-down-open icon-right']");
-    private By LISTS = By.xpath("//a[@class='add2this-list']");
-    private By PRODUCT_LANGUAGE = By.xpath("//a[contains(text(),'Limba')]");
-    private By EDIT_REVIEW_BUTTON = By.id("modify-review");
-    private By COMMENTS_SECTION = By.cssSelector("section[class='12u']");
-    private By REMOVE_REVIEW_BUTTON = By.id("remove-review");
+
+    WebDriverWait wait;
+
+    @FindBy(how = How.XPATH, using = "//*[@id=\"main-row\"]/section[2]/section/div/div[3]/a[1]")
+    private WebElement addToCartButton;
+    @FindBy(how = How.XPATH, using = "//*[@id=\"main-row\"]/section[2]/section/div/div[3]/div/a[1]/i")
+    private WebElement wishlistButton;
+    @FindBy(how = How.XPATH, using = "//section[@id='book-main']//h1")
+    private WebElement productTitle;
+    @FindBy(how = How.CSS, using = "a[itemprop='author']")
+    private WebElement productAuthor;
+    @FindBy(how = How.XPATH, using = "//a[@class='read-more']")
+    private WebElement readMoreButton;
+    @FindBy(how = How.XPATH, using = "//a[@class='read-less']")
+    private WebElement readLessButton;
+    @FindBy(how = How.CSS, using = ".stars>a")
+    private List<WebElement> rateStars;
+    @FindBy(how = How.XPATH, using = "//a[@itemprop='publisher']")
+    private WebElement productPublisher;
+    @FindBy(how = How.XPATH, using = "//a[normalize-space()='Am citit!']")
+    private WebElement reviewButton;
+    @FindBy(how = How.ID, using = "review")
+    private WebElement reviewTextInput;
+    @FindBy(how = How.CSS, using = "div[id='book-rating'] div > a")
+    private List<WebElement> reviewStars;
+    @FindBy(how = How.CSS, using = "label[for='post_anon']")
+    private WebElement postAnonymouslyCheckbox;
+    @FindBy(how = How.ID, using = "saveReview")
+    private WebElement saveReviewButton;
+    @FindBy(how = How.XPATH, using = "//section[@id='product-reviews']//div//div")
+    private List<WebElement> reviews;
+    @FindBy(how = How.XPATH, using = "//i[@class='fa fa-down-open icon-right']")
+    private WebElement addToListDropdown;
+    @FindBy(how = How.CSS, using = "#add2list-data > ul > li")
+    private List<WebElement> lists;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Limba')]")
+    private WebElement productLanguage;
+    @FindBy(how = How.ID, using = "modify-review")
+    private WebElement editReviewButton;
+    @FindBy(how = How.CSS, using = "section[class='12u'] > section > div > div:last-child")
+    private WebElement reviewLeftByCurrentUser;
+    @FindBy(how = How.ID, using = "remove-review")
+    private WebElement removeReviewButton;
+    @FindBy(how = How.CSS, using = ".stars>a[class$='fa fa-star gold']")
+    private List<WebElement> productRating;
 
     public ItemDetailsPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
-//    public boolean addToCart() {
-//        find(ADD_TO_CART_BTN).click();
-//        return WaitUtils.waitForUrlToContain(getDriver(), "cart/added", 5);
-//    }
+    public boolean addToCart() {
+        addToCartButton.click();
+        return WaitUtils.waitForUrlToContain(getDriver(), "cart/added", 5);
+    }
 
     public void addToWishlist() {
-        WebElement wishlistButton = find(WISHLIST_BTN);
         wishlistButton.click();
     }
 
     public String getItemTitle() {
-        String itemTitle = find(ITEM_TITLE).getText();
-        return itemTitle;
+        return productTitle.getText();
     }
 
     public String getItemAuthor() {
-        String authorName = find(ITEM_AUTHOR).getText();
-        return authorName;
+        return productAuthor.getText();
     }
 
     public boolean readMore() {
-        find(READ_MORE_BTN).click();
-        WaitUtils.wait(getDriver(), 5);
-        if (find(READ_MORE_BTN).getAttribute("style").equals("display: none;")) {
+        readMoreButton.click();
+        WaitUtils.wait(driver, 5);
+        if (readMoreButton.getAttribute("style").equals("display: none;")) {
            return true;
         }
         return false;
     }
 
     public boolean readLess() {
-        JavaScriptUtils.click(getDriver(), find(READ_LESS_BTN));
-        WaitUtils.wait(getDriver(), 5);
-        if (find(READ_LESS_BTN).getAttribute("style").equals("display: none;")) {
+        JavaScriptUtils.click(driver, readLessButton);
+        WaitUtils.wait(driver, 5);
+        if (readLessButton.getAttribute("style").equals("display: none;")) {
             return true;
         }
         return false;
     }
 
-    public void rate(int rating) {
-        List<WebElement> stars = findAll(RATE_STARS);
-        stars.get(rating).click();
-        WaitUtils.wait(getDriver(), 5);
+    public void rate(String rating) {
+        Actions actions = new Actions(driver);
+
+        for (WebElement star : rateStars) {
+
+            if (star.getAttribute("data-rating").equals(rating)) {
+                actions.doubleClick(star).build().perform();
+            }
+        }
     }
 
     public void seeAllByAuthor() {
-        find(AUTHOR_LINK).click();
+        productAuthor.click();
     }
 
     public void seeAllFromPublisher() {
-        find(ACCEPT_COOKIES_BTN).click();
-        find(PUBLISHER_LINK).click();
+        productPublisher.click();
     }
 
     public int getNrOfReviews() {
-        return findAll(REVIEWS).size();
+        return reviews.size();
     }
 
-    public void writeReview(Integer rating, Boolean postAnonymous, String reviewText) {
-        find(REVIEW_BTN).click();
-        getDriver().switchTo().activeElement();
+    public void writeReview(String rating, Boolean postAnonymous, String reviewText) {
+        reviewButton.click();
 
-        List<WebElement> stars = findAll(RATE_STARS_POPUP);
-        stars.get(rating).click();
+        WaitUtils.wait(driver, 5);
 
-        if (postAnonymous) {
-            JavaScriptUtils.click(getDriver(), find(POST_ANONYMOUSLY_CHECKBOX));
+        Actions actions = new Actions(driver);
+
+        for (WebElement star : reviewStars) {
+            if (star.getAttribute("data-rating").equals(rating)) {
+                actions.doubleClick(star).build().perform();
+            }
         }
 
-        type(TEXT_INPUT, reviewText);
-        find(SAVE_REVIEW_BTN).click();
+        if (postAnonymous) {
+           postAnonymouslyCheckbox.click();
+        }
+
+        reviewTextInput.sendKeys(reviewText);
+        saveReviewButton.click();
     }
 
-    public void editReview(Integer rating, Boolean postAnonymous, String reviewText) {
-        JavaScriptUtils.click(getDriver(), find(EDIT_REVIEW_BUTTON));
-        getDriver().switchTo().activeElement();
+    public void editReview(String rating, Boolean postAnonymous, String reviewText) {
+        editReviewButton.click();
 
-        List<WebElement> stars = findAll(RATE_STARS_POPUP);
-        stars.get(rating).click();
+        WaitUtils.wait(driver, 5);
 
-        if (postAnonymous) {
-            JavaScriptUtils.click(getDriver(), find(POST_ANONYMOUSLY_CHECKBOX));
+        Actions actions = new Actions(driver);
+
+        for (WebElement star : reviewStars) {
+            if (star.getAttribute("data-rating").equals(rating)) {
+                actions.doubleClick(star).build().perform();
+            }
         }
 
-        type(TEXT_INPUT, reviewText);
-        find(SAVE_REVIEW_BTN).click();
+        if (postAnonymous) {
+            postAnonymouslyCheckbox.click();
+        }
+
+        reviewTextInput.sendKeys(reviewText);
+        saveReviewButton.click();
     }
 
     public void removeReview() {
-        JavaScriptUtils.click(getDriver(), find(REMOVE_REVIEW_BUTTON));
+        removeReviewButton.click();
     }
 
     public void addToList(String listName) {
-        JavaScriptUtils.click(getDriver(), find(LISTS_DROPDOWN));
+        JavaScriptUtils.click(driver, addToListDropdown);
 
-        List<WebElement> lists = findAll(LISTS);
+
 
         for (WebElement list : lists) {
             if (list.getText().equals(listName)) {
@@ -140,11 +187,15 @@ public class ItemDetailsPage extends BasePage {
         getDriver().navigate().refresh();
     }
 
-    public String getCommentContent() {
-        return getText(COMMENTS_SECTION);
+    public String getReviewLeftByUserContent() {
+        return reviewLeftByCurrentUser.getText();
     }
 
     public String getProductLanguage() {
-        return getText(PRODUCT_LANGUAGE);
+        return productLanguage.getText();
+    }
+
+    public String getProductRating() {
+        return String.valueOf(productRating.size());
     }
 }

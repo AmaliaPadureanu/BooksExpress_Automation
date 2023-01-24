@@ -1,17 +1,12 @@
 package testClasses;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.ListsPage;
 import pages.NavigationPage;
 import pages.SearchPage;
 import pages.SearchResultsPage;
-import utils.WaitUtils;
-import java.util.List;
+import utils.GenericUtils;
 
 public class ItemDetailsTests extends BaseTest {
 
@@ -28,7 +23,6 @@ public class ItemDetailsTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
     }
@@ -39,7 +33,6 @@ public class ItemDetailsTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.getItemAuthor().contains("Osamu Dazai"));
@@ -51,7 +44,6 @@ public class ItemDetailsTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         Assert.assertTrue(itemDetailsPage.readMore());
@@ -60,25 +52,24 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void rateTest() {
+        login();
         searchText = "Song of Achilles";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
-        itemDetailsPage.rate(3);
+        itemDetailsPage.rate("5");
         driver.navigate().refresh();
-        Assert.assertTrue(getRating() == 4);
+        Assert.assertTrue(itemDetailsPage.getProductRating().equals("5"));
     }
 
     @Test
-    public void seeAllByAuthor() {
+    public void seeAllByAuthorTest() {
         searchText = "The Hobbit";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         itemDetailsPage.seeAllByAuthor();
@@ -86,12 +77,11 @@ public class ItemDetailsTests extends BaseTest {
     }
 
     @Test
-    public void seeAllByPublisher() {
+    public void seeAllByPublisherTest() {
         searchText = "Less is More";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         itemDetailsPage.seeAllFromPublisher();
@@ -100,55 +90,43 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void writeReviewTest() {
+        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
-        itemDetailsPage.writeReview(2,true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus elementum sagittis.");
-        driver.navigate().refresh();
-        int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
-        Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore + 1);
+        itemDetailsPage.writeReview("3",true, GenericUtils.createRandomString(200));
+        Assert.assertTrue(itemDetailsPage.getNrOfReviews() == nrOfReviewsBefore + 1);
     }
 
-    @Test (dependsOnMethods = {"writeReviewTest"})
+    @Test
     public void editReviewTest() {
+        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
-        itemDetailsPage.editReview(1,false, " edited text");
-        driver.navigate().refresh();
-        Assert.assertTrue(itemDetailsPage.getCommentContent().contains("edited text"));
+        itemDetailsPage.editReview("1",false, " edited text");
+        Assert.assertTrue(itemDetailsPage.getReviewLeftByUserContent().contains("edited text"));
     }
 
-    @Test (priority = 1)
+    @Test
     public void removeReviewTest() {
+        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
         itemDetailsPage = searchResultsPage.getItemDetailsPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         int nrOfReviewsBefore = itemDetailsPage.getNrOfReviews();
         itemDetailsPage.removeReview();
-        driver.navigate().refresh();
-        int nrOfReviewsAfter = itemDetailsPage.getNrOfReviews();
-        Assert.assertTrue(nrOfReviewsAfter == nrOfReviewsBefore - 1);
-    }
-
-    private int getRating() {
-        List<WebElement> ratingGiven = driver.findElements(By.cssSelector(".stars>a[class$='fa fa-star gold']"));
-        WaitUtils.wait(driver, 3);
-        return ratingGiven.size();
+        Assert.assertTrue(itemDetailsPage.getNrOfReviews() == nrOfReviewsBefore - 1);
     }
 
     @Test
