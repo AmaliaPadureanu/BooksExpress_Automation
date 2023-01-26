@@ -4,69 +4,100 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import utils.JavaScriptUtils;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WaitUtils;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListsPage extends BasePage {
 
-    private By LISTS = By.xpath("//span[normalize-space()='Liste']");
-    private By CREATE_LIST_OPTION = By.xpath("//a[contains(text(),'Creează o listă')]");
-    private By TITLE_INPUT = By.id("list_new_title");
-    private By CREATE_BTN = By.id("list-new-create");
-    private By LISTS_CREATED_BY_USER = By.xpath("//h4//a");
-    private By ITEMS_IN_LIST = By.cssSelector("div[class='cart-details'] h4 a");
-    private By PUBLIC_LISTS_SEARCHBAR = By.id("search-public-list");
-    private By PUBLIC_LIST_SEARCHBUTTON = By.id("search-button");
-    private By FIRST_LIST_IN_PUBLIC_LISTS = By.cssSelector("body > div:nth-child(10) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(3) > a:nth-child(1)");
-    private By PUBLIC_LIST_RADIOBUTTON = By.xpath("//label[contains(text(),'Publică')]");
-    private By PRIVATE_LIST_RADIOBUTTON = By.xpath("//label[contains(text(),'Privată')]");
+    WebDriverWait wait;
+
+    @FindBy(how = How.ID, using = "show-lists")
+    private WebElement listsMenu;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Creează o listă')]")
+    private WebElement createListButton;
+    @FindBy(how = How.ID, using = "list_new_title")
+    private WebElement listTitleInput;
+    @FindBy(how = How.ID, using = "list-new-create")
+    private WebElement createButton;
+    @FindBy(how = How.XPATH, using = "//h4//a")
+    private List<WebElement> listsCreatedByUser;
+    @FindBy(how = How.CSS, using = "div[class='cart-details'] h4 a")
+    private List<WebElement> itemsInList;
+    @FindBy(how = How.ID, using = "search-public-list")
+    private WebElement publicListsSearchbar;
+    @FindBy(how = How.ID, using = "search-button")
+    private WebElement publicListsSearchButton;
+    @FindBy(how = How.XPATH, using = "//label[contains(text(),'Publică')]")
+    private WebElement publicListRadiobutton;
+    @FindBy(how = How.XPATH, using = "//label[contains(text(),'Privată')]")
+    private WebElement privateListRadiobutton;
+    @FindBy(how = How.CSS, using = "div[id='lists-data'] ul > li > a")
+    private List<WebElement> listsMenuOptions;
 
     public ListsPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     public void createList(String listName, String listVisibility) {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(LISTS)).click(find(CREATE_LIST_OPTION)).perform();
-        getDriver().switchTo().activeElement();
-        type(TITLE_INPUT, listName);
+        actions.moveToElement(listsMenu).click(createListButton).build().perform();
+        WaitUtils.wait(driver, 5);
+        listTitleInput.sendKeys(listName);
+
         if (listVisibility.equals("public")) {
-            click(PUBLIC_LIST_RADIOBUTTON);
+            publicListRadiobutton.click();
         } else if (listVisibility.equals("private")){
-            click(PRIVATE_LIST_RADIOBUTTON);
-        } else {
-            System.out.println("Please choose between public and private");
+            privateListRadiobutton.click();
         }
-        find(CREATE_BTN).click();
+        createButton.click();
     }
 
     public List<String> getListsCreatedByUser() {
         List<String> listsNames = new ArrayList<>();
-        List<WebElement> lists = findAll(LISTS_CREATED_BY_USER);
 
-        for (WebElement list : lists) {
+        for (WebElement list : listsCreatedByUser) {
             listsNames.add(list.getText());
         }
         return listsNames;
     }
 
     public List<String> getItemsInList(String listName) {
-        JavaScriptUtils.click(getDriver(), find(By.xpath("(//a[contains(text(),'" + listName + "')])[1]")));
-        List<WebElement> items = findAll(ITEMS_IN_LIST);
-        List<String> itemsInList = new ArrayList<>();
 
-        for (WebElement item : items) {
-            itemsInList.add(item.getText().substring(3));
+        find(By.xpath("//a[contains(text(),'" + listName + "')]")).click();
+
+        List<String> itemsTitles = new ArrayList<>();
+
+        for (WebElement item : itemsInList) {
+
+            itemsTitles.add(item.getText().substring(3));
         }
 
-        return itemsInList;
+        return itemsTitles;
     }
 
     public String searchInPublicLists(String listName) {
-        type(PUBLIC_LISTS_SEARCHBAR, listName);
-        click(PUBLIC_LIST_SEARCHBUTTON);
-        return getText(FIRST_LIST_IN_PUBLIC_LISTS);
+        publicListsSearchbar.sendKeys(listName);
+        publicListsSearchButton.click();
+        return "ceva";
+    }
+
+    public List<String> getListsMenuOptions() {
+        List<String> menuOptions = new ArrayList<>();
+
+        for (WebElement option : listsMenuOptions) {
+            System.out.println(option.getText());
+        }
+
+        return menuOptions;
     }
 
 }

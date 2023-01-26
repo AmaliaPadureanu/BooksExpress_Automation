@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 
 public class NavigationHistoryTests extends BaseTest {
 
-//    @BeforeClass
-//    public void userNavigationHistorySetup() {
-//        login();
-//    }
+    @BeforeClass
+    public void userNavigationHistorySetup() {
+        login();
+    }
 
     @Test
     public void getUserNavigationHistoryTest() {

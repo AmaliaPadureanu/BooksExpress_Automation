@@ -20,21 +20,30 @@ public class NavigationPage extends BasePage {
     private WebElement accountButton;
     @FindBy(how = How.CSS, using = "#user-data > ul > li:nth-child(1) > a")
     private WebElement enterAccountButton;
-    private By SALES_LINK = By.xpath("//a[@href='/reduceri']");
-    private By TOP_SALES_LINK = By.xpath("//a[@href='/top/carti']");
-    private By NEW_PRODUCTS_LINK = By.xpath("//div[@id='submenu']//a[contains(text(),'Noutăți')]");
-    private By GIFTS_LINK = By.xpath("//a[normalize-space()='Cadouri']");
-    private By BLOG_LINK = By.xpath("//div[@id='submenu']//a[normalize-space()='Blog']");
-    private By NEWSLETTER_LINK = By.xpath("//a[contains(text(),'Abonează-te la newsletter!')]");
+    @FindBy(how = How.XPATH, using = "//a[@href='/reduceri']")
+    private WebElement salesButton;
+    @FindBy(how = How.XPATH, using = "//a[@href='/top/carti']")
+    private WebElement topSalesButton;
+    @FindBy(how = How.XPATH, using = "//div[@id='submenu']//a[contains(text(),'Noutăți')]")
+    private WebElement newProductsButton;
+    @FindBy(how = How.XPATH, using = "//a[normalize-space()='Cadouri']")
+    private WebElement giftsButton;
+    @FindBy(how = How.XPATH, using = "//div[@id='submenu']//a[normalize-space()='Blog']")
+    private WebElement blogButton;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Abonează-te la newsletter!')]")
+    private WebElement newsletterButton;
     @FindBy(how = How.XPATH, using = "//a[normalize-space()='Contact']")
     private WebElement contactButton;
     private By PRODUCTS_LINK = By.id("products");
     private By BUSINESS_CATEGORY = By.xpath("//a[@class='category-menu'][normalize-space()='Business']");
     private By ACCOUNT_LINK = By.xpath("//a[@id='show-user']//i[@class='fa fa-angle-down']");
     private By PERSONAL_INFO = By.xpath("//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']");
-    private By NAVIGATION_HISTORY = By.xpath("//a[normalize-space()='Istoric de navigare']");
-    private By LISTS = By.id("show-lists");
-    private By SEE_ALL_LISTS = By.linkText("Toate listele");
+    @FindBy(how = How.XPATH, using = "//a[normalize-space()='Istoric de navigare']")
+    private WebElement navigationHistory;
+    @FindBy(how = How.ID, using = "show-lists")
+    private WebElement listsMenu;
+    @FindBy(how = How.XPATH, using = "//*[@id=\"lists-data\"]/ul/li[11]/a")
+    private WebElement allListsButton;
     private By WISHLIST_LINK = By.cssSelector("a[href='/user/wishlist']");
     private By SEE_CART_BTN = By.xpath("//a[contains(text(),'Vezi coșul')]");
     private By CART_BTN = By.xpath("//span[contains(text(),'Coș')]");
@@ -66,28 +75,28 @@ public class NavigationPage extends BasePage {
     }
 
     public void navigateToSales() {
-        find(SALES_LINK).click();
+        salesButton.click();
     }
 
     public void navigateToTopSales() {
-        find(TOP_SALES_LINK).click();
+        topSalesButton.click();
     }
 
     public void navigateToNovelties() {
-        find(NEW_PRODUCTS_LINK).click();
+        newProductsButton.click();
     }
 
     public void navigateToGifts() {
-        find(GIFTS_LINK).click();
+        giftsButton.click();
     }
 
     public void blog() {
-        find(BLOG_LINK).click();
+        blogButton.click();
     }
 
     public NewsletterPage navigateToNewsletter() {
-        find(NEWSLETTER_LINK).click();
-        return new NewsletterPage(getDriver());
+        newsletterButton.click();
+        return new NewsletterPage(driver);
     }
 
     public ContactPage navigateToContact() {
@@ -103,13 +112,13 @@ public class NavigationPage extends BasePage {
 
     public NavigationHistoryPage navigateToUserNavigationHistory() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(ACCOUNT_LINK)).click(find(NAVIGATION_HISTORY)).perform();
+        actions.moveToElement(accountButton).click(navigationHistory).perform();
         return new NavigationHistoryPage(getDriver());
     }
 
     public WishlistPage navigateToWishlist() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(LISTS))
+        actions.moveToElement(listsMenu)
                 .click(find(WISHLIST_LINK)).perform();
         return new WishlistPage(getDriver());
     }
@@ -121,15 +130,15 @@ public class NavigationPage extends BasePage {
     }
 
     public ListsPage navigateToLists() {
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(LISTS)).perform();
-        find(SEE_ALL_LISTS).click();
-        return new ListsPage(getDriver());
+        Actions actions = new Actions(driver);
+        actions.moveToElement(listsMenu).perform();
+        allListsButton.click();
+        return new ListsPage(driver);
     }
 
     public ListsPage navigateToPublicLists() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(find(LISTS)).perform();
+        actions.moveToElement(listsMenu).perform();
         click(PUBLIC_LISTS);
         return new ListsPage(getDriver());
     }

@@ -48,7 +48,7 @@ public class ItemDetailsPage extends BasePage {
     private WebElement saveReviewButton;
     @FindBy(how = How.XPATH, using = "//section[@id='product-reviews']//div//div")
     private List<WebElement> reviews;
-    @FindBy(how = How.XPATH, using = "//i[@class='fa fa-down-open icon-right']")
+    @FindBy(how = How.CSS, using = "body > div:nth-child(10) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > section:nth-child(2) > section:nth-child(1) > div:nth-child(1) > div:nth-child(3) > a:nth-child(3)")
     private WebElement addToListDropdown;
     @FindBy(how = How.CSS, using = "#add2list-data > ul > li")
     private List<WebElement> lists;
@@ -171,20 +171,6 @@ public class ItemDetailsPage extends BasePage {
 
     public void removeReview() {
         removeReviewButton.click();
-    }
-
-    public void addToList(String listName) {
-        JavaScriptUtils.click(driver, addToListDropdown);
-
-
-
-        for (WebElement list : lists) {
-            if (list.getText().equals(listName)) {
-                list.click();
-            }
-        }
-
-        getDriver().navigate().refresh();
     }
 
     public String getReviewLeftByUserContent() {

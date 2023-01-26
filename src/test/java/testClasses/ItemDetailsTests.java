@@ -1,19 +1,17 @@
 package testClasses;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pages.ListsPage;
-import pages.NavigationPage;
 import pages.SearchPage;
 import pages.SearchResultsPage;
 import utils.GenericUtils;
 
 public class ItemDetailsTests extends BaseTest {
-
-//    @BeforeClass
-//    public void setup() {
-//        login();
-//    }
+    @BeforeClass
+    public void beforeClass() {
+        login();
+    }
 
     String searchText;
 
@@ -52,7 +50,6 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void rateTest() {
-        login();
         searchText = "Song of Achilles";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -90,7 +87,6 @@ public class ItemDetailsTests extends BaseTest {
 
     @Test
     public void writeReviewTest() {
-        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -102,9 +98,8 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getNrOfReviews() == nrOfReviewsBefore + 1);
     }
 
-    @Test
+    @Test (dependsOnMethods = {"writeReviewTest"})
     public void editReviewTest() {
-        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -115,9 +110,8 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getReviewLeftByUserContent().contains("edited text"));
     }
 
-    @Test
+    @Test (dependsOnMethods = {"editReviewTest"})
     public void removeReviewTest() {
-        login();
         searchText = "Ugly Love";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -129,26 +123,4 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getNrOfReviews() == nrOfReviewsBefore - 1);
     }
 
-    @Test
-    public void addToListTest() {
-        String listName = "x list";
-        searchText = "The Song of Achilles";
-        searchPage = new SearchPage(driver);
-        listsPage = new ListsPage(driver);
-        navigationPage = new NavigationPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        driver.navigate().refresh();
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
-        Assert.assertTrue(itemDetailsPage.getPageTitle().toLowerCase().contains(searchText.toLowerCase()));
-        itemDetailsPage.addToList(listName);
-        navigationPage.navigateToLists();
-        Assert.assertTrue(listsPage.getPageTitle().contains("Liste Express"));
-        Assert.assertTrue(listsPage.getItemsInList(listName).contains(searchText));
-    }
-
-//    @AfterClass
-//    public void teardown() {
-//        logout();
-//    }
 }

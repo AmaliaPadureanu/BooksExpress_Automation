@@ -41,7 +41,7 @@ public class SearchResultsPage extends BasePage {
                     driver.findElement(FIRST_PRODUCT_IN_SEARCH_LIST).click();
                     return true;
                 });
-        return new ItemDetailsPage(getDriver());
+        return new ItemDetailsPage(driver);
     }
 
     public void filterAscendingOrder() {

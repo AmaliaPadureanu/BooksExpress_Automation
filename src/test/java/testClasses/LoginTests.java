@@ -3,17 +3,14 @@ package testClasses;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.LoginPage;
 import pages.NavigationPage;
 import utils.WaitUtils;
 
 public class LoginTests extends BaseTest {
 
-    private String USER_INFO = "//a[normalize-space()='Info']";
-
     @DataProvider
-    public Object[][] loginDataProvider() {
-        return new Object[][] {
+    public Object[][] positiveLoginDataProvider() {
+        return new Object[][]{
                 {"nsmithtest@gmail.com", "testpass123"},
                 {"mjonestest@gmail.com", "passtest321"},
                 {"joestest@gmail.com", "qatestpass99"},
@@ -21,8 +18,8 @@ public class LoginTests extends BaseTest {
         };
     }
 
-    @Test (dataProvider = "loginDataProvider")
-    public void loginWithTest(String email, String password) {
+    @Test (dataProvider = "positiveLoginDataProvider")
+    public void loginWithPositiveDataTest(String email, String password) {
         navigationPage = new NavigationPage(driver);
         loginPage = navigationPage.navigateToLogin();
         Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
@@ -34,9 +31,9 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void resetPasswordTest() {
-        loginPage = new LoginPage(driver);
-        loginPage.open();
+        navigationPage = new NavigationPage(driver);
+        loginPage = navigationPage.navigateToLogin();
         Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
-        //Assert.assertEquals(loginPage.resetPassword("nsmithtest@gmail.com"), "Instructiunile de resetare a parolei au fost trimise la adresa de email.");
+        Assert.assertEquals(loginPage.resetPassword("nsmithtest@gmail.com"), "Instructiunile de resetare a parolei au fost trimise la adresa de email.");
     }
 }
