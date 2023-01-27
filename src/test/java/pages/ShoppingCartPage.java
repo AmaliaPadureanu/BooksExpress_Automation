@@ -4,20 +4,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.text.DecimalFormat;
+import java.time.Duration;
 import java.util.List;
 
 public class ShoppingCartPage extends BasePage {
 
-    private By STERGE_BTN = By.xpath("//a[@class='color-theme-5 cart-remove-item']");
-    private By QUANTITY_FIELD = By.xpath("//input[contains(@type,'number')]");
+    WebDriverWait wait;
+
+    @FindBy(how = How.XPATH, using = "//a[@class='color-theme-5 cart-remove-item']")
+    private WebElement deleteButton;
+    @FindBy(how = How.XPATH, using = "//input[contains(@type,'number')]")
+    private WebElement quantityField;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     public int removeFromCart() {
-        find(STERGE_BTN).click();
+        deleteButton.click();
         getDriver().navigate().refresh();
         List<WebElement> itemsInCart = getDriver().findElements(By.xpath("//li[@class='row 25%']"));
         return itemsInCart.size();
@@ -29,11 +40,10 @@ public class ShoppingCartPage extends BasePage {
     }
 
     public int changeQuantity(int qty) {
-        WebElement quantity = find(QUANTITY_FIELD);
-        quantity.sendKeys(Keys.DELETE);
-        quantity.sendKeys(String.valueOf(qty));
-        quantity.sendKeys(Keys.ENTER);
-        int value = Integer.valueOf(getDriver().findElement(QUANTITY_FIELD).getAttribute("value"));
+        quantityField.sendKeys(Keys.DELETE);
+        quantityField.sendKeys(String.valueOf(qty));
+        quantityField.sendKeys(Keys.ENTER);
+        int value = Integer.valueOf(quantityField.getAttribute("value"));
         return value;
     }
 

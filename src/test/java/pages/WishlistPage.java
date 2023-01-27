@@ -3,44 +3,59 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WishlistPage extends BasePage {
 
-    private By ITEM_TITLE = By.cssSelector("div[class='cart-details'] h4 a");
-    private By REMOVE_BTN = By.xpath("//a[@class='color-theme-5 remove-item']");
-    private By ITEMS_IN_LIST = By.cssSelector("#list-items>li");
-    private By ADD_TO_CART = By.cssSelector("button[type='button']");
-    private By ITEMS_IN_WISHLIST = By.cssSelector("div[class='cart-details'] h4 a");
+    WebDriverWait wait;
+
+    @FindBy(how = How.CSS, using = "div[class='cart-details'] h4 a")
+    private WebElement itemTitle;
+    @FindBy(how = How.XPATH, using = "//a[@class='color-theme-5 remove-item']")
+    private WebElement removeButton;
+    @FindBy(how = How.CSS, using = "#list-items>li")
+    private List<WebElement> itemsInList;
+    @FindBy(how = How.CSS, using = "button[type='button']")
+    private WebElement addToCartButton;
+    @FindBy(how = How.CSS, using = "div[class='cart-details'] h4 a")
+    private List<WebElement> itemsInWishlist;
 
     public WishlistPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     public List<String> getItemsTitle() {
-        List<String> itemsInWishlist = new ArrayList<>();
+        List<String> items = new ArrayList<>();
 
-        for (WebElement element : findAll(ITEMS_IN_WISHLIST)) {
-            itemsInWishlist.add(element.getText().substring(3));
+        for (WebElement element : itemsInWishlist) {
+            items.add(element.getText().substring(3));
         }
 
-        return itemsInWishlist;
+        return items;
     }
 
     public void removeItem() {
-        click(REMOVE_BTN);
+        removeButton.click();
     }
 
     public boolean isEmpty() {
-        List<WebElement> items = findAll(ITEMS_IN_LIST);
-        if (items.size() != 0) {
+
+        if (itemsInList.size() != 0) {
             return false;
         }
         return true;
     }
 
     public void addToCart() {
-        click(ADD_TO_CART);
+        addToCartButton.click();
     }
 }

@@ -7,10 +7,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 public class UserDetailsTests extends BaseTest {
 
-//    @BeforeClass
-//    public void userDetailsTestsSetup() {
-//        login();
-//    }
+    @BeforeClass
+    public void userDetailsTestsSetup() {
+        login();
+    }
 
     @Test
     public void editUserTitleTest() {

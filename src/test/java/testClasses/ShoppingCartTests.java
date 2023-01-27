@@ -6,7 +6,6 @@ import pages.NavigationPage;
 import pages.SearchPage;
 import pages.SearchResultsPage;
 import utils.WaitUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
