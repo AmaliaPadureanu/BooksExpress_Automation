@@ -41,4 +41,11 @@ public class SearchResultsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getProductLanguage().toLowerCase().contains(language));
     }
 
+    @Test
+    public void searchRandomProductTest() {
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.searchRandomProduct();
+        itemDetailsPage = searchResultsPage.getRandomProduct();
+    }
+
 }

@@ -4,9 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.GenericUtils;
 import utils.JavaScriptUtils;
-
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,52 +17,67 @@ import java.util.List;
 
 public class SearchResultsPage extends BasePage {
 
-    private String URL = "search?q=";
-    private By FILTER_DROPDOWN = By.xpath("//i[@class='fa fa-down-open icon-right']");
-    private By ASCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț crescător')]");
-    private By DESCENDING_PRICE_BTN = By.xpath("//a[contains(text(),'Preț descrescător')]");
-    private By FIRST_PRODUCT_IN_SEARCH_LIST = By.cssSelector("#results-list > div > article:nth-child(1) > header > h2 > a > span");
-    private By ITEMS_ON_RESULTS_PAGE = By.xpath("//b[@class='color-theme-5']");
-    private By ENGLISH_FILTER = By.xpath("//a[contains(text(),'Engleză')]");
-    private By GERMAN_FILTER = By.xpath("//a[@rel='nofollow'][contains(text(),'Germană')]");
-    private By SPANISH_FILTER = By.xpath("//a[contains(text(),'Spaniolă')]");
-    private By ITALIAN_FILTER = By.xpath("//a[contains(text(),'Italiană')]");
-    private By FRENCH_FILTER = By.xpath("//a[contains(text(),'Franceză')]");
+    WebDriverWait wait;
+
+    @FindBy(how = How.XPATH, using = "//div[@class='row list']//article//header//h2//a")
+    private List<WebElement> listOfProducts;
+    @FindBy(how = How.XPATH, using = "//i[@class='fa fa-down-open icon-right']")
+    private WebElement filterDropdown;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Preț crescător')]")
+    private WebElement ascendingPriceButton;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Preț descrescător')]")
+    private WebElement descendingPriceButton;
+    @FindBy(how = How.CSS, using = "#results-list > div > article:nth-child(1) > header > h2 > a > span")
+    private WebElement firstProductInList;
+    @FindBy(how = How.XPATH, using = "//b[@class='color-theme-5']")
+    private List<WebElement> itemsOnResultsPage;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Engleză')]")
+    private WebElement englishFilter;
+    @FindBy(how = How.XPATH, using = "//a[@rel='nofollow'][contains(text(),'Germană')]")
+    private WebElement germanFilter;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Spaniolă')]")
+    private WebElement spanishFilter;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Italiană')]")
+    private WebElement italianFilter;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Franceză')]")
+    private WebElement frenchFilter;
 
     public SearchResultsPage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
-    public boolean isOpen() {
-        return getDriver().getCurrentUrl().contains(URL);
+    public ItemDetailsPage getRandomProduct() {
+        listOfProducts.get(GenericUtils.getRandomNumber(0, 90)).click();
+        return new ItemDetailsPage(driver);
     }
 
     public ItemDetailsPage getItemDetailsPage() {
         new WebDriverWait(getDriver(), Duration.ofSeconds(10))
                 .ignoring(StaleElementReferenceException.class)
                 .until((WebDriver driver) -> {
-                    driver.findElement(FIRST_PRODUCT_IN_SEARCH_LIST).click();
+                    firstProductInList.click();
                     return true;
                 });
         return new ItemDetailsPage(driver);
     }
 
     public void filterAscendingOrder() {
-        click(FILTER_DROPDOWN);
-        click(ASCENDING_PRICE_BTN);
+        filterDropdown.click();
+        ascendingPriceButton.click();
     }
 
     public void filterDescendingOrder() {
-        click(FILTER_DROPDOWN);
-        click(DESCENDING_PRICE_BTN);
+        filterDropdown.click();
+        descendingPriceButton.click();
     }
 
     public boolean checkAscendingOrder() {
-        List<WebElement> items = findAll(ITEMS_ON_RESULTS_PAGE);
 
         List<Integer> prices = new ArrayList<>();
 
-        for (WebElement item : items) {
+        for (WebElement item : itemsOnResultsPage) {
             String price = item.getText().replace(" lei", "")
                     .replace(item.findElement(By.xpath("./sup")).getText(), "");
             try {
@@ -74,10 +92,9 @@ public class SearchResultsPage extends BasePage {
     }
 
     public boolean checkDescendingOrder() {
-        List<WebElement> items = findAll(ITEMS_ON_RESULTS_PAGE);
         List<Integer> prices = new ArrayList<>();
 
-        for (WebElement item : items) {
+        for (WebElement item : itemsOnResultsPage) {
             String price = item.getText().replace(" lei", "");
             String p = price.substring(0, price.length() - 2);
 
@@ -94,11 +111,11 @@ public class SearchResultsPage extends BasePage {
 
     public void filterByLanguage(String language) {
         switch (language) {
-            case "eng" -> JavaScriptUtils.click(getDriver(), find(ENGLISH_FILTER));
-            case "ger" -> JavaScriptUtils.click(getDriver(), find(GERMAN_FILTER));
-            case "spa" -> JavaScriptUtils.click(getDriver(), find(SPANISH_FILTER));
-            case "fra" -> JavaScriptUtils.click(getDriver(), find(FRENCH_FILTER));
-            case "ita" -> JavaScriptUtils.click(getDriver(), find(ITALIAN_FILTER));
+            case "eng" -> JavaScriptUtils.click(driver, englishFilter);
+            case "ger" -> JavaScriptUtils.click(driver, germanFilter);
+            case "spa" -> JavaScriptUtils.click(driver, spanishFilter);
+            case "fra" -> JavaScriptUtils.click(driver, frenchFilter);
+            case "ita" -> JavaScriptUtils.click(driver, italianFilter);
         }
     }
 }

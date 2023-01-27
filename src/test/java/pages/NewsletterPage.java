@@ -45,6 +45,7 @@ public class NewsletterPage extends BasePage {
         nameInput.sendKeys(name);
         languagesField.click();
         languageOptions.get(GenericUtils.getRandomNumber(0, 6)).click();
+
         if (subscribeToOneChapterADay) {
             subscribeTo0neChapterADayCheckbox.click();
         }

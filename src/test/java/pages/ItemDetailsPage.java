@@ -96,7 +96,7 @@ public class ItemDetailsPage extends BasePage {
     }
 
     public boolean readLess() {
-        JavaScriptUtils.click(driver, readLessButton);
+        readLessButton.click();
         WaitUtils.wait(driver, 5);
         if (readLessButton.getAttribute("style").equals("display: none;")) {
             return true;
