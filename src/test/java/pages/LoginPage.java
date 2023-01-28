@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.WaitUtils;
 import java.time.Duration;
@@ -93,5 +94,23 @@ public class LoginPage extends BasePage {
     public String getEmptyPasswordError() {
         WaitUtils.waitForVisibilityOf(driver, emptyPasswordError, 10);
         return emptyPasswordError.getText();
+    }
+
+    public boolean checkPasswordError(String expectedError, String errorType) {
+        switch (errorType) {
+            case "wrongPasswordError": {
+                return isErrorMessageEqualToExpected(expectedError, wrongPasswordError);
+            }
+            case "emptyPasswordError": {
+                return isErrorMessageEqualToExpected(expectedError, emptyPasswordError);
+            }
+            default: return false;
+        }
+    }
+
+    private boolean isErrorMessageEqualToExpected(String expectedError, WebElement element) {
+       wait.until(ExpectedConditions.visibilityOf(element));
+       return expectedError.equalsIgnoreCase(element.getText());
+
     }
 }

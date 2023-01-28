@@ -20,6 +20,14 @@ public class LoginTests extends BaseTest {
         };
     }
 
+    @DataProvider
+    public Object[][] invalidLoginDataProvider() {
+        return new Object[][]{
+                {ConstantUtils.EMAIL, "thisisaninvalidpassword", "Parola este incorectă pentru acest cont", "wrongPasswordError"},
+                {ConstantUtils.EMAIL, "", "Te rugăm să introduci parola.", "emptyPasswordError"}
+        };
+    }
+
     @Test (dataProvider = "positiveLoginDataProvider")
     public void loginWithPositiveDataTest(String email, String password) {
         navigationPage = new NavigationPage(driver);
@@ -43,23 +51,13 @@ public class LoginTests extends BaseTest {
         SeleniumUtils.navigateBack(driver);
     }
 
-    @Test
-    public void loginWithInvalidPasswordTest() {
+    @Test (dataProvider = "invalidLoginDataProvider")
+    public void loginWithInvalidPasswordTest(String email, String password, String passwordError, String errorType) {
         navigationPage = new NavigationPage(driver);
         loginPage = navigationPage.navigateToLogin();
         Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
-        loginPage.logInWith(ConstantUtils.EMAIL, "notavalidpassword");
-        Assert.assertEquals(loginPage.getWrongPasswordError(), "Parola este incorectă pentru acest cont");
-        SeleniumUtils.navigateBack(driver);
-    }
-
-    @Test
-    public void loginWithEmptyPasswordTest() {
-        navigationPage = new NavigationPage(driver);
-        loginPage = navigationPage.navigateToLogin();
-        Assert.assertTrue(loginPage.getPageTitle().contains("Intră în cont"));
-        loginPage.logInWith(ConstantUtils.EMAIL, "");
-        Assert.assertEquals(loginPage.getEmptyPasswordError(), "Te rugăm să introduci parola.");
+        loginPage.logInWith(email, password);
+        Assert.assertTrue(loginPage.checkPasswordError(passwordError, errorType));
         SeleniumUtils.navigateBack(driver);
     }
 
