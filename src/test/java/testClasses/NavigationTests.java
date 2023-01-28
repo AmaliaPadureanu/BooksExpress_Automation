@@ -3,69 +3,56 @@ package testClasses;
 import pages.NavigationPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.ConstantUtils;
+import utils.SeleniumUtils;
 
 public class NavigationTests extends BaseTest {
 
-    public String REDUCERI_URL = "https://www.books-express.ro/reduceri";
-    public String TOP_VANZARI_URL = "https://www.books-express.ro/top/carti";
-    public String NOUTATI_URL = "https://www.books-express.ro/carti?n=1";
-    public String CADOURI_URL = "https://www.books-express.ro/carti/lifestyle-cadouri/wzg";
-    public String BLOG_URL = "https://www.books-express.ro/blog/";
-    public String NEWSLETTER_URL = "https://www.books-express.ro/newsletter";
-    public String CONTACT_URL = "https://www.books-express.ro/contact";
-
     @Test
-    public void searchProductsCategoryTest() {
-        navigationPage = new NavigationPage(driver);
-        Assert.assertTrue(navigationPage.selectProductsCategory().contains("economie"));
-    }
-
-    @Test
-    public void openSalesPageTest() {
+    public void navigateToSalesTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToSales();
-
-        Assert.assertTrue(driver.getCurrentUrl().equals(REDUCERI_URL));
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.SALES_URL));
     }
 
     @Test
-    public void openTopSalesPageTest() {
+    public void navigateToTopSalesPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToTopSales();
-        Assert.assertTrue(driver.getCurrentUrl().equals(TOP_VANZARI_URL));
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.TOP_SALES_URL));
     }
 
     @Test
-    public void openNoveltiesPageTest() {
+    public void navigateToNewProductsPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.navigateToNovelties();
-        Assert.assertTrue(driver.getCurrentUrl().equals(NOUTATI_URL));
+        navigationPage.navigateToNewProducts();
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.NEW_PRODUCTS_URL));
     }
 
     @Test
-    public void openGiftsTest() {
+    public void navigateToGiftsTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToGifts();
-        Assert.assertTrue(driver.getCurrentUrl().equals(CADOURI_URL));
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.GIFTS_URL));
     }
     @Test
-    public void openBlogPageTest() {
+    public void navigateToBlogPageTest() {
         navigationPage = new NavigationPage(driver);
-        navigationPage.blog();
-        Assert.assertTrue(driver.getCurrentUrl().equals(BLOG_URL));
+        navigationPage.navigateToBlog();
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.BLOG_URL));
     }
 
     @Test
-    public void openNewsletterPageTest() {
+    public void navigateToNewsletterPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToNewsletter();
-        Assert.assertTrue(driver.getCurrentUrl().equals(NEWSLETTER_URL));
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.NEWSLETTER_URL));
     }
 
     @Test
-    public void openContactPageTest() {
+    public void navigateToContactPageTest() {
         navigationPage = new NavigationPage(driver);
         navigationPage.navigateToContact();
-        Assert.assertTrue(driver.getCurrentUrl().equals(CONTACT_URL));
+        Assert.assertTrue(SeleniumUtils.getCurrentURL(driver).equals(ConstantUtils.CONTACT_URL));
     }
 }

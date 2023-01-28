@@ -18,7 +18,7 @@ public class ShoppingCartTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getFirstItemPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         //Assert.assertTrue(itemDetailsPage.addToCart());
     }
@@ -58,7 +58,7 @@ public class ShoppingCartTests extends BaseTest {
             searchPage = new SearchPage(driver);
             SearchResultsPage searchResultsPage = searchPage.search(searchItem);
             Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchItem));
-            itemDetailsPage = searchResultsPage.getItemDetailsPage();
+            itemDetailsPage = searchResultsPage.getFirstItemPage();
             Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchItem));
             //Assert.assertTrue(itemDetailsPage.addToCart());
         }
@@ -70,7 +70,7 @@ public class ShoppingCartTests extends BaseTest {
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getFirstItemPage();
         WaitUtils.wait(driver, 5);
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         //Assert.assertTrue(itemDetailsPage.addToCart());
@@ -89,7 +89,7 @@ public class ShoppingCartTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         driver.navigate().refresh();
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getFirstItemPage();
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
         //Assert.assertTrue(itemDetailsPage.addToCart());
         NavigationPage navigationPage = new NavigationPage(driver);

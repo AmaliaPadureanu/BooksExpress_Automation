@@ -37,7 +37,7 @@ public class SearchResultsTests extends BaseTest {
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
         Assert.assertTrue(searchResultsPage.getPageTitle().contains(searchText));
         searchResultsPage.filterByLanguage(language);
-        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        itemDetailsPage = searchResultsPage.getFirstItemPage();
         Assert.assertTrue(itemDetailsPage.getProductLanguage().toLowerCase().contains(language));
     }
 

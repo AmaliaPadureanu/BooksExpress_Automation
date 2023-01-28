@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,9 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.JavaScriptUtils;
 import utils.WaitUtils;
-
 import java.time.Duration;
 
 public class NavigationPage extends BasePage {
@@ -35,10 +32,6 @@ public class NavigationPage extends BasePage {
     private WebElement newsletterButton;
     @FindBy(how = How.XPATH, using = "//a[normalize-space()='Contact']")
     private WebElement contactButton;
-    @FindBy(how = How.ID, using = "products")
-    private WebElement productsLink;
-    @FindBy(how = How.XPATH, using = "//a[@class='category-menu'][normalize-space()='Business']")
-    private WebElement businessCategory;
     @FindBy(how = How.XPATH, using = "//a[@id='show-user']//i[@class='fa fa-angle-down']")
     private WebElement accountLink;
     @FindBy(how = How.XPATH, using = "//ul[@class='jq-dropdown-menu']//a[normalize-space()='Detalii personale']")
@@ -53,8 +46,6 @@ public class NavigationPage extends BasePage {
     private WebElement wishlistLink;
     @FindBy(how = How.XPATH, using = "//span[contains(text(),'Coș')]")
     private WebElement cartButton;
-    @FindBy(how = How.XPATH, using = "//b[contains(text(),'Explorează listele publice')]")
-    private WebElement publicLists;
 
     public NavigationPage(WebDriver driver) {
         super(driver);
@@ -68,15 +59,6 @@ public class NavigationPage extends BasePage {
         return new LoginPage(driver);
     }
 
-    public String selectProductsCategory() {
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(productsLink).moveToElement(businessCategory).perform();
-        //WaitUtils.waitForElementToBeClickable(getDriver(), By.partialLinkText("Economie"), 5);
-        JavaScriptUtils.click(getDriver(), find(By.partialLinkText("Economie")));
-
-        return getDriver().getTitle().toLowerCase();
-    }
-
     public void navigateToSales() {
         salesButton.click();
     }
@@ -85,7 +67,7 @@ public class NavigationPage extends BasePage {
         topSalesButton.click();
     }
 
-    public void navigateToNovelties() {
+    public void navigateToNewProducts() {
         newProductsButton.click();
     }
 
@@ -93,7 +75,7 @@ public class NavigationPage extends BasePage {
         giftsButton.click();
     }
 
-    public void blog() {
+    public void navigateToBlog() {
         blogButton.click();
     }
 
@@ -104,32 +86,30 @@ public class NavigationPage extends BasePage {
 
     public ContactPage navigateToContact() {
         contactButton.click();
-        return new ContactPage(getDriver());
+        return new ContactPage(driver);
     }
 
     public UserDetailsPage navigateToUserDetails() {
         Actions actions = new Actions(getDriver());
         actions.moveToElement(accountLink).click(personalInfo).perform();
-        return new UserDetailsPage(getDriver());
+        return new UserDetailsPage(driver);
     }
 
     public NavigationHistoryPage navigateToUserNavigationHistory() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(accountButton).click(navigationHistory).perform();
-        return new NavigationHistoryPage(getDriver());
+        actions.moveToElement(accountButton).click(navigationHistory).build().perform();
+        return new NavigationHistoryPage(driver);
     }
 
     public WishlistPage navigateToWishlist() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(listsMenu)
-                .click(wishlistLink).perform();
-        return new WishlistPage(getDriver());
+        actions.moveToElement(listsMenu).click(wishlistLink).build().perform();
+        return new WishlistPage(driver);
     }
 
     public ShoppingCartPage navigateToCart() {
         cartButton.click();
-        //WaitUtils.waitForElementToBeClickable(getDriver(), SEE_CART_BTN, 5).click();
-        return new ShoppingCartPage(getDriver());
+        return new ShoppingCartPage(driver);
     }
 
     public ListsPage navigateToLists() {
@@ -139,12 +119,4 @@ public class NavigationPage extends BasePage {
         allListsButton.click();
         return new ListsPage(driver);
     }
-
-    public ListsPage navigateToPublicLists() {
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(listsMenu).perform();
-        publicLists.click();
-        return new ListsPage(getDriver());
-    }
-
 }

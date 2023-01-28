@@ -53,7 +53,7 @@ public class SearchResultsPage extends BasePage {
         return new ItemDetailsPage(driver);
     }
 
-    public ItemDetailsPage getItemDetailsPage() {
+    public ItemDetailsPage getFirstItemPage() {
         new WebDriverWait(getDriver(), Duration.ofSeconds(10))
                 .ignoring(StaleElementReferenceException.class)
                 .until((WebDriver driver) -> {

@@ -15,7 +15,7 @@ public class NavigationHistoryPage extends BasePage {
     WebDriverWait wait;
 
     @FindBy(how = How.XPATH, using = "//article//h2")
-    private List<WebElement> articlesHeaders;
+    private List<WebElement> productsName;
 
     public NavigationHistoryPage(WebDriver driver) {
         super(driver);
@@ -26,7 +26,7 @@ public class NavigationHistoryPage extends BasePage {
     public List<String> getNavigationHistory() {
         List<String> titles = new ArrayList<>();
 
-        for (WebElement articleHeader : articlesHeaders) {
+        for (WebElement articleHeader : productsName) {
             titles.add(articleHeader.getText());
         }
         return titles;
