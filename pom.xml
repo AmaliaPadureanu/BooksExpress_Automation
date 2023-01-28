@@ -95,6 +95,7 @@
                         <suiteXmlFile>navigationHistory_suite.xml</suiteXmlFile>
                         <suiteXmlFile>navigation_suite.xml</suiteXmlFile>
                         <suiteXmlFile>newsletter_suite.xml</suiteXmlFile>
+                        <suiteXmlFile>searchResults_suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

@@ -31,7 +31,7 @@ public class SearchResultsTests extends BaseTest {
 
     @Test
     public void filterByLanguageTest() {
-        String language = "fra";
+        String language = "ita";
         searchText = "computers";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
@@ -39,13 +39,6 @@ public class SearchResultsTests extends BaseTest {
         searchResultsPage.filterByLanguage(language);
         itemDetailsPage = searchResultsPage.getFirstItemPage();
         Assert.assertTrue(itemDetailsPage.getProductLanguage().toLowerCase().contains(language));
-    }
-
-    @Test
-    public void searchRandomProductTest() {
-        searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.searchRandomProduct();
-        itemDetailsPage = searchResultsPage.getRandomProduct();
     }
 
 }

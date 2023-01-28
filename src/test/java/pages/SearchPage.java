@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.GenericUtils;
 import utils.WaitUtils;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -26,8 +25,6 @@ public class SearchPage extends BasePage {
     private WebElement productsDropdown;
     @FindBy(how = How.CSS, using = "#products-menu > ul > li > a")
     private List<WebElement> products;
-    @FindBy(how = How.XPATH, using = "//div[@id='products-submenus']//div//ul[last()]//li")
-    private List<WebElement> productsSubmenus;
 
     public SearchPage(WebDriver driver) {
         super(driver);

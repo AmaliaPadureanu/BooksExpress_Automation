@@ -1,8 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Search Results Suite">
+
+    <listeners>
+        <listener class-name="utils.ExtentTestListener"></listener>
+    </listeners>
+
     <test name="Search Results">
-        <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="testClasses.SearchResultsTests"></class>
         </classes>
