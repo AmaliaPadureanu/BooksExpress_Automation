@@ -9,7 +9,7 @@ public class ExtentManager {
 
     public synchronized static ExtentReports createExtentReports() {
         ExtentSparkReporter reporter = new ExtentSparkReporter(ConstantUtils.EXTENT_FOLDER + SeleniumUtils.getReportName());
-        reporter.config().setReportName("Madison Island");
+        reporter.config().setReportName("Books Express");
         extentReports.attachReporter(reporter);
         extentReports.setSystemInfo("AUTHOR", "Amalia Padureanu");
         extentReports.setSystemInfo("ENVIRONMENT", "local");

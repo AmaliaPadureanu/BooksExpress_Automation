@@ -88,6 +88,7 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>Smoke.xml</suiteXmlFile>
                         <suiteXmlFile>Regression.xml</suiteXmlFile>
+                        <suiteXmlFile>itemDetails_suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

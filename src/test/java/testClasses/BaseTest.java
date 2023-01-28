@@ -41,6 +41,7 @@ public class BaseTest {
         dbUser = GenericUtils.getDbUserFromConfig(config);
         dbPassword = GenericUtils.getDbPasswordFromConfig(config);
         dbSchema = GenericUtils.getDbSchemaFromConfig(config);
+        ExtentTestManager.startTest("test", "test");
     }
 
     @AfterTest(alwaysRun = true)

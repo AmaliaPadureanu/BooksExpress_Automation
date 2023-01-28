@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,13 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.GenericUtils;
-import utils.JavaScriptUtils;
 import utils.WaitUtils;
 import java.time.Duration;
-import java.util.AbstractCollection;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 public class ItemDetailsPage extends BasePage {
 
@@ -62,6 +57,16 @@ public class ItemDetailsPage extends BasePage {
     private WebElement removeReviewButton;
     @FindBy(how = How.CSS, using = ".stars>a[class$='fa fa-star gold']")
     private List<WebElement> productRating;
+    @FindBy(how = How.XPATH, using = "//body/div[@id='main']/div[1]//header//h4")
+    private WebElement productAvailability;
+    @FindBy(how = How.ID, using = "email")
+    private WebElement emailInput;
+    @FindBy(how = How.ID, using = "phone")
+    private WebElement telephoneInput;
+    @FindBy(how = How.ID, using = "notification")
+    private WebElement sendButton;
+    @FindBy(how = How.ID, using = "notification-success")
+    private WebElement notifySuccessMessage;
 
     public ItemDetailsPage(WebDriver driver) {
         super(driver);
@@ -183,5 +188,19 @@ public class ItemDetailsPage extends BasePage {
 
     public String getProductRating() {
         return String.valueOf(productRating.size());
+    }
+
+    public String getProductAvailability() {
+        return productAvailability.getText();
+    }
+
+    public void notifyWhenProductIsBackInStock(String email, String phone) {
+        emailInput.sendKeys(email);
+        telephoneInput.sendKeys(phone);
+        sendButton.click();
+    }
+
+    public String getNotifySuccessMessage() {
+        return notifySuccessMessage.getText();
     }
 }

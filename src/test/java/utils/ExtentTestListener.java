@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
@@ -8,8 +8,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import testClasses.BaseTest;
-import utils.ExtentManager;
-import utils.SeleniumUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;

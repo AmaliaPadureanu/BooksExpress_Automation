@@ -123,4 +123,14 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getNrOfReviews() == nrOfReviewsBefore - 1);
     }
 
+    @Test
+    public void notifyWhenProductIsBackInStockTest() {
+        searchPage = new SearchPage(driver);
+        SearchResultsPage searchResultsPage = searchPage.search("Innocent Foxes");
+        itemDetailsPage = searchResultsPage.getItemDetailsPage();
+        Assert.assertEquals(itemDetailsPage.getProductAvailability(), "Carte indisponibilă temporar");
+        itemDetailsPage.notifyWhenProductIsBackInStock("emipopesc@gmail.com", "3847859483");
+        Assert.assertTrue(!itemDetailsPage.getNotifySuccessMessage().isBlank());
+    }
+
 }
