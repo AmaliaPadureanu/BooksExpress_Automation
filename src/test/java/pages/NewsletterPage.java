@@ -8,6 +8,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.GenericUtils;
+import utils.WaitUtils;
 
 import java.time.Duration;
 import java.util.List;
@@ -32,6 +33,8 @@ public class NewsletterPage extends BasePage {
     private WebElement subscribeButton;
     @FindBy(how = How.CSS, using = "#result > p")
     private WebElement afterSubscribeMessage;
+    @FindBy(how = How.CSS, using = "div[data-for='email']")
+    private WebElement emailError;
 
     public NewsletterPage(WebDriver driver) {
         super(driver);
@@ -44,7 +47,7 @@ public class NewsletterPage extends BasePage {
         emailInput.sendKeys(email);
         nameInput.sendKeys(name);
         languagesField.click();
-        languageOptions.get(GenericUtils.getRandomNumber(0, 6)).click();
+        languageOptions.get(GenericUtils.getRandomNumber(0, languageOptions.size())).click();
 
         if (subscribeToOneChapterADay) {
             subscribeTo0neChapterADayCheckbox.click();
@@ -53,6 +56,11 @@ public class NewsletterPage extends BasePage {
     }
 
     public String getAfterSubscribeMessage() {
+        WaitUtils.waitForElementToBeClickable(driver, afterSubscribeMessage, 10);
         return afterSubscribeMessage.getText();
+    }
+
+    public String getEmailError() {
+        return emailError.getText();
     }
 }
