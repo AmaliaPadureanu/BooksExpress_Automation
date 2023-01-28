@@ -43,10 +43,6 @@ public class ItemDetailsPage extends BasePage {
     private WebElement saveReviewButton;
     @FindBy(how = How.XPATH, using = "//section[@id='product-reviews']//div//div")
     private List<WebElement> reviews;
-    @FindBy(how = How.CSS, using = "body > div:nth-child(10) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > section:nth-child(2) > section:nth-child(1) > div:nth-child(1) > div:nth-child(3) > a:nth-child(3)")
-    private WebElement addToListDropdown;
-    @FindBy(how = How.CSS, using = "#add2list-data > ul > li")
-    private List<WebElement> lists;
     @FindBy(how = How.XPATH, using = "//a[contains(text(),'Limba')]")
     private WebElement productLanguage;
     @FindBy(how = How.ID, using = "modify-review")
@@ -74,9 +70,9 @@ public class ItemDetailsPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean addToCart() {
+    public ShoppingCartPage addToCart() {
         addToCartButton.click();
-        return WaitUtils.waitForUrlToContain(getDriver(), "cart/added", 5);
+        return new ShoppingCartPage(driver);
     }
 
     public void addToWishlist() {
@@ -203,6 +199,4 @@ public class ItemDetailsPage extends BasePage {
     public String getNotifySuccessMessage() {
         return notifySuccessMessage.getText();
     }
-
-
 }

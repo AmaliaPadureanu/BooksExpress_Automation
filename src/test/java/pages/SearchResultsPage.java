@@ -49,7 +49,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public ItemDetailsPage getRandomProduct() {
-        listOfProducts.get(GenericUtils.getRandomNumber(0, 90)).click();
+        listOfProducts.get(GenericUtils.getRandomNumber(0, listOfProducts.size())).click();
         return new ItemDetailsPage(driver);
     }
 

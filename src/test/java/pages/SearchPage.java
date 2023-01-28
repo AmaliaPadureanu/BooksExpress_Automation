@@ -41,7 +41,7 @@ public class SearchPage extends BasePage {
     }
 
     public SearchResultsPage searchRandomProduct() {
-        WebElement productCategory = products.get(GenericUtils.getRandomNumber(0, 11));
+        WebElement productCategory = products.get(GenericUtils.getRandomNumber(0, products.size()));
         String categoryId = productCategory.getAttribute("data-id").split("-")[1];
 
         Actions actions = new Actions(driver);

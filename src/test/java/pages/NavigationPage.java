@@ -46,6 +46,8 @@ public class NavigationPage extends BasePage {
     private WebElement wishlistLink;
     @FindBy(how = How.XPATH, using = "//span[contains(text(),'Coș')]")
     private WebElement cartButton;
+    @FindBy(how = How.XPATH, using = "//a[contains(text(),'Vezi coșul')]")
+    private WebElement seeCartButton;
 
     public NavigationPage(WebDriver driver) {
         super(driver);
@@ -108,7 +110,8 @@ public class NavigationPage extends BasePage {
     }
 
     public ShoppingCartPage navigateToCart() {
-        cartButton.click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(cartButton).moveToElement(seeCartButton).click().build().perform();
         return new ShoppingCartPage(driver);
     }
 

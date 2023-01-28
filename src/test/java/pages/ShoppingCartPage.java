@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
@@ -20,6 +21,10 @@ public class ShoppingCartPage extends BasePage {
     private WebElement deleteButton;
     @FindBy(how = How.XPATH, using = "//input[contains(@type,'number')]")
     private WebElement quantityField;
+    @FindBy(how = How.ID, using = "cart-added-text")
+    private WebElement cartSuccessMessage;
+    @FindBy(how = How.CSS, using = "#cart-items > li")
+    private List<WebElement> productsInCart;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -39,12 +44,14 @@ public class ShoppingCartPage extends BasePage {
         return itemsInCart.size();
     }
 
-    public int changeQuantity(int qty) {
+    public List<WebElement> getProductsInCart() {
+        return productsInCart;
+    }
+
+    public void changeQuantity(String newQuantity) {
         quantityField.sendKeys(Keys.DELETE);
-        quantityField.sendKeys(String.valueOf(qty));
+        quantityField.sendKeys(newQuantity);
         quantityField.sendKeys(Keys.ENTER);
-        int value = Integer.valueOf(quantityField.getAttribute("value"));
-        return value;
     }
 
     public double formatPrice(Integer price) {
@@ -94,5 +101,15 @@ public class ShoppingCartPage extends BasePage {
             totalPrice += formatPrice(Integer.valueOf(price));
         }
         return df.format(totalPrice);
+    }
+
+    public String getCartSuccessMessage() {
+        return cartSuccessMessage.getText();
+    }
+
+    public int getProductSubtotal(WebElement product) {
+        String subtotal = product.findElement(By.cssSelector("#cart-items > li > div[class$='6u$(medium) 2u$ align-right']  > div:first-child")).getText();
+
+        return Integer.valueOf(removeSuffix(subtotal));
     }
 }

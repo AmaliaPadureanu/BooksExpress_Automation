@@ -29,6 +29,7 @@ public class BaseTest {
     UserDetailsPage userDetailsPage;
     NavigationHistoryPage navigationHistoryPage;
     ListsPage listsPage;
+    SearchResultsPage searchResultsPage;
 
     @BeforeTest(alwaysRun = true)
     public void beforeTest() {
