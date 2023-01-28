@@ -64,7 +64,7 @@ public class ContactTests extends BaseTest {
         Assert.assertTrue(contactPage.checkError(expectedEmailError, "emailError"));
     }
 
-    @Test(dataProvider = "negativeContactUnregisteredDataProvider")
+    @Test(dataProvider = "positiveContactUnregisteredDataProvider")
     public void positiveContactUnregisteredUserTest(String anotherSubject, String message, String name, String email, String orderNo) {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();
@@ -81,9 +81,10 @@ public class ContactTests extends BaseTest {
         Assert.assertEquals(contactPage.getPageTitle(), "Contactați-ne | Books Express");
         contactPage.contactAsRegisteredUser(anotherSubject, message, orderNo);
         Assert.assertTrue(contactPage.getConfirmationMessage().contains("a fost trimis"));
+        loginPage.logout();
     }
 
-    @Test (dataProvider = "negativeContactUnregisteredDataProvider")
+    @Test (dataProvider = "negativeContactUnregisteredDataProvider", priority = 1)
     public void negativeContact(ContactModel contactModel) {
         contactActions(contactModel);
     }

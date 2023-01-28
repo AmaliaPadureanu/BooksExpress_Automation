@@ -203,4 +203,6 @@ public class ItemDetailsPage extends BasePage {
     public String getNotifySuccessMessage() {
         return notifySuccessMessage.getText();
     }
+
+
 }

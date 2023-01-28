@@ -1,9 +1,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Item details Suite">
+
     <listeners>
         <listener class-name="utils.ExtentTestListener"></listener>
     </listeners>
+
     <test name="Item Details">
         <classes>
             <class name="testClasses.ItemDetailsTests"></class>
