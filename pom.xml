@@ -91,6 +91,7 @@
                         <suiteXmlFile>itemDetails_suite.xml</suiteXmlFile>
                         <suiteXmlFile>contact_suite.xml</suiteXmlFile>
                         <suiteXmlFile>lists_suite.xml</suiteXmlFile>
+                        <suiteXmlFile>login_suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

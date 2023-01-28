@@ -30,4 +30,12 @@ public class SeleniumUtils {
     public static void refreshPage(WebDriver driver) {
         driver.navigate().refresh();
     }
+
+    public static String getCurrentURL(WebDriver driver) {
+        return driver.getCurrentUrl();
+    }
+
+    public static void navigateBack(WebDriver driver) {
+        driver.navigate().back();
+    }
 }

@@ -8,7 +8,6 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.WaitUtils;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -18,8 +17,6 @@ public class LoginPage extends BasePage {
 
     @FindBy(how = How.ID, using = "show-user")
     private WebElement accountButton;
-    @FindBy(how = How.CSS, using = "#user-data > ul > li:nth-child(1) > a")
-    private WebElement enterAccountButton;
     @FindBy(how = How.ID, using = "username")
     private WebElement emailInput;
     @FindBy(how = How.ID, using = "email-button")
@@ -38,8 +35,10 @@ public class LoginPage extends BasePage {
     private WebElement resetPasswordButton;
     @FindBy(how = How.ID, using = "reset-message")
     private WebElement resetPasswordMessage;
+    @FindBy(how = How.ID, using = "login-message")
+    private WebElement wrongPasswordError;
     @FindBy(how = How.ID, using = "password-message")
-    private WebElement passwordError;
+    private WebElement emptyPasswordError;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -53,6 +52,11 @@ public class LoginPage extends BasePage {
         WaitUtils.waitForElementToBeClickable(driver, passwordInput, 10);
         passwordInput.sendKeys(password);
         loginButton.click();
+    }
+
+    public void enterEmail(String email) {
+        emailInput.sendKeys(email);
+        continueButton.click();
     }
 
     public int logout() {
@@ -81,7 +85,13 @@ public class LoginPage extends BasePage {
         return resetPasswordMessage.getText();
     }
 
-    public String getPasswordError() {
-        return passwordError.getText();
+    public String getWrongPasswordError() {
+        WaitUtils.waitForVisibilityOf(driver, wrongPasswordError, 10);
+        return wrongPasswordError.getText();
+    }
+
+    public String getEmptyPasswordError() {
+        WaitUtils.waitForVisibilityOf(driver, emptyPasswordError, 10);
+        return emptyPasswordError.getText();
     }
 }
