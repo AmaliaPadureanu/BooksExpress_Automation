@@ -9,6 +9,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.JavaScriptUtils;
+import utils.WaitUtils;
+
 import java.time.Duration;
 
 public class NavigationPage extends BasePage {
@@ -45,7 +47,7 @@ public class NavigationPage extends BasePage {
     private WebElement navigationHistory;
     @FindBy(how = How.ID, using = "show-lists")
     private WebElement listsMenu;
-    @FindBy(how = How.XPATH, using = "//*[@id=\"lists-data\"]/ul/li[11]/a")
+    @FindBy(how = How.XPATH, using = "//a[normalize-space()='Toate listele']")
     private WebElement allListsButton;
     @FindBy(how = How.CSS, using = "a[href='/user/wishlist']")
     private WebElement wishlistLink;
@@ -131,8 +133,9 @@ public class NavigationPage extends BasePage {
     }
 
     public ListsPage navigateToLists() {
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(getDriver());
         actions.moveToElement(listsMenu).perform();
+        WaitUtils.wait(driver, 5);
         allListsButton.click();
         return new ListsPage(driver);
     }

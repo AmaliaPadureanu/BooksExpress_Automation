@@ -26,4 +26,8 @@ public class SeleniumUtils {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return "extentReport " + timestamp.getTime() + ".html";
     }
+
+    public static void refreshPage(WebDriver driver) {
+        driver.navigate().refresh();
+    }
 }
