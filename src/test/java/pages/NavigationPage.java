@@ -111,7 +111,7 @@ public class NavigationPage extends BasePage {
 
     public ShoppingCartPage navigateToCart() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(cartButton).moveToElement(seeCartButton).click().build().perform();
+        actions.moveToElement(cartButton).click(seeCartButton).build().perform();
         return new ShoppingCartPage(driver);
     }
 

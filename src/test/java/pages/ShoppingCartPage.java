@@ -1,14 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.SeleniumUtils;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.List;
@@ -19,12 +16,16 @@ public class ShoppingCartPage extends BasePage {
 
     @FindBy(how = How.XPATH, using = "//a[@class='color-theme-5 cart-remove-item']")
     private WebElement deleteButton;
-    @FindBy(how = How.XPATH, using = "//input[contains(@type,'number')]")
-    private WebElement quantityField;
     @FindBy(how = How.ID, using = "cart-added-text")
     private WebElement cartSuccessMessage;
     @FindBy(how = How.CSS, using = "#cart-items > li")
     private List<WebElement> productsInCart;
+    @FindBy(how = How.CSS, using = "ul[id='cart-items'] li div div div p")
+    private WebElement quantityExceedsStockError;
+    @FindBy(how = How.XPATH, using = "//body[1]/div[7]/div[1]/section[1]/div[5]/div[1]/div[2]/div[1]/div[2]/div[1]")
+    private WebElement totalPrice;
+    @FindBy(how = How.CSS, using = "body > div:nth-child(10) > div:nth-child(1) > section:nth-child(4) > div:nth-child(6) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2)")
+    private WebElement deliveryPrice;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -32,59 +33,36 @@ public class ShoppingCartPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public int removeFromCart() {
+    public void removeFromCart(WebElement element) {
         deleteButton.click();
-        getDriver().navigate().refresh();
-        List<WebElement> itemsInCart = getDriver().findElements(By.xpath("//li[@class='row 25%']"));
-        return itemsInCart.size();
+        SeleniumUtils.refreshPage(driver);
     }
 
-    public int getNoOfCartItems() {
-        List<WebElement> itemsInCart = getDriver().findElements(By.xpath("//li[@class='row 25%']"));
-        return itemsInCart.size();
+    public int getNumberOfProductsInCart() {
+        return productsInCart.size();
     }
 
     public List<WebElement> getProductsInCart() {
         return productsInCart;
     }
 
-    public void changeQuantity(String newQuantity) {
-        quantityField.sendKeys(Keys.DELETE);
-        quantityField.sendKeys(newQuantity);
-        quantityField.sendKeys(Keys.ENTER);
+    public void changeQuantityForProduct(WebElement product, String newQuantity) {
+        WebElement quantityBox = product.findElement(By.xpath("//input[contains(@type,'number')]"));
+
+        quantityBox.sendKeys(Keys.DELETE);
+        quantityBox.sendKeys(newQuantity);
+        quantityBox.sendKeys(Keys.ENTER);
+        SeleniumUtils.refreshPage(driver);
     }
 
-    public double formatPrice(Integer price) {
-        char[] chars = String.valueOf(price).toCharArray();
-        StringBuilder integerPart = new StringBuilder();
-        StringBuilder decimalPart = new StringBuilder();
+    public String getDeliveryPrice() {
 
-        for (int i = 0; i < chars.length - 2; i++) {
-            integerPart.append(chars[i]);
+        if (deliveryPrice.getText().contains("lei")) {
+            String priceWithoutSuffix = removeSuffix(deliveryPrice.getText());
+            return priceWithoutSuffix;
         }
 
-        decimalPart.append(chars[chars.length - 2]);
-        decimalPart.append(chars[chars.length - 1]);
-        double finalNumber = Double.valueOf(integerPart + "." + decimalPart);
-        df.format(finalNumber);
-        return finalNumber;
-    }
-
-    public String getTotalPriceFormatted() {
-        WebElement totalPriceOnSite = getDriver().findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='products-total line strong']"));
-        String priceWithoutSuffix = removeSuffix(totalPriceOnSite.getText());
-        Double formattedPriceWithoutSuffix = formatPrice(Integer.valueOf(priceWithoutSuffix));
-        return df.format(formattedPriceWithoutSuffix);
-    }
-
-    public Object getDeliveryPriceFormatted() {
-        String deliveryPrice = getDriver().findElement(By.cssSelector("div[class='12u$(large) 4u'] div[class='transport-total line']")).getText();
-
-        if (deliveryPrice.contains("lei")) {
-            String priceWithoutSuffix = removeSuffix(deliveryPrice);
-            return formatPrice(Integer.valueOf(priceWithoutSuffix));
-        }
-        return deliveryPrice;
+        return deliveryPrice.getText();
     }
 
     private String removeSuffix(String price) {
@@ -93,23 +71,33 @@ public class ShoppingCartPage extends BasePage {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    public String computeTotalCartPrice() {
-        Double totalPrice = 0.0;
-        List<WebElement> items = getDriver().findElements(By.xpath("//div[@class='color-theme-5 line']"));
-        for (WebElement item : items) {
-            String price = removeSuffix(item.getText());
-            totalPrice += formatPrice(Integer.valueOf(price));
-        }
-        return df.format(totalPrice);
-    }
-
     public String getCartSuccessMessage() {
         return cartSuccessMessage.getText();
     }
 
     public int getProductSubtotal(WebElement product) {
-        String subtotal = product.findElement(By.cssSelector("#cart-items > li > div[class$='6u$(medium) 2u$ align-right']  > div:first-child")).getText();
+        String subtotal = product.findElement(By.cssSelector("#cart-items > li > div[class$='6u$(medium) 2u$ align-right'] > div:first-child")).getText();
 
         return Integer.valueOf(removeSuffix(subtotal));
+    }
+
+    public String getQuantityExceedsStockError() {
+       return ((JavascriptExecutor) driver).executeScript("return arguments[0].innerHTML;",quantityExceedsStockError).toString();
+    }
+
+    public int getValueInQuantityBox(WebElement element) {
+        return Integer.valueOf(element.findElement(By.cssSelector("#cart-items > li > div:nth-child(2) input")).getAttribute("value"));
+    }
+
+    public int getTotalPrice() {
+        return Integer.valueOf(removeSuffix(totalPrice.getText()));
+    }
+
+    public String checkDeliveryPrice() {
+        if (getTotalPrice() > 30000) {
+            return "GRATUIT";
+        } else {
+            return "999";
+        }
     }
 }

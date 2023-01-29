@@ -18,7 +18,7 @@ public class WishlistTests extends BaseTest {
         String searchText = "It Starts with Us";
         searchPage = new SearchPage(driver);
         SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        itemDetailsPage = searchResultsPage.getFirstItemPage();
+        itemDetailsPage = searchResultsPage.getFirstItemInList();
         String title = itemDetailsPage.getItemTitle();
         itemDetailsPage.addToWishlist();
         Thread.sleep(6000);
