@@ -18,6 +18,8 @@ public class NavigationPage extends BasePage {
     private WebElement accountButton;
     @FindBy(how = How.CSS, using = "#user-data > ul > li:nth-child(1) > a")
     private WebElement enterAccountButton;
+    @FindBy(how = How.CSS, using = "#user-data > ul > li:last-child > a")
+    private WebElement newAccountButton;
     @FindBy(how = How.XPATH, using = "//a[@href='/reduceri']")
     private WebElement salesButton;
     @FindBy(how = How.XPATH, using = "//a[@href='/top/carti']")
@@ -59,6 +61,12 @@ public class NavigationPage extends BasePage {
         Actions actions = new Actions(driver);
         actions.moveToElement(accountButton).moveToElement(enterAccountButton).click().build().perform();
         return new LoginPage(driver);
+    }
+
+    public SignInPage navigateToSignIn() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(accountButton).moveToElement(newAccountButton).click().build().perform();
+        return new SignInPage(driver);
     }
 
     public void navigateToSales() {

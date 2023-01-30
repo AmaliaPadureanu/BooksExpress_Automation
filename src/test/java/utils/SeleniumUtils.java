@@ -35,6 +35,10 @@ public class SeleniumUtils {
         return driver.getCurrentUrl();
     }
 
+    public static String getCurrentPageTitle(WebDriver driver) {
+        return driver.getTitle();
+    }
+
     public static void navigateBack(WebDriver driver) {
         driver.navigate().back();
     }
