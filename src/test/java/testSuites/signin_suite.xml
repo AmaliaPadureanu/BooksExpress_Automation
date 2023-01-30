@@ -1,8 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Sign In Suite">
+
+    <listeners>
+        <listener class-name="utils.ExtentTestListener"></listener>
+    </listeners>
+
     <test name="SignIn">
-        <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="testClasses.SignInTests"></class>
         </classes>
