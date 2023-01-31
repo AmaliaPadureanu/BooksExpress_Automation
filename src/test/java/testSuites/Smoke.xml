@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Smoke Suite">
+    <groups>
+        <run>
+            <include name="smoke"/>
+        </run>
+    </groups>
+
+    <listeners>
+        <listener class-name="utils.ExtentTestListener"></listener>
+    </listeners>
+
+    <test name="SignIn">
+        <classes>
+            <class name="testClasses.SignInTests"></class>
+        </classes>
+    </test>
+    <test name="Login">
+        <classes>
+            <class name="testClasses.LoginTests"></class>
+        </classes>
+    </test>
+    <test name="Shopping Cart">
+        <classes>
+            <class name="testClasses.ShoppingCartTests"></class>
+        </classes>
+    </test>
+    <test name="Item Details">
+        <classes>
+            <class name="testClasses.ItemDetailsTests"></class>
+        </classes>
+    </test>
+    <test name="Lists">
+        <classes>
+            <class name="testClasses.ListsTests"></class>
+        </classes>
+    </test>
+    <test name="Wishlist">
+        <classes>
+            <class name="testClasses.WishlistTests"></class>
+        </classes>
+    </test>
+</suite>

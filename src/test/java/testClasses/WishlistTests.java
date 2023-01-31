@@ -11,17 +11,17 @@ import utils.WaitUtils;
 
 public class WishlistTests extends BaseTest {
 
-    @BeforeClass (alwaysRun = true)
+    @BeforeClass
     public void wishlistTestsSetup() {
         login();
     }
 
-    @Test
+    @Test (groups = {"smoke"})
     public void addToWishlist() {
         searchPage = new SearchPage(driver);
         searchResultsPage = searchPage.searchRandomProduct();
         itemDetailsPage = searchResultsPage.getRandomProduct();
-        String productName = itemDetailsPage.getItemTitle().substring(0, 10);
+        String productName = itemDetailsPage.getItemTitle().split(" ")[0];
         itemDetailsPage.addToWishlist();
         navigationPage = new NavigationPage(driver);
         wishlistPage = navigationPage.navigateToWishlist();

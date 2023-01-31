@@ -15,7 +15,7 @@ public class ItemDetailsTests extends BaseTest {
 
     String searchText;
 
-    @Test
+    @Test (groups = {"smoke"})
     public void getItemTitleTest() {
         searchText = "The Empire of Ashes";
         searchPage = new SearchPage(driver);
@@ -25,7 +25,7 @@ public class ItemDetailsTests extends BaseTest {
         Assert.assertTrue(itemDetailsPage.getPageTitle().contains(searchText));
     }
 
-    @Test
+    @Test (groups = {"smoke"})
     public void getItemAuthorTest() {
         searchText = "No Longer Human";
         searchPage = new SearchPage(driver);

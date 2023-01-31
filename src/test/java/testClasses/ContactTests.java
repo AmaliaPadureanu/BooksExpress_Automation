@@ -60,7 +60,7 @@ public class ContactTests extends BaseTest {
         Assert.assertTrue(contactPage.checkError(contactModel.getEmailError(), "emailError"));
     }
 
-    @Test(dataProvider = "positiveContactUnregisteredDataProvider")
+    @Test(dataProvider = "positiveContactUnregisteredDataProvider", groups = {"smoke"})
     public void positiveContactUnregisteredUserTest(String anotherSubject, String message, String name, String email, String orderNo) {
         NavigationPage navigationPage = new NavigationPage(driver);
         contactPage = navigationPage.navigateToContact();

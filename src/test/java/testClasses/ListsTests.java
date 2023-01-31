@@ -6,7 +6,7 @@ import pages.NavigationPage;
 import utils.SeleniumUtils;
 
 public class ListsTests extends BaseTest {
-    @Test
+    @Test (groups = {"smoke"})
     public void createListTest() {
         login();
         navigationPage = new NavigationPage(driver);

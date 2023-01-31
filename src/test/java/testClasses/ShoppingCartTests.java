@@ -8,7 +8,7 @@ import utils.WaitUtils;
 
 public class ShoppingCartTests extends BaseTest {
 
-    @Test
+    @Test (groups = {"smoke"})
     public void addToCartTest() {
         searchPage = new SearchPage(driver);
         searchResultsPage = searchPage.searchRandomProduct();

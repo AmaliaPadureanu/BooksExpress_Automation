@@ -50,7 +50,7 @@ public class SignInTests extends BaseTest {
         return GenericUtils.replaceElements(resultSet.getString(element), "", "");
     }
 
-    @Test
+    @Test (groups = {"smoke"})
     public void positiveSignInTest() {
         String email = GenericUtils.createRandomString(7) + "@gmail.com";
         String firstName = GenericUtils.createRandomString(6);

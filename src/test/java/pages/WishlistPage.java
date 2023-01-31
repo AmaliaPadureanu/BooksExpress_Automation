@@ -33,7 +33,7 @@ public class WishlistPage extends BasePage {
         List<String> titles = new ArrayList<>();
 
         for (WebElement item : itemsInList) {
-            titles.add(item.getText().substring(3, 13));
+            titles.add(item.getText().substring(3).split(" ")[0]);
         }
 
         return titles;

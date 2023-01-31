@@ -28,7 +28,7 @@ public class LoginTests extends BaseTest {
         };
     }
 
-    @Test (dataProvider = "positiveLoginDataProvider")
+    @Test (dataProvider = "positiveLoginDataProvider", groups = {"smoke"})
     public void loginWithPositiveDataTest(String email, String password) {
         navigationPage = new NavigationPage(driver);
         loginPage = navigationPage.navigateToLogin();
