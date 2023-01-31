@@ -1,42 +1,45 @@
 package testClasses;
 
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import pages.NavigationPage;
 import pages.SearchPage;
-import pages.SearchResultsPage;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import utils.SeleniumUtils;
+import utils.WaitUtils;
 
 public class WishlistTests extends BaseTest {
 
-//    @BeforeClass
-//    public void wishlistTestsSetup() {
-//        login();
-//    }
+    @BeforeClass (alwaysRun = true)
+    public void wishlistTestsSetup() {
+        login();
+    }
 
     @Test
-    public void addToWishlist() throws InterruptedException {
-        String searchText = "It Starts with Us";
+    public void addToWishlist() {
         searchPage = new SearchPage(driver);
-        SearchResultsPage searchResultsPage = searchPage.search(searchText);
-        itemDetailsPage = searchResultsPage.getFirstItemInList();
-        String title = itemDetailsPage.getItemTitle();
+        searchResultsPage = searchPage.searchRandomProduct();
+        itemDetailsPage = searchResultsPage.getRandomProduct();
+        String productName = itemDetailsPage.getItemTitle().substring(0, 10);
         itemDetailsPage.addToWishlist();
-        Thread.sleep(6000);
         navigationPage = new NavigationPage(driver);
         wishlistPage = navigationPage.navigateToWishlist();
+        WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/user/wishlist", 5);
         Assert.assertEquals(wishlistPage.getPageTitle(), "Liste Express - Books Express | Books Express");
-        Assert.assertTrue(wishlistPage.getItemsTitle().contains(searchText));
+        Assert.assertTrue(wishlistPage.getItemsTitle().contains(productName));
     }
 
     @Test
     public void removeFromWishlist() {
-        wishlistPage.removeItem();
-        driver.navigate().refresh();
-        Assert.assertTrue(wishlistPage.isEmpty());
+        int itemsBeforeRemoval = wishlistPage.getNumberOfItemsInWishlist();
+        wishlistPage.removeItem(0);
+        SeleniumUtils.refreshPage(driver);
+        Assert.assertTrue(wishlistPage.getNumberOfItemsInWishlist() == itemsBeforeRemoval-1);
     }
 
-//    @AfterClass
-//    public void wishlistTestsTearDown() {
-//        logout();
-//    }
+    @AfterClass
+    public void wishlistTestsTearDown() {
+        logout();
+    }
 }

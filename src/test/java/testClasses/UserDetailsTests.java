@@ -41,7 +41,7 @@ public class UserDetailsTests extends BaseTest {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
         Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
-        Assert.assertTrue(userDetailsPage.editPhoneNumber("0947688845").equals("0947688845"));
+        Assert.assertTrue(userDetailsPage.editPhoneNumber("0957778845").equals("0957778845"));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class UserDetailsTests extends BaseTest {
         navigationPage = new NavigationPage(driver);
         userDetailsPage = navigationPage.navigateToUserDetails();
         Assert.assertEquals(userDetailsPage.getPageTitle(), "Cont - Detalii personale - Books Express | Books Express");
-        Assert.assertTrue(userDetailsPage.editEmail("automationtesting631@gmail.com").equals("automationtesting631@gmail.com"));
+        Assert.assertTrue(userDetailsPage.editEmail("autotesting631@gmail.com").equals("autotesting631@gmail.com"));
     }
 
     private void resetOriginlEmailAddress() {
@@ -59,10 +59,10 @@ public class UserDetailsTests extends BaseTest {
         userDetailsPage.editEmail("automationtesting630@gmail.com");
     }
 
-//    @AfterClass
-//    public void userDetailsTestsTearDown() {
-//        resetOriginlEmailAddress();
-//        logout();
-//    }
+    @AfterClass
+    public void userDetailsTestsTearDown() {
+        resetOriginlEmailAddress();
+        logout();
+    }
 
 }

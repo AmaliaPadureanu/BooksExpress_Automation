@@ -17,7 +17,6 @@ public class BaseTest {
     //String baseURL = "http://demo-store.seleniumacademy.com";
     String baseURL = GenericUtils.getBaseURL(config);
     String dbHostname, dbPort, dbUser, dbPassword, dbSchema;
-
     ContactPage contactPage;
     LoginPage loginPage;
     NavigationPage navigationPage;
@@ -57,4 +56,9 @@ public class BaseTest {
         WaitUtils.waitForUrlToBe(driver, "https://www.books-express.ro/", 10);
     }
 
+    public void logout() {
+        navigationPage = new NavigationPage(driver);
+        loginPage = navigationPage.navigateToLogin();
+        loginPage.logout();
+    }
 }

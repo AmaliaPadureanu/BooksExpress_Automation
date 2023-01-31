@@ -51,15 +51,13 @@ public class UserDetailsPage extends BasePage {
         modifyButton.click();
 
         if (gender.equals('M')) {
-            msTitleRadiobutton.click();
+            mrTitleRadiobutton.click();
             updateButton.click();
-            getDriver().navigate().refresh();
             return mrTitle.getText();
         }
         else if (gender.equals('F')) {
             msTitleRadiobutton.click();
             updateButton.click();
-            getDriver().navigate().refresh();
             return msTitle.getText();
         }
         else {
@@ -74,7 +72,6 @@ public class UserDetailsPage extends BasePage {
         firstnameInput.clear();
         firstnameInput.sendKeys(firstName);
         updateButton.click();
-        getDriver().navigate().refresh();
         return name.getText();
     }
 
@@ -83,7 +80,6 @@ public class UserDetailsPage extends BasePage {
         lastnameInput.clear();
         lastnameInput.sendKeys(lastName);
         updateButton.click();
-        getDriver().navigate().refresh();
         return name.getText();
     }
 
@@ -92,7 +88,6 @@ public class UserDetailsPage extends BasePage {
         phoneNumberInput.clear();
         phoneNumberInput.sendKeys(phoneNr);
         updateButton.click();
-        getDriver().navigate().refresh();
         return phoneNumber.getText();
     }
 
@@ -101,8 +96,6 @@ public class UserDetailsPage extends BasePage {
         emailIn.clear();
         emailIn.sendKeys(email);
         updateButton.click();
-        getDriver().navigate().refresh();
         return emailInput.getText();
     }
-
 }

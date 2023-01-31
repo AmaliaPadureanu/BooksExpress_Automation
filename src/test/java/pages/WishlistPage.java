@@ -16,11 +16,7 @@ public class WishlistPage extends BasePage {
 
     WebDriverWait wait;
 
-    @FindBy(how = How.CSS, using = "div[class='cart-details'] h4 a")
-    private WebElement itemTitle;
-    @FindBy(how = How.XPATH, using = "//a[@class='color-theme-5 remove-item']")
-    private WebElement removeButton;
-    @FindBy(how = How.CSS, using = "#list-items>li")
+    @FindBy(how = How.CSS, using = "#list-items > li > div > div:first-child  > div > h4 > a")
     private List<WebElement> itemsInList;
     @FindBy(how = How.CSS, using = "button[type='button']")
     private WebElement addToCartButton;
@@ -34,25 +30,21 @@ public class WishlistPage extends BasePage {
     }
 
     public List<String> getItemsTitle() {
-        List<String> items = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
 
-        for (WebElement element : itemsInWishlist) {
-            items.add(element.getText().substring(3));
+        for (WebElement item : itemsInList) {
+            titles.add(item.getText().substring(3, 13));
         }
 
-        return items;
+        return titles;
     }
 
-    public void removeItem() {
-        removeButton.click();
+    public void removeItem(int item) {
+        itemsInList.get(item).findElement(By.xpath("//a[@class='color-theme-5 remove-item']")).click();
     }
 
-    public boolean isEmpty() {
-
-        if (itemsInList.size() != 0) {
-            return false;
-        }
-        return true;
+    public int getNumberOfItemsInWishlist() {
+        return itemsInWishlist.size();
     }
 
     public void addToCart() {
