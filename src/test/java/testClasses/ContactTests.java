@@ -37,7 +37,7 @@ public class ContactTests extends BaseTest {
     public Iterator<Object[]> jsonDPCollection() throws IOException {
         Collection<Object[]> dp = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File("src\\test\\resources\\Data\\invalidContactData.json");
+        File file = new File("src\\test\\resources\\Data\\invalidContactUnregisteredUserData.json");
         ContactModel[] contactModels = objectMapper.readValue(file, ContactModel[].class);
 
         for (ContactModel contactModel : contactModels) {
