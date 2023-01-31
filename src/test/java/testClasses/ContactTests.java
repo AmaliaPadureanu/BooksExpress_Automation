@@ -52,16 +52,12 @@ public class ContactTests extends BaseTest {
         Assert.assertEquals(contactPage.getPageTitle(), "Contactați-ne | Books Express");
         contactPage.selectSubject(contactModel.getSubject());
         contactPage.fillInContactForm(contactModel.getAnotherSubjectError(), contactModel.getName(), contactModel.getEmail(), contactModel.getOrderNumber());
-        String expectedSubjectError = contactModel.getSubjectError();
-        String expectedAnotherSubjectError = contactModel.getAnotherSubjectError();
-        String expectedMessageError = contactModel.getMessageError();
-        String expectedNameError = contactModel.getNameError();
-        String expectedEmailError = contactModel.getEmailError();
-        Assert.assertTrue(contactPage.checkError(expectedSubjectError, "subjectError"));
-        Assert.assertTrue(contactPage.checkError(expectedAnotherSubjectError, "anotherSubjectError"));
-        Assert.assertTrue(contactPage.checkError(expectedMessageError, "messageError"));
-        Assert.assertTrue(contactPage.checkError(expectedNameError, "nameError"));
-        Assert.assertTrue(contactPage.checkError(expectedEmailError, "emailError"));
+
+        Assert.assertTrue(contactPage.checkError(contactModel.getSubjectError(), "subjectError"));
+        Assert.assertTrue(contactPage.checkError(contactModel.getAnotherSubjectError(), "anotherSubjectError"));
+        Assert.assertTrue(contactPage.checkError(contactModel.getMessageError(), "messageError"));
+        Assert.assertTrue(contactPage.checkError(contactModel.getNameError(), "nameError"));
+        Assert.assertTrue(contactPage.checkError(contactModel.getEmailError(), "emailError"));
     }
 
     @Test(dataProvider = "positiveContactUnregisteredDataProvider")
