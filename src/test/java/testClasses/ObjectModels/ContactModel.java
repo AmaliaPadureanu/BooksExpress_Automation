@@ -36,4 +36,21 @@ public class ContactModel {
         this.nameError = nameError;
         this.emailError = emailError;
     }
+
+    @Override
+    public String toString() {
+        return "ContactModel{" +
+                "subject=" + subject +
+                ", anotherSubject='" + anotherSubject + '\'' +
+                ", message='" + message + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", subjectError='" + subjectError + '\'' +
+                ", anotherSubjectError='" + anotherSubjectError + '\'' +
+                ", messageError='" + messageError + '\'' +
+                ", nameError='" + nameError + '\'' +
+                ", emailError='" + emailError + '\'' +
+                '}';
+    }
 }

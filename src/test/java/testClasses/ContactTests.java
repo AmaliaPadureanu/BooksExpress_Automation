@@ -35,15 +35,16 @@ public class ContactTests extends BaseTest {
 
     @DataProvider(name = "negativeContactUnregisteredDataProvider")
     public Iterator<Object[]> jsonDPCollection() throws IOException {
-        Collection<Object[]> dp = new ArrayList<>();
+        Collection<Object[]> dataProvider = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File("src\\test\\resources\\Data\\invalidContactUnregisteredUserData.json");
         ContactModel[] contactModels = objectMapper.readValue(file, ContactModel[].class);
 
         for (ContactModel contactModel : contactModels) {
-            dp.add(new Object[] {contactModel});
+            dataProvider.add(new Object[] {contactModel});
         }
-        return dp.iterator();
+
+        return dataProvider.iterator();
     }
 
     private void contactActions(ContactModel contactModel) {

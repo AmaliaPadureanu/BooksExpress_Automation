@@ -17,37 +17,31 @@ public class SignInTests extends BaseTest {
 
 
     @DataProvider(name = "negativeSignInDP")
-    public Iterator<Object[]> SQLDpCollection() {
-        Collection<Object[]> dp = new ArrayList<>();
+    public Iterator<Object[]> SQLDpCollection() throws SQLException {
+        Collection<Object[]> dataProvider = new ArrayList<>();
 
-        try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://" + dbHostname + ":" + dbPort
                     + "/" + dbSchema, dbUser, dbPassword);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM signin_negative");
+
             while (resultSet.next()) {
                 SignInModel signInModel = new SignInModel(
-                        getEscapedElement(resultSet, "email"),
-                        getEscapedElement(resultSet, "firstName"),
-                        getEscapedElement(resultSet, "lastName"),
-                        getEscapedElement(resultSet, "password"),
-                        getEscapedElement(resultSet, "confirmPassword"),
-                        getEscapedElement(resultSet, "emailError"),
-                        getEscapedElement(resultSet, "firstNameError"),
-                        getEscapedElement(resultSet, "lastNameError"),
-                        getEscapedElement(resultSet, "passwordError"),
-                        getEscapedElement(resultSet, "confirmPasswordError"));
-                dp.add(new Object[] {signInModel});
+                        resultSet.getString("email"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("password"),
+                        resultSet.getString("confirmPassword"),
+                        resultSet.getString("emailError"),
+                        resultSet.getString("firstNameError"),
+                        resultSet.getString("lastNameError"),
+                        resultSet.getString("passwordError"),
+                        resultSet.getString("confirmPasswordError"));
+                dataProvider.add(new Object[] {signInModel});
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return dp.iterator();
 
-    }
+        return dataProvider.iterator();
 
-    private String getEscapedElement(ResultSet resultSet, String element) throws SQLException {
-        return GenericUtils.replaceElements(resultSet.getString(element), "", "");
     }
 
     @Test (groups = {"smoke"})
