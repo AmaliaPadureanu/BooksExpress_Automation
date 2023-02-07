@@ -14,7 +14,6 @@ public class BaseTest {
     //String browser = BrowserUtils.getBrowserFromEnvironmentVariables("autoBrowser");
     String config = ConstantUtils.CONFIG_FILE;
     String browser = GenericUtils.getBrowserFromConfig(config);
-    //String baseURL = "http://demo-store.seleniumacademy.com";
     String baseURL = GenericUtils.getBaseURL(config);
     String dbHostname, dbPort, dbUser, dbPassword, dbSchema;
     ContactPage contactPage;

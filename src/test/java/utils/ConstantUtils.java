@@ -5,6 +5,9 @@ public class ConstantUtils {
     public static final String SCREENSHOT_FOLDER = "target\\Screenshots\\";
     public static final String EXTENT_FOLDER = "target\\extent-reports\\";
     public static final String CONFIG_FILE = "src\\test\\resources\\config.properties";
+    public static final String INVALID_CONTACT_UNREGISTERED_USER_JSON_PATH = "src\\test\\resources\\Data\\invalidContactUnregisteredUserData.json";
+    public static final String VALID_CONTACT_UNREGISTERED_USER_JSON_PATH = "src\\test\\resources\\Data\\validContactUnregisteredUser.json";
+    public static final  String VALID_CONTACT_REGISTERED_USER_JSON_PATH = "src\\test\\resources\\Data\\validContactRegisteredUserData";
     public static final String EMAIL = "automationtesting630@gmail.com";
     public static final String PASSWORD = "QAtest123";
     public static final String SALES_URL = "https://www.books-express.ro/reduceri";

@@ -74,10 +74,6 @@ public class GenericUtils {
         return getValueFromConfigFile(configFile, "dbSchema", "");
     }
 
-    public static String replaceElements(String element, String valueToBeReplaced, String valueReplaceWith) {
-        return element.replaceAll(valueToBeReplaced, valueReplaceWith);
-    }
-
     public static int getRandomNumber(int lowerBound, int upperBound) {
         Random random = new Random();
         int randomNumber = random.nextInt(upperBound - lowerBound) + lowerBound;

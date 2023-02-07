@@ -48,6 +48,7 @@ public class LoginPage extends BasePage {
     }
 
     public void logInWith(String email, String password) {
+        emailInput.clear();
         emailInput.sendKeys(email);
         continueButton.click();
         WaitUtils.waitForElementToBeClickable(driver, passwordInput, 10);
@@ -84,16 +85,6 @@ public class LoginPage extends BasePage {
         resetPasswordButton.click();
         WaitUtils.waitForVisibilityOf(getDriver(), resetPasswordMessage, 5);
         return resetPasswordMessage.getText();
-    }
-
-    public String getWrongPasswordError() {
-        WaitUtils.waitForVisibilityOf(driver, wrongPasswordError, 10);
-        return wrongPasswordError.getText();
-    }
-
-    public String getEmptyPasswordError() {
-        WaitUtils.waitForVisibilityOf(driver, emptyPasswordError, 10);
-        return emptyPasswordError.getText();
     }
 
     public boolean checkPasswordError(String expectedError, String errorType) {
